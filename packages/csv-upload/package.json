@@ -1,0 +1,33 @@
+{
+  "name": "csv-upload",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "dev": "tsup src/index.tsx --watch",
+    "build": "tsup src/index.tsx",
+    "lint": "eslint 'src/**/*.{ts,tsx}' --max-warnings 0"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "types": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "tsup": "^8.0.0",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.7",
+    "@types/node": "^20.8.10"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0"
+  }
+} 

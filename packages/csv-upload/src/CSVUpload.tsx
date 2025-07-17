@@ -1,0 +1,34 @@
+import React, { useState } from "react";
+import { CSVSchema } from "types";
+
+export interface CsvUploadProps {
+  schema: CSVSchema;
+  onDataAccepted?: (rows: Record<string, unknown>[]) => void;
+}
+
+/**
+ * CsvUpload is a headless (logic-only) React component that:
+ * 1. Accepts a CSV file from the user.
+ * 2. Parses it into rows.
+ * 3. Validates each cell against the provided schema.
+ * 4. Exposes the parsed/validated data via the provided callbacks.
+ *
+ * NOTE: This is just a starting point for interns to build on – the heavy lifting is still TODO.
+ */
+const CsvUpload: React.FC<CsvUploadProps> = ({ schema, onDataAccepted }) => {
+  const [rows, setRows] = useState<Record<string, unknown>[]>([]);
+  const [isValid, setIsValid] = useState<boolean>(false);
+
+  // TODO: Implement CSV parsing, validation logic, and editable table UI.
+
+  return (
+    <div>
+      <p>CsvUpload component placeholder. Implement UI & validation logic.</p>
+      <button disabled={!isValid} onClick={() => onDataAccepted?.(rows)}>
+        Upload to backend
+      </button>
+    </div>
+  );
+};
+
+export default CsvUpload;
