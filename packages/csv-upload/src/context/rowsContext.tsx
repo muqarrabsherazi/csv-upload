@@ -3,19 +3,17 @@ import { CSVFieldSchema, CSVPrimitiveType, CSVSchema } from "types";
 import { type Coords } from "../utils/coordsType";
 
 
-
 interface TableContextInterface {
   rows: string[][];
-  inputCell: Coords | null;
+  inputCellCoords: Coords | null;
   headers: CSVFieldSchema[];
   addRow: (row: string[]) => void,
-
   getCell: (coords: Coords) => string, 
   setCell: (coords: Coords, value:string) => void, 
   clearRows: () => void, 
   setHeaders: (header: CSVFieldSchema[]) => void;
-  setInputRow:(row: number) => void;
-  setInputCol: (col: number) => void;
+  setInputCellCoords:(coords: Coords) => void;
+
 };
 
 const TableContext = createContext<TableContextInterface | undefined>(undefined);
@@ -28,11 +26,9 @@ interface TableProviderProps {
 
 export const TableProvider: FC<TableProviderProps> = ({ children, schema }) => {
   const [rows, setRows] = useState<string[][]>([]);
-  const [inputCell, setInputCell] = useState<Coords | null>(null);
+  const [inputCellCoords, setInputCellCoords] = useState<Coords | null>(null);
   const [headers, setHeaders] = useState<CSVFieldSchema[]>([]);
 
-
-  
   const addRow = (row: string[]) => setRows(prev => [...prev, row]);
   const clearRows = () => setRows([]);
   const getCell = (coords: Coords) => rows[coords.row][coords.col];
@@ -41,9 +37,6 @@ export const TableProvider: FC<TableProviderProps> = ({ children, schema }) => {
     prev[coords.row][coords.col] = value; 
     return [...prev];
   });
-
-  const setInputRow = (row: number) => inputCell == null ? setInputCell({row: row, col: 0}) : setInputCell({...inputCell, row})
-  const setInputCol = (col: number) => inputCell == null ? setInputCell({row: 0, col: col}) : setInputCell({...inputCell, col})
 
 
   useEffect(() => {
@@ -55,12 +48,11 @@ export const TableProvider: FC<TableProviderProps> = ({ children, schema }) => {
     <TableContext.Provider  
       value={{ 
         rows, 
-        inputCell, 
+        inputCellCoords: inputCellCoords, 
         headers, 
         addRow, 
         clearRows, 
-        setInputRow,  
-        setInputCol,
+        setInputCellCoords,
         setHeaders,
         getCell,
         setCell

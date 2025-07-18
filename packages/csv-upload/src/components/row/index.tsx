@@ -11,7 +11,7 @@ interface RowProps {
 
 const Row: FC<RowProps> = ({rowIndex}) => {
   
-  const {rows, inputCell} = useTable(); 
+  const {rows, inputCellCoords: inputCell} = useTable(); 
 
   return (
     <tr>
