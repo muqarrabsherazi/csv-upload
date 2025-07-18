@@ -1,19 +1,23 @@
 import { FC } from "react"
+import { useTable } from "../../context/rowsContext";
+import { Coords } from "../../utils/coordsType";
 
 interface CellProps {
-  row: number,
-  col: number,
+  coords: Coords
 }
 
-const Cell: FC<CellProps> = ({ row, col }) => {
 
+const Cell: FC<CellProps> = ({coords}) => {
+
+  const {getCell} = useTable()
+  
   return (
     <td style={{
         border: "1px solid black",
         padding: "8px",
         textAlign: "left",
       }}>
-    test value
+    {getCell(coords)}
     </td>
   )
 }

@@ -1,13 +1,15 @@
 import { FC, useState, useCallback, useRef } from "react"
+import { useTable } from "../../context/rowsContext";
+import { Coords } from "../../utils/coordsType";
 
 interface InputCellProps {
-  row: number,
-  col: number,
+  coords: Coords
 }
 
-const InputCell: FC<InputCellProps> = ({ row, col }) => {
-  const testValue = "hello world";
-  const [value, setValue] = useState(testValue);
+const InputCell: FC<InputCellProps> = ({coords}) => {
+  const {getCell, setCell} = useTable(); 
+
+  const [value, setValue] = useState(getCell(coords));
   const debouncedId = useRef<number | null>(null);
   
 
@@ -15,7 +17,7 @@ const InputCell: FC<InputCellProps> = ({ row, col }) => {
   const setDebouncedValue = useCallback((value: string) => {
     if (debouncedId.current != null)
       clearTimeout(debouncedId.current)
-    debouncedId.current = window.setTimeout(() => setValue(value), 100)
+    debouncedId.current = window.setTimeout(() => setCell(coords, value), 100)
   }, [])
 
 
@@ -25,7 +27,7 @@ const InputCell: FC<InputCellProps> = ({ row, col }) => {
       padding: "8px",
       textAlign: "left",
     }}>
-      <input placeholder={testValue} value={value} onChange={(e) => setValue(e.target.value)}></input>
+      <input placeholder={getCell(coords)} value={value} onChange={(e) => setValue(e.target.value)}></input>
 
     </td>
   )

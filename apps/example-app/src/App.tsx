@@ -1,6 +1,7 @@
 import CsvUpload from "csv-upload";
 import { CSVSchema } from "types";
 
+
 function App() {
   const schema: CSVSchema = {
     fields: [
@@ -12,7 +13,10 @@ function App() {
     <div>
       <h1>CSV Upload Example</h1>
       {/* <CsvUpload schema={schema} /> */}
-      <CsvUpload.Table/>
+      <CsvUpload schema={schema}>
+        <CsvUpload.AddCSVButton/>
+        <CsvUpload.Table/>
+      </CsvUpload>
 
     </div>
   );

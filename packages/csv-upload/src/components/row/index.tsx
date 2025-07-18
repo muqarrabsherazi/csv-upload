@@ -2,20 +2,22 @@ import {FC} from "react"
 import Cell from "../cell"
 import makeKey from "../../utils/makeKey"
 import InputCell from "../inputCell";
+import isInputCell from "../../utils/isInputCell";
+import { useTable } from "../../context/rowsContext";
 
 interface RowProps {
   rowIndex: number, 
 }
 
 const Row: FC<RowProps> = ({rowIndex}) => {
-  const testRow = ["hello1", "hello2", "hello3"];
-  const isInputCell = (row: number, col: number): boolean => row == 1 && col == 1
   
+  const {rows, inputCell} = useTable(); 
+
   return (
     <tr>
-      {testRow.map((_, colIndex) => isInputCell(rowIndex, colIndex) ? 
-      (<InputCell key={makeKey(rowIndex, colIndex)} row={rowIndex} col={colIndex}/>) :
-      (<Cell key={makeKey(rowIndex, colIndex)} row={rowIndex} col={colIndex}/>)
+      {rows[rowIndex].map((_, colIndex) => isInputCell(inputCell, {row: rowIndex, col: colIndex}) ? 
+      (<InputCell key={makeKey(rowIndex, colIndex)} coords={{row:rowIndex, col:colIndex}}/>) :
+      (<Cell key={makeKey(rowIndex, colIndex)} coords={{row:rowIndex, col:colIndex}}/>)
     )}
     </tr>
   )

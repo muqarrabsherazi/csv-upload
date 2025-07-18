@@ -2,6 +2,8 @@ import React, {FC, useState } from "react";
 import { CSVSchema } from "types";
 import Table, {type TableProps} from "./components/table";
 import Header, { HeaderProps } from "./components/header";
+import { TableProvider, useTable } from "./context/rowsContext";
+import AddCSVButton, {type AddCSVButtonProps} from "./components/addCSVButton";
 
 export interface CsvUploadProps {
   schema: CSVSchema;
@@ -11,6 +13,7 @@ export interface CsvUploadProps {
 
 interface CsvUploadComponent extends FC<CsvUploadProps> {
   Table: FC<TableProps>,
+  AddCSVButton: FC<AddCSVButtonProps>
 }
 
 /**
@@ -25,26 +28,19 @@ interface CsvUploadComponent extends FC<CsvUploadProps> {
 
 
 const CsvUpload: CsvUploadComponent = ({ children, schema, onDataAccepted}) => {
-  const [rows, setRows] = useState<Record<string, unknown>[]>([]);
-  const [errors, setErrors] = useState<Error[]>([]);
-  const [isValid, setIsValid] = useState<boolean>(false);
-
-  
 
   // TODO: Implement CSV parsing, validation logic, and editable table UI.
 
   return (
-    <div>
-      <p>CsvUpload component placeholder. Implement UI & validation logic.</p>
-      <button disabled={!isValid} onClick={() => onDataAccepted?.(rows)}>
-        Upload to backend
-      </button>
-    </div>
+    <TableProvider schema={schema}>
+      {children}
+    </TableProvider>
   );
 };
 
 
 CsvUpload.Table = Table
 
+CsvUpload.AddCSVButton = AddCSVButton
 
 export default CsvUpload;

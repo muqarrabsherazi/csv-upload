@@ -1,31 +1,19 @@
 import { FC } from "react"
 import { CSVFieldSchema } from "types";
 import makeHeaderKey from "../../utils/makeHeaderKey";
+import { useTable } from "../../context/rowsContext";
 
 
-const testHeaders: CSVFieldSchema[] = [
-  {
-    name: "Test Header 1",
-    type: "string",
-  },
-  {
-    name: "Test Header 2",
-    type: "string",
-  },
-  {
-    name: "Test Header 3",
-    type: "string",
-  },
-];
 
 export interface HeaderProps {
 }
 
 const Header: FC<HeaderProps> = () => {
+  const {headers} = useTable(); 
   return (
     <tr>
       {
-        testHeaders.map((header, headerIndex) => (
+        headers.map((header, headerIndex) => (
           <th
             key={makeHeaderKey(headerIndex)}
             style={{

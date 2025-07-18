@@ -1,19 +1,21 @@
-import {FC} from "react"
+import {FC, useEffect} from "react"
 import Row from "../row";
 import Header from "../header";
+import { useTable } from "../../context/rowsContext";
 
 export interface TableProps {
 }
 
 const Table: FC<TableProps> = () => {
-  const testRows = [["hello1", "hello2", "hello3"], [], []];
+  const {rows} = useTable(); 
+
   return (
     <table style={{ borderCollapse: "collapse", width: "100%" }}>
       <thead>
         <Header/>
       </thead>
       <tbody>
-        {testRows.map((_, rowIndex) => (
+        {rows.map((_, rowIndex) => (
           <Row key={rowIndex} rowIndex={rowIndex} />
         ))}
       </tbody>

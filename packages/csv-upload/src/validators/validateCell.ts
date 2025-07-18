@@ -7,4 +7,3 @@ export const validator: Record<CSVPrimitiveType, (value:string) => boolean> = {
   "boolean": isBool, 
   "date": isDate,  
 }
-
