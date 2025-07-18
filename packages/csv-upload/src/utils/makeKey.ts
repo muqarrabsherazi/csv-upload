@@ -1,3 +1,2 @@
-export const makeKey = (row: number, col: number) => {
-  return `${row}:${col}`
-}
+const makeKey = (rowIndex: number, colIndex: number): string => `${rowIndex}:${colIndex}`;
+export default makeKey;

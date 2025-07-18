@@ -1,6 +1,6 @@
 import {FC} from "react"
-import { makeKey } from "../../utils/makeKey"
 import Cell from "../cell"
+import makeKey from "../../utils/makeKey"
 
 interface RowProps {
   rowIndex: number, 
@@ -9,9 +9,9 @@ interface RowProps {
 const Row: FC<RowProps> = ({rowIndex}) => {
   const testRow = ["hello1", "hello2", "hello3"];
   return (
-    <tr key={rowIndex}>
+    <tr>
       {testRow.map((row, colIndex) => (
-        <Cell row={rowIndex} col={colIndex}/>  
+        <Cell key={makeKey(rowIndex, colIndex)} row={rowIndex} col={colIndex}/>  
       ))}
     </tr>
   )

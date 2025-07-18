@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, {FC, useState } from "react";
 import { CSVSchema } from "types";
+import Table, {type TableProps} from "./components/table";
+import Header, { HeaderProps } from "./components/header";
 
 export interface CsvUploadProps {
   schema: CSVSchema;
   onDataAccepted?: (rows: Record<string, unknown>[]) => void;
+  children: React.ReactNode
+}
+
+interface CsvUploadComponent extends FC<CsvUploadProps> {
+  Table: FC<TableProps>,
 }
 
 /**
@@ -17,7 +24,7 @@ export interface CsvUploadProps {
  */
 
 
-const CsvUpload: React.FC<CsvUploadProps> = ({ schema, onDataAccepted}) => {
+const CsvUpload: CsvUploadComponent = ({ children, schema, onDataAccepted}) => {
   const [rows, setRows] = useState<Record<string, unknown>[]>([]);
   const [errors, setErrors] = useState<Error[]>([]);
   const [isValid, setIsValid] = useState<boolean>(false);
@@ -35,5 +42,9 @@ const CsvUpload: React.FC<CsvUploadProps> = ({ schema, onDataAccepted}) => {
     </div>
   );
 };
+
+
+CsvUpload.Table = Table
+
 
 export default CsvUpload;

@@ -11,7 +11,9 @@ function App() {
   return (
     <div>
       <h1>CSV Upload Example</h1>
-      <CsvUpload schema={schema} />
+      {/* <CsvUpload schema={schema} /> */}
+      <CsvUpload.Table/>
+
     </div>
   );
 }

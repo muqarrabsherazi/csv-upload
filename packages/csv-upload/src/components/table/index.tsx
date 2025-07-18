@@ -1,17 +1,22 @@
 import {FC} from "react"
 import Row from "../row";
+import Header from "../header";
 
-interface TableProps {
+export interface TableProps {
 }
 
 const Table: FC<TableProps> = () => {
   const testRows = [["hello1", "hello2", "hello3"], [], []];
   return (
-    <table>
-      {testRows.map((_, rowIndex) => (
-        <Row rowIndex={rowIndex}/>
-      ))
-      }
+    <table style={{ borderCollapse: "collapse", width: "100%" }}>
+      <thead>
+        <Header/>
+      </thead>
+      <tbody>
+        {testRows.map((_, rowIndex) => (
+          <Row key={rowIndex} rowIndex={rowIndex} />
+        ))}
+      </tbody>
     </table>
   )
 }
