@@ -22,6 +22,8 @@ const CsvUpload: React.FC<CsvUploadProps> = ({ schema, onDataAccepted}) => {
   const [errors, setErrors] = useState<Error[]>([]);
   const [isValid, setIsValid] = useState<boolean>(false);
 
+  
+
   // TODO: Implement CSV parsing, validation logic, and editable table UI.
 
   return (
