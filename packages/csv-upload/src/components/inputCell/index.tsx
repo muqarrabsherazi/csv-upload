@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, useState, useCallback, useRef } from "react"
 
 interface InputCellProps {
   row: number,
@@ -7,15 +7,25 @@ interface InputCellProps {
 
 const InputCell: FC<InputCellProps> = ({ row, col }) => {
   const testValue = "hello world";
+  const [value, setValue] = useState(testValue);
+  const debouncedId = useRef<number | null>(null);
   
+
+  
+  const setDebouncedValue = useCallback((value: string) => {
+    if (debouncedId.current != null)
+      clearTimeout(debouncedId.current)
+    debouncedId.current = window.setTimeout(() => setValue(value), 100)
+  }, [])
+
 
   return (
     <td style={{
-        border: "1px solid black",
-        padding: "8px",
-        textAlign: "left",
-      }}>
-    <input placeholder={testValue} onChange={/*context setValue function here*/}></input>
+      border: "1px solid black",
+      padding: "8px",
+      textAlign: "left",
+    }}>
+      <input placeholder={testValue} value={value} onChange={(e) => setValue(e.target.value)}></input>
 
     </td>
   )

@@ -1,5 +1,4 @@
 import { FC } from "react"
-import Cell from "../cell"
 import { CSVFieldSchema } from "types";
 import makeHeaderKey from "../../utils/makeHeaderKey";
 
