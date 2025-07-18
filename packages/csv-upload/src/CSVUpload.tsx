@@ -15,8 +15,11 @@ export interface CsvUploadProps {
  *
  * NOTE: This is just a starting point for interns to build on – the heavy lifting is still TODO.
  */
-const CsvUpload: React.FC<CsvUploadProps> = ({ schema, onDataAccepted }) => {
+
+
+const CsvUpload: React.FC<CsvUploadProps> = ({ schema, onDataAccepted}) => {
   const [rows, setRows] = useState<Record<string, unknown>[]>([]);
+  const [errors, setErrors] = useState<Error[]>([]);
   const [isValid, setIsValid] = useState<boolean>(false);
 
   // TODO: Implement CSV parsing, validation logic, and editable table UI.

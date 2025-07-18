@@ -20,3 +20,7 @@ export interface CSVSchema {
   /** Array of field definitions */
   fields: CSVFieldSchema[];
 }
+
+export interface ConditionalNumberFieldSchema extends CSVFieldSchema {
+  condition: string // "<10", "===100"
+}
