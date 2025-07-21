@@ -1,6 +1,6 @@
 import { createContext, useState, useContext, ReactNode, type FC, useEffect } from "react";
 import { CSVFieldSchema, CSVPrimitiveType, CSVSchema } from "types";
-import { type Coords } from "../../../types/src/types/coordsType";
+import { type Coords } from "types/src/types/coordsType";
 
 
 interface TableContextInterface {
@@ -23,7 +23,6 @@ interface TableProviderProps {
   children: ReactNode, 
 }
 
-
 export const TableProvider: FC<TableProviderProps> = ({ children, schema }) => {
   const [rows, setRows] = useState<string[][]>([]);
   const [inputCellCoords, setInputCellCoords] = useState<Coords | null>(null);
@@ -35,8 +34,12 @@ export const TableProvider: FC<TableProviderProps> = ({ children, schema }) => {
   const resetInputCellCoords = () => setInputCellCoords(null)
 
   const setCell = (coords: Coords, value: string) => setRows(prev => {
-    prev[coords.row][coords.col] = value; 
-    return [...prev];
+    // prev[coords.row][coords.col] = value; 
+    const newRows = [...prev];
+    const newRow = [...newRows[coords.row]];
+    newRow[coords.col] = value; 
+    newRows[coords.row] = newRow; 
+    return newRows;  
   });
 
 

@@ -11,6 +11,9 @@ const Table: FC<TableProps> = () => {
   const {rows, resetInputCellCoords} = useTable(); 
 
   useEscapeKey({onEscapePress: resetInputCellCoords});
+  useEffect(() => {
+    console.log(rows);
+  }, [rows])
 
   return (
     <table style={{ borderCollapse: "collapse", width: "100%" }}>
