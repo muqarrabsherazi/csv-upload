@@ -23,7 +23,9 @@ const dateFormats = [
   "yyyy.MM.dd",       // 2021.07.21
   "dd MMMM yyyy",     // 21 July 2021
   "MMMM dd, yyyy",    // July 21, 2021
+  "MMMM dd,yyyy",    // July 21,2021
   "MMM dd, yyyy",     // Jul 21, 2021
+  "MMM dd,yyyy",     // Jul 21,2021
   "dd.MM.yyyy",       // 21.07.2021
   "dd MMM yyyy",      // 21 Jul 2021
 ];
