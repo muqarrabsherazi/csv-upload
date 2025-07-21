@@ -2,7 +2,7 @@ import React, {FC, useState } from "react";
 import { CSVSchema } from "types";
 import Table, {type TableProps} from "./components/table";
 import Header, { HeaderProps } from "./components/header";
-import { TableProvider, useTable } from "./context/rowsContext";
+import { TableProvider, useTable } from "./context/tableContext";
 import AddCSVButton, {type AddCSVButtonProps} from "./components/addCSVButton";
 
 export interface CsvUploadProps {

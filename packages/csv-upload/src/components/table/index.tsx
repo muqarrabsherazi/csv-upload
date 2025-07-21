@@ -1,13 +1,16 @@
 import {FC, useEffect} from "react"
 import Row from "../row";
 import Header from "../header";
-import { useTable } from "../../context/rowsContext";
+import { useTable } from "../../context/tableContext";
+import useEscapeKey from "../../hooks/escapeKeyHook";
 
 export interface TableProps {
 }
 
 const Table: FC<TableProps> = () => {
-  const {rows} = useTable(); 
+  const {rows, resetInputCellCoords} = useTable(); 
+
+  useEscapeKey({onEscapePress: resetInputCellCoords});
 
   return (
     <table style={{ borderCollapse: "collapse", width: "100%" }}>

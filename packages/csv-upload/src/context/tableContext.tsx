@@ -13,7 +13,7 @@ interface TableContextInterface {
   clearRows: () => void, 
   setHeaders: (header: CSVFieldSchema[]) => void;
   setInputCellCoords:(coords: Coords) => void;
-
+  resetInputCellCoords: () => void; 
 };
 
 const TableContext = createContext<TableContextInterface | undefined>(undefined);
@@ -32,6 +32,7 @@ export const TableProvider: FC<TableProviderProps> = ({ children, schema }) => {
   const addRow = (row: string[]) => setRows(prev => [...prev, row]);
   const clearRows = () => setRows([]);
   const getCell = (coords: Coords) => rows[coords.row][coords.col];
+  const resetInputCellCoords = () => setInputCellCoords(null)
 
   const setCell = (coords: Coords, value: string) => setRows(prev => {
     prev[coords.row][coords.col] = value; 
@@ -53,6 +54,7 @@ export const TableProvider: FC<TableProviderProps> = ({ children, schema }) => {
         addRow, 
         clearRows, 
         setInputCellCoords,
+        resetInputCellCoords,
         setHeaders,
         getCell,
         setCell

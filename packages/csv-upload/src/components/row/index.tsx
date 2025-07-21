@@ -3,7 +3,7 @@ import Cell from "../cell"
 import makeKey from "../../utils/makeKey"
 import InputCell from "../inputCell";
 import isInputCell from "../../utils/isInputCell";
-import { useTable } from "../../context/rowsContext";
+import { useTable } from "../../context/tableContext";
 
 interface RowProps {
   rowIndex: number, 
