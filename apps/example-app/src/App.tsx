@@ -5,8 +5,9 @@ import { CSVSchema } from "types";
 function App() {
   const schema: CSVSchema = {
     fields: [
-      { name: "name", type: "string" },
-      { name: "age", type: "number" },
+      { name: "name", type: "string"},
+      { name: "age", type: "number", required: true },
+      { name: "Date of Birth", type:"date", required: true}
     ],
   };
   return (

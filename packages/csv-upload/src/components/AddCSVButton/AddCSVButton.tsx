@@ -7,10 +7,10 @@ export interface AddCSVButtonProps {
 }
 
 const testData = [
-  ["test 1", "1"], 
-  ["test 2", "2"],
-  ["test 3", "3"],
-  ["test 4", "4"]
+  ["test 1", "1", "17-05-2022"], 
+  ["test 2", "2", "17 Sep 2022"],
+  ["test 3", "3", "May 22, 2022"],
+  ["test 4", "4", "17/05/2003"]
 ]
 
 const AddCSVButton: FC<AddCSVButtonProps>= () => {

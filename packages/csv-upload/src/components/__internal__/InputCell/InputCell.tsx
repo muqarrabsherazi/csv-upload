@@ -8,16 +8,16 @@ import { useErrors } from "@contexts/ErrorProvider";
 interface InputCellProps {
   coords: Coords
   value: string
+  errorMsg: string | null
 }
 
-const InputCell: FC<InputCellProps> = ({coords, value}) => {
+const InputCell: FC<InputCellProps> = ({coords, value, errorMsg}) => {
   const {getCell, setCell, schema} = useTable(); 
   const {addError, removeError} = useErrors()
 
   const [cellValue, setCellValue] = useState(value);
   const debouncedId = useRef<number | null>(null);
   
-
   
   useEffect(() => {
     if (debouncedId.current != null)
@@ -36,12 +36,15 @@ const InputCell: FC<InputCellProps> = ({coords, value}) => {
   }, [cellValue])
 
 
+  
+  const errorStyle = errorMsg == null ? {} : {border: "1px solid red"}
   return (
     <td style={{
       border: "1px solid black",
       padding: "8px",
       textAlign: "left",
-      maxWidth: "20px"
+      maxWidth: "20px",
+      ...errorStyle
     }}>
       <input style={{
         width: "100%",

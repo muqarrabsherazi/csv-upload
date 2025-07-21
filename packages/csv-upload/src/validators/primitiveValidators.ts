@@ -1,3 +1,4 @@
+import { parse, isValid } from "date-fns";
 export const isString = (value: string): boolean => {
   return typeof value === "string" && value.trim().length > 0;
 };
@@ -11,22 +12,30 @@ export const isBool = (value: string): boolean => {
 };
 
 export const isDate = (value: string): boolean => {
+
+const dateFormats = [
+  "yyyy-MM-dd",       // 2021-07-21
+  "dd-MM-yyyy",       // 21-07-2021
+  "MM-dd-yyyy",       // 07-21-2021
+  "yyyy/MM/dd",       // 2021/07/21
+  "dd/MM/yyyy",       // 21/07/2021
+  "MM/dd/yyyy",       // 07/21/2021
+  "yyyy.MM.dd",       // 2021.07.21
+  "dd MMMM yyyy",     // 21 July 2021
+  "MMMM dd, yyyy",    // July 21, 2021
+  "MMM dd, yyyy",     // Jul 21, 2021
+  "dd.MM.yyyy",       // 21.07.2021
+  "dd MMM yyyy",      // 21 Jul 2021
+];
+
   const trimmed = value.trim();
 
-  // Common date format patterns
-  const patterns = [
-    /^\d{4}-\d{2}-\d{2}$/,              // YYYY-MM-DD
-    /^\d{2}\/\d{2}\/\d{4}$/,            // MM/DD/YYYY or DD/MM/YYYY (ambiguous)
-    /^\d{2}-\d{2}-\d{4}$/,              // MM-DD-YYYY or DD-MM-YYYY (ambiguous)
-    /^\d{4}\/\d{2}\/\d{2}$/,            // YYYY/MM/DD
-    /^\d{2} [a-zA-Z]+ \d{4}$/,          // DD Month YYYY
-    /^[a-zA-Z]+ \d{2}, \d{4}$/,         // Month DD, YYYY
-    /^\d{4}\.\d{2}\.\d{2}$/,            // YYYY.MM.DD
-  ];
+  const patternsMatch = dateFormats.some((format) => {
+    const parsed = parse(trimmed, format, new Date());
+    return isValid(parsed);
 
-  const matchesPattern = patterns.some((regex) => regex.test(trimmed));
-  if (!matchesPattern) return false;
+  })
+  return patternsMatch;
 
-  const timestamp = Date.parse(trimmed);
-  return !isNaN(timestamp);
-};
+}
+
