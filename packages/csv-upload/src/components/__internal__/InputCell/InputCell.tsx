@@ -25,17 +25,19 @@ const InputCell: FC<InputCellProps> = ({coords}) => {
   return (
     <td style={{
       border: "1px solid black",
-      padding: "8px",
+      // padding: "8px",
+      padding: 0, 
       textAlign: "left",
     }}>
       <input style={{
       width: "100%",
+      height: "100%",
       boxSizing: "border-box",     // Critical: includes padding in width
       font: "inherit",              // Match surrounding text
       padding: 0,                   // Optional: remove default input padding
       margin: 0,                    // Optional: remove default input margin
-      border: "none",              // Optional: remove input border
-      outline: "none",             // Optional: prevent outline on focus
+      // border: "none",              // Optional: remove input border
+      // outline: "none",             // Optional: prevent outline on focus
       background: "transparent",   // Optional: looks like plain cell
       
 
