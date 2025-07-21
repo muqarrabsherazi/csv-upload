@@ -1,6 +1,6 @@
 import { createContext, useState, useContext, ReactNode, type FC, useEffect } from "react";
 import { CSVFieldSchema, CSVPrimitiveType, CSVSchema } from "types";
-import { type Coords } from "../utils/coordsType";
+import { type Coords } from "../../../types/src/types/coordsType";
 
 
 interface TableContextInterface {

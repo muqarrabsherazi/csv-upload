@@ -1,9 +1,9 @@
 import React, {FC, useState } from "react";
 import { CSVSchema } from "types";
-import Table, {type TableProps} from "./components/table";
-import Header, { HeaderProps } from "./components/header";
-import { TableProvider, useTable } from "./context/tableContext";
-import AddCSVButton, {type AddCSVButtonProps} from "./components/addCSVButton";
+import Table, {type TableProps} from "./components/Table";
+import Header, { HeaderProps } from "./components/__internal__/Header";
+import { TableProvider, useTable } from "./contexts/TableProvider";
+import AddCSVButton, {type AddCSVButtonProps} from "./components/AddCSVButton";
 
 export interface CsvUploadProps {
   schema: CSVSchema;

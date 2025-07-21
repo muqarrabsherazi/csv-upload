@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { CSVFieldSchema } from "types";
-import makeHeaderKey from "../../utils/makeHeaderKey";
-import { useTable } from "../../context/tableContext";
+import makeHeaderKey from "@utils/makeHeaderKey";
+import { useTable } from "@contexts/TableProvider";
 
 
 

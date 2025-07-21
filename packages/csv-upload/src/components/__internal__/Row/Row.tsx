@@ -1,9 +1,9 @@
 import {FC} from "react"
-import Cell from "../cell"
-import makeKey from "../../utils/makeKey"
-import InputCell from "../inputCell";
-import isInputCell from "../../utils/isInputCell";
-import { useTable } from "../../context/tableContext";
+import Cell from "../Cell"
+import makeKey from "../../../utils/makeKey"
+import InputCell from "../InputCell";
+import isInputCell from "../../../utils/isInputCell";
+import { useTable } from "../../../contexts/TableProvider";
 
 interface RowProps {
   rowIndex: number, 

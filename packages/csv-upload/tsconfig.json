@@ -6,9 +6,18 @@
     "declaration": true,
     "declarationMap": true,
     "types": ["node", "react", "react-dom"], 
+    "baseUrl": ".",
     "paths": {
-      "types": ["../types/src"]
+      "types": ["../types/src"], 
+      "@components/*": ["./src/components/*"],
+      "@contexts/*": ["./src/contexts/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@validators/*": ["./src/validators/*"],
+      "@types/*": ["./src/types/*"],
+
+      "@components/internal/*": ["./src/components/__internal__/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "../types/src/types/coordsType.ts"]
 }

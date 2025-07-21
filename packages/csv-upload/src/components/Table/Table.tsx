@@ -1,8 +1,8 @@
 import {FC, useEffect} from "react"
-import Row from "../row";
-import Header from "../header";
-import { useTable } from "../../context/tableContext";
-import useEscapeKey from "../../hooks/escapeKeyHook";
+import Row from "@components/internal/Row";
+import Header from "@components/internal/Header";
+import { useTable } from "@contexts/TableProvider";
+import useEscapeKey from "@hooks/useEscapeKey";
 
 export interface TableProps {
 }

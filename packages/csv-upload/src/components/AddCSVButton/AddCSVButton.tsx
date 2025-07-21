@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useTable } from "../../context/tableContext"
+import { useTable } from "@contexts/TableProvider"
 
 export interface AddCSVButtonProps {
 

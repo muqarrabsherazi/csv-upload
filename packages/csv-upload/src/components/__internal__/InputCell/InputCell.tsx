@@ -1,6 +1,7 @@
 import { FC, useState, useCallback, useRef, useEffect } from "react"
-import { useTable } from "../../context/tableContext";
-import { Coords } from "../../utils/coordsType";
+import { useTable } from "@contexts/TableProvider";
+import type { Coords } from "types";
+
 
 interface InputCellProps {
   coords: Coords
