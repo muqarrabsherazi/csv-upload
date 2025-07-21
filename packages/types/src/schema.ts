@@ -14,6 +14,7 @@ export interface CSVFieldSchema {
   required?: boolean;
   /** Optional custom validator function */
   validator?: (value: string) => boolean;
+  errorMsg?: string
 }
 
 export interface CSVSchema {

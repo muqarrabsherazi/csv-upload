@@ -1,6 +1,8 @@
 import { FC, useState, useCallback, useRef, useEffect } from "react"
 import { useTable } from "@contexts/TableProvider";
 import type { Coords } from "types";
+import { validate } from "@validators/validateCell";
+import { useErrors } from "@contexts/ErrorProvider";
 
 
 interface InputCellProps {
@@ -9,7 +11,8 @@ interface InputCellProps {
 }
 
 const InputCell: FC<InputCellProps> = ({coords, value}) => {
-  const {getCell, setCell} = useTable(); 
+  const {getCell, setCell, schema} = useTable(); 
+  const {addError, removeError} = useErrors()
 
   const [cellValue, setCellValue] = useState(value);
   const debouncedId = useRef<number | null>(null);
@@ -19,7 +22,17 @@ const InputCell: FC<InputCellProps> = ({coords, value}) => {
   useEffect(() => {
     if (debouncedId.current != null)
       clearTimeout(debouncedId.current)
-    debouncedId.current = window.setTimeout(() => setCell(coords, cellValue), 100)
+    debouncedId.current = window.setTimeout(() => {
+
+      setCell(coords, cellValue);
+      const field = schema.fields[coords.col];
+      const errorMsg = validate(field, cellValue)
+      if (errorMsg == null)
+        removeError(coords);
+      else
+        addError(coords, field.errorMsg || errorMsg);
+      
+    }, 100)
   }, [cellValue])
 
 

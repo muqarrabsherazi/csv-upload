@@ -4,6 +4,7 @@ import Table, {type TableProps} from "./components/Table";
 import Header, { HeaderProps } from "./components/__internal__/Header";
 import { TableProvider, useTable } from "./contexts/TableProvider";
 import AddCSVButton, {type AddCSVButtonProps} from "./components/AddCSVButton";
+import { ErrorProvider } from "@contexts/ErrorProvider";
 
 export interface CsvUploadProps {
   schema: CSVSchema;
@@ -33,7 +34,9 @@ const CsvUpload: CsvUploadComponent = ({ children, schema, onDataAccepted}) => {
 
   return (
     <TableProvider schema={schema}>
-      {children}
+      <ErrorProvider>
+        {children}
+      </ErrorProvider>
     </TableProvider>
   );
 };

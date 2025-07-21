@@ -1,11 +1,12 @@
 import { createContext, useState, useContext, ReactNode, type FC, useEffect } from "react";
 import { CSVFieldSchema, CSVPrimitiveType, CSVSchema } from "types";
 import { type Coords } from "types/src/types/coordsType";
-
+import { validator, checkRequired } from "@validators/validateCell";
 
 interface TableContextInterface {
   rows: string[][];
   inputCellCoords: Coords | null;
+  schema: CSVSchema
   headers: CSVFieldSchema[];
   addRow: (row: string[]) => void,
   getCell: (coords: Coords) => string, 
@@ -35,6 +36,8 @@ export const TableProvider: FC<TableProviderProps> = ({ children, schema }) => {
 
   const setCell = (coords: Coords, value: string) => setRows(prev => {
     // prev[coords.row][coords.col] = value; 
+    
+    const {type, required} = schema.fields[coords.col]; 
     const newRows = [...prev];
     const newRow = [...newRows[coords.row]];
     newRow[coords.col] = value; 
@@ -52,8 +55,9 @@ export const TableProvider: FC<TableProviderProps> = ({ children, schema }) => {
     <TableContext.Provider  
       value={{ 
         rows, 
-        inputCellCoords: inputCellCoords, 
+        inputCellCoords, 
         headers, 
+        schema,
         addRow, 
         clearRows, 
         setInputCellCoords,
@@ -71,7 +75,7 @@ export const TableProvider: FC<TableProviderProps> = ({ children, schema }) => {
 export const useTable = () => {
   const context = useContext(TableContext);
   if (!context) {
-    throw new Error("useRows must be used within a RowsProvider");
+    throw new Error("useTable must be used within a RowsProvider");
   }
   return context;
 };

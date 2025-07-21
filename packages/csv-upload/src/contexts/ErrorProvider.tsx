@@ -1,5 +1,6 @@
 import { useContext, useState, createContext, ReactNode } from 'react';
-import makeKey from '../utils/makeKey';
+import serializeCoords from '@utils/makeKey';
+import { Coords } from 'types';
 
 type ErrorMap = {
   [cellKey: string]: string;
@@ -10,7 +11,8 @@ type ErrorContextType = {
   errors: ErrorMap;
   setErrors: (errors: ErrorMap) => void;
   clearErrors: () => void;
-  addError: (row: number, col: number, message: string) => void;
+  addError: (coords: Coords, message: string) => void;
+  removeError: (coords: Coords) => void
 
 };
 
@@ -21,12 +23,26 @@ export const ErrorProvider = ({ children }: { children: ReactNode }) => {
   const [errors, setErrors] = useState<ErrorMap>({});
 
   const clearErrors = () => setErrors({});
-  const addError = (row: number, col: number, message: string) => {
-    setErrors((prev) => ({ ...prev, [makeKey(row, col)]: message }));
+  const addError = (coords:Coords, message: string) => {
+    const key = serializeCoords(coords);
+    if (key in errors && message == errors[key]) 
+      return
+    setErrors((prev) => ({ ...prev, [key]: message }));
+  }
+
+  const removeError = (coords:Coords) => {
+
+    const key = serializeCoords(coords);
+    if (key in errors)
+      setErrors((prev) => {
+        const newErrorMap = {...prev}; 
+        delete newErrorMap[key]
+        return newErrorMap;  
+      });
   }
 
   return (
-    <ErrorContext.Provider value={{ errors, setErrors, clearErrors, addError }}>
+    <ErrorContext.Provider value={{ errors, setErrors, clearErrors, addError, removeError }}>
       {children}
     </ErrorContext.Provider>
   );

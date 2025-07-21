@@ -1,25 +1,27 @@
-import {FC} from "react"
+import { FC } from "react"
 import Cell from "../Cell"
-import makeKey from "../../../utils/makeKey"
+import serializeCoords from "../../../utils/makeKey"
 import InputCell from "../InputCell";
 import isInputCell from "../../../utils/isInputCell";
 import { useTable } from "../../../contexts/TableProvider";
 
 interface RowProps {
-  rowIndex: number, 
+  rowIndex: number,
   row: string[]
 }
 
-const Row: FC<RowProps> = ({rowIndex, row}) => {
-  
-  const {inputCellCoords} = useTable(); 
+const Row: FC<RowProps> = ({ rowIndex, row }) => {
+
+  const { inputCellCoords } = useTable();
 
   return (
     <tr>
-      {row.map((value, colIndex) => isInputCell(inputCellCoords, {row: rowIndex, col: colIndex}) ? 
-      (<InputCell key={makeKey(rowIndex, colIndex)} coords={{row:rowIndex, col:colIndex}} value={value}/>) :
-      (<Cell key={makeKey(rowIndex, colIndex)} coords={{row:rowIndex, col:colIndex}} value={value}/>)
-    )}
+      {row.map((value, colIndex) => {
+        const coords = { row: rowIndex, col: colIndex };
+        return isInputCell(inputCellCoords, coords) ?
+          (<InputCell key={serializeCoords(coords)} coords={coords} value={value} />) :
+          (<Cell key={serializeCoords(coords)} coords={coords} value={value} />)
+      })}
     </tr>
   )
 }

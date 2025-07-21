@@ -3,6 +3,7 @@ import Row from "@components/internal/Row";
 import Header from "@components/internal/Header";
 import { useTable } from "@contexts/TableProvider";
 import useEscapeKey from "@hooks/useEscapeKey";
+import { useErrors } from "@contexts/ErrorProvider";
 
 export interface TableProps {
 
@@ -10,11 +11,15 @@ export interface TableProps {
 
 const Table: FC<TableProps> = () => {
   const {rows, resetInputCellCoords} = useTable(); 
+  const {errors} = useErrors()
 
   useEscapeKey({onEscapePress: resetInputCellCoords});
+
   useEffect(() => {
-    console.log(rows);
-  }, [rows])
+    // console.log(rows);
+    console.log(errors)
+
+  }, [errors])
 
   return (
     <table style={{ borderCollapse: "collapse", width: "100%" }}>
