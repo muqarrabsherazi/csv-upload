@@ -5,6 +5,7 @@ import { useTable } from "@contexts/TableProvider";
 import useEscapeKey from "@hooks/useEscapeKey";
 
 export interface TableProps {
+
 }
 
 const Table: FC<TableProps> = () => {
@@ -21,8 +22,8 @@ const Table: FC<TableProps> = () => {
         <Header/>
       </thead>
       <tbody>
-        {rows.map((_, rowIndex) => (
-          <Row key={rowIndex} rowIndex={rowIndex} />
+        {rows.map((row, rowIndex) => (
+          <Row key={rowIndex} rowIndex={rowIndex} row={row} />
         ))}
       </tbody>
     </table>

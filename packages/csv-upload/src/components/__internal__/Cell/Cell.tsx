@@ -3,13 +3,14 @@ import { useTable } from "@contexts/TableProvider";
 import { Coords } from "../../../../../types/src/types/coordsType";
 
 interface CellProps {
-  coords: Coords
+  coords: Coords,
+  value: string
 }
 
 
-const Cell: FC<CellProps> = ({coords}) => {
+const Cell: FC<CellProps> = ({coords, value}) => {
 
-  const {getCell, setInputCellCoords} = useTable()
+  const {setInputCellCoords} = useTable()
   const onClick = () => setInputCellCoords(coords);
   
   
@@ -18,9 +19,10 @@ const Cell: FC<CellProps> = ({coords}) => {
         border: "1px solid black",
         padding: "8px",
         textAlign: "left",
+        maxWidth: "20px"
       }}
       onClick={onClick}>
-    {getCell(coords)}
+    {value}
     </td>
   )
 }

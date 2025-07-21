@@ -5,12 +5,13 @@ import type { Coords } from "types";
 
 interface InputCellProps {
   coords: Coords
+  value: string
 }
 
-const InputCell: FC<InputCellProps> = ({coords}) => {
+const InputCell: FC<InputCellProps> = ({coords, value}) => {
   const {getCell, setCell} = useTable(); 
 
-  const [value, setValue] = useState(getCell(coords));
+  const [cellValue, setCellValue] = useState(value);
   const debouncedId = useRef<number | null>(null);
   
 
@@ -18,16 +19,16 @@ const InputCell: FC<InputCellProps> = ({coords}) => {
   useEffect(() => {
     if (debouncedId.current != null)
       clearTimeout(debouncedId.current)
-    debouncedId.current = window.setTimeout(() => setCell(coords, value), 100)
-  }, [value])
+    debouncedId.current = window.setTimeout(() => setCell(coords, cellValue), 100)
+  }, [cellValue])
 
 
   return (
     <td style={{
       border: "1px solid black",
-      // padding: "8px",
-      padding: 0, 
+      padding: "8px",
       textAlign: "left",
+      maxWidth: "20px"
     }}>
       <input style={{
         width: "100%",
@@ -40,7 +41,7 @@ const InputCell: FC<InputCellProps> = ({coords}) => {
         // outline: "none",             // Optional: prevent outline on focus
         background: "transparent",   // Optional: looks like plain cell
       }} 
-        placeholder={getCell(coords)} value={value} onChange={(e) => setValue(e.target.value)}
+        placeholder={getCell(coords)} value={cellValue} onChange={(e) => setCellValue(e.target.value)}
       />
     </td>
   )

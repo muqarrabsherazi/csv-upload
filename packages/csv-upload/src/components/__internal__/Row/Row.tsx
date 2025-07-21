@@ -7,17 +7,18 @@ import { useTable } from "../../../contexts/TableProvider";
 
 interface RowProps {
   rowIndex: number, 
+  row: string[]
 }
 
-const Row: FC<RowProps> = ({rowIndex}) => {
+const Row: FC<RowProps> = ({rowIndex, row}) => {
   
-  const {rows, inputCellCoords: inputCell} = useTable(); 
+  const {inputCellCoords} = useTable(); 
 
   return (
     <tr>
-      {rows[rowIndex].map((_, colIndex) => isInputCell(inputCell, {row: rowIndex, col: colIndex}) ? 
-      (<InputCell key={makeKey(rowIndex, colIndex)} coords={{row:rowIndex, col:colIndex}}/>) :
-      (<Cell key={makeKey(rowIndex, colIndex)} coords={{row:rowIndex, col:colIndex}}/>)
+      {row.map((value, colIndex) => isInputCell(inputCellCoords, {row: rowIndex, col: colIndex}) ? 
+      (<InputCell key={makeKey(rowIndex, colIndex)} coords={{row:rowIndex, col:colIndex}} value={value}/>) :
+      (<Cell key={makeKey(rowIndex, colIndex)} coords={{row:rowIndex, col:colIndex}} value={value}/>)
     )}
     </tr>
   )
