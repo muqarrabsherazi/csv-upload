@@ -18,11 +18,13 @@
   },
   "dependencies": {
     "date-fns": "^4.1.0",
+    "papaparse": "^5.5.3",
     "react": "^18.2.0",
     "types": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.8.10",
+    "@types/papaparse": "^5.3.16",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.7",
     "tsup": "^8.0.0",
