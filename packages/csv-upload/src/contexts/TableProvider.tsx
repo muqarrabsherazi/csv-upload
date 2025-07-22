@@ -4,14 +4,10 @@ import { type Coords } from "types/src/types/coordsType";
 import { validator, checkRequired } from "@validators/validateCell";
 
 interface TableContextInterface {
+  schema: CSVSchema, 
   rows: string[][];
   inputCellCoords: Coords | null;
-<<<<<<< HEAD
-  schema: CSVSchema
-  headers: CSVFieldSchema[];
-=======
   headers: string[];
->>>>>>> yashfa
   addRow: (row: string[]) => void,
   getCell: (coords: Coords) => string, 
   setCell: (coords: Coords, value:string) => void, 
