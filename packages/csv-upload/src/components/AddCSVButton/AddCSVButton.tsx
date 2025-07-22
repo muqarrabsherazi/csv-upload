@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import useCSVUpload from "@hooks/useCSVUpload";
+import useParser from "@hooks/useParser";
 import UploadFileButton from "../UploadFileButton"; 
 
 export interface AddCSVButtonProps {
@@ -7,7 +7,7 @@ export interface AddCSVButtonProps {
 }
 
 const AddCSVButton: FC<AddCSVButtonProps> = ({children}) => {
-  const upload = useCSVUpload();
+  const upload = useParser();
 
   return (
     <UploadFileButton onUploadFile={upload}>

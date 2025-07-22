@@ -1,10 +1,11 @@
 import React, {FC, useState } from "react";
 import { CSVSchema } from "types";
-import Table, {type TableProps} from "./components/Table";
-import Header, { HeaderProps } from "./components/__internal__/Header";
-import { TableProvider, useTable } from "./contexts/TableProvider";
-import AddCSVButton, {type AddCSVButtonProps} from "./components/AddCSVButton";
+import Table, {type TableProps} from "@components/Table";
+import { TableProvider, useTable } from "@contexts/TableProvider";
+import AddCSVButton, {type AddCSVButtonProps} from "@components/AddCSVButton";
+import ErrorCount, {type ErrorCountProps} from "@components/ErrorCount";
 import { ErrorProvider } from "@contexts/ErrorProvider";
+
 
 export interface CsvUploadProps {
   schema: CSVSchema;
@@ -13,9 +14,9 @@ export interface CsvUploadProps {
 }
 
 interface CsvUploadComponent extends FC<CsvUploadProps> {
-  Table: FC<TableProps>,
+  Table: FC<TableProps>
   AddCSVButton: FC<AddCSVButtonProps>
-  
+  ErrorCount: FC<ErrorCountProps>
 }
 
 /**
@@ -44,7 +45,7 @@ const CsvUpload: CsvUploadComponent = ({ children, schema, onDataAccepted}) => {
 
 
 CsvUpload.Table = Table
-
 CsvUpload.AddCSVButton = AddCSVButton
+CsvUpload.ErrorCount = ErrorCount
 
 export default CsvUpload;
