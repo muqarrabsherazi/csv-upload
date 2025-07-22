@@ -1,38 +1,17 @@
 import { FC } from "react";
-import { useTable } from "@contexts/TableProvider"
+import useCSVUpload from "@hooks/useCSVUpload";
+import UploadFileButton from "../UploadFileButton"; 
 
+export interface AddCSVButtonProps {}
 
-export interface AddCSVButtonProps {
-
-}
-
-const testData = [
-  ["test 1", "test 1"], 
-  ["test 2", "test 2"],
-  ["test 3", "test 3"],
-  ["test 4", "test 4"]
-]
-
-const AddCSVButton: FC<AddCSVButtonProps>= () => {
-  const {addRow} = useTable(); 
-
-  const onClick = () =>  {
-    testData.map((row) => {
-      //parse
-      //validate
-      addRow(row);
-    })
-  }
+const AddCSVButton: FC<AddCSVButtonProps> = () => {
+  const upload = useCSVUpload();
 
   return (
-    <>
-    <button onClick={onClick}>
-      Add CSV 
-    </button>
-    </>
-  )
-  
+    <UploadFileButton onUploadFile={upload}>
+      Add CSV
+    </UploadFileButton>
+  );
+};
 
-}
-
-export default AddCSVButton; 
+export default AddCSVButton;
