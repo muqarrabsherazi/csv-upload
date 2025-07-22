@@ -5,9 +5,10 @@ import { CSVSchema } from "types";
 function App() {
   const schema: CSVSchema = {
     fields: [
-      { name: "name", type: "string"},
+      { name: "name", type: "string" },
+      { name: "Date of Birth", type: "date", required: true },
       { name: "age", type: "number", required: true },
-      { name: "Date of Birth", type:"date", required: true}
+
     ],
   };
   return (
@@ -15,8 +16,10 @@ function App() {
       <h1>CSV Upload Example</h1>
       {/* <CsvUpload schema={schema} /> */}
       <CsvUpload schema={schema}>
-        <CsvUpload.AddCSVButton/>
-        <CsvUpload.Table/>
+        <CsvUpload.AddCSVButton>
+          Add csv
+        </CsvUpload.AddCSVButton>
+        <CsvUpload.Table />
       </CsvUpload>
 
     </div>

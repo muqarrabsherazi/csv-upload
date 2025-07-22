@@ -15,6 +15,7 @@ export interface CsvUploadProps {
 interface CsvUploadComponent extends FC<CsvUploadProps> {
   Table: FC<TableProps>,
   AddCSVButton: FC<AddCSVButtonProps>
+  
 }
 
 /**

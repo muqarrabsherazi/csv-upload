@@ -16,9 +16,12 @@ const Table: FC<TableProps> = () => {
   useEscapeKey({onEscapePress: resetInputCellCoords});
 
   useEffect(() => {
-    // console.log(rows);
-    console.log(errors)
+    console.log(rows);
+  }, [rows])
 
+
+  useEffect(() => {
+    console.log();
   }, [rows])
 
   return (
