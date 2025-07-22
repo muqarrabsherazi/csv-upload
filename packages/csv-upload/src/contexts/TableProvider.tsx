@@ -6,13 +6,17 @@ import { validator, checkRequired } from "@validators/validateCell";
 interface TableContextInterface {
   rows: string[][];
   inputCellCoords: Coords | null;
+<<<<<<< HEAD
   schema: CSVSchema
   headers: CSVFieldSchema[];
+=======
+  headers: string[];
+>>>>>>> yashfa
   addRow: (row: string[]) => void,
   getCell: (coords: Coords) => string, 
   setCell: (coords: Coords, value:string) => void, 
   clearRows: () => void, 
-  setHeaders: (header: CSVFieldSchema[]) => void;
+  setHeaders: (header: string[]) => void;
   setInputCellCoords:(coords: Coords) => void;
   resetInputCellCoords: () => void; 
 };
@@ -27,7 +31,7 @@ interface TableProviderProps {
 export const TableProvider: FC<TableProviderProps> = ({ children, schema }) => {
   const [rows, setRows] = useState<string[][]>([]);
   const [inputCellCoords, setInputCellCoords] = useState<Coords | null>(null);
-  const [headers, setHeaders] = useState<CSVFieldSchema[]>([]);
+  const [headers, setHeaders] = useState<string[]>([]);
 
   const addRow = (row: string[]) => setRows(prev => [...prev, row]);
   const clearRows = () => setRows([]);
@@ -44,11 +48,6 @@ export const TableProvider: FC<TableProviderProps> = ({ children, schema }) => {
     newRows[coords.row] = newRow; 
     return newRows;  
   });
-
-
-  useEffect(() => {
-    setHeaders(schema.fields)
-  }, [])
 
 
   return (
