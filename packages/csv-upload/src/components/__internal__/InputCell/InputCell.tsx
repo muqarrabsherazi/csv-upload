@@ -14,8 +14,7 @@ interface InputCellProps {
 }
 
 const InputCell: FC<InputCellProps> = ({ coords, value, errorMsg }) => {
-  const { getCell, setCell, schema } = useTable();
-  const { addError, removeError } = useErrors()
+  const { getCell, setCell } = useTable();
 
   const { checkValidationError } = useValidate();
   const { debounced: debouncedSetCell} = useDebounced(() => { 
