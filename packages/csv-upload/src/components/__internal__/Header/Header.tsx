@@ -22,7 +22,7 @@ const Header: FC<HeaderProps> = () => {
               textAlign: "left",
             }}
           >
-            {header.name}
+            {header}
           </th>
 
         ))
