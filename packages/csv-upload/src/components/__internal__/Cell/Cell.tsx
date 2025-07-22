@@ -12,7 +12,10 @@ interface CellProps {
 const Cell: FC<CellProps> = ({coords, value, errorMsg}) => {
 
   const {setInputCellCoords} = useTable()
-  const onClick = () => setInputCellCoords(coords);
+  const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    setInputCellCoords(coords)
+  };
   
   const errorStyle = errorMsg == null ? {} : {border: "1px solid red"}
   

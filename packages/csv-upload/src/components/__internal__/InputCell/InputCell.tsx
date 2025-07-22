@@ -42,7 +42,10 @@ const InputCell: FC<InputCellProps> = ({ coords, value, errorMsg }) => {
       textAlign: "left",
       maxWidth: "20px",
       ...errorStyle
-    }}>
+    }}
+    onClick={(e) => e.stopPropagation()}
+    
+    >
       <input style={{
         width: "100%",
         height: "100%",
@@ -59,6 +62,7 @@ const InputCell: FC<InputCellProps> = ({ coords, value, errorMsg }) => {
           if (e.key != "Enter") return;
           resetInputCellCoords(); 
         }}  
+        
       />
     </td>
   )

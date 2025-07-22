@@ -10,9 +10,6 @@ const useValidate = (): {checkValidationError: (coords: Coords, value: string,) 
 
   const checkValidationError = (coords: Coords, value: string,) => {
     const field = schema.fields[coords.col];
-    // console.log(schema)
-    console.log(coords)
-    
     const errorMsg = validate(field, value)
     if (errorMsg == null)
       removeError(coords);

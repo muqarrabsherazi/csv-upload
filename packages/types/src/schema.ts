@@ -13,7 +13,7 @@ export interface CSVFieldSchema {
   /** Whether the column is mandatory */
   required?: boolean;
   /** Optional custom validator function */
-  validator?: (value: string) => boolean;
+  validator?: (value: string) => string | null;
   errorMsg?: string
 }
 

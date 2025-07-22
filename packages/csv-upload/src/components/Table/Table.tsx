@@ -19,6 +19,19 @@ const Table: FC<TableProps> = () => {
     console.log(errors);
   }, [errors])
 
+  useEffect(() => {
+    const handleClick = (event: MouseEvent) => {
+      // console.log("Clicked somewhere on the document", event);
+      // Add your logic here
+      resetInputCellCoords(); 
+    };
+
+    document.addEventListener("click", handleClick);
+
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, []);
   // useEffect(() => {
   //   console.log(rows);
   // }, [rows])
