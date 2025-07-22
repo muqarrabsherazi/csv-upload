@@ -1,25 +1,22 @@
-import { useTable } from "../contexts/TableProvider";
+import Papa from "papaparse";
 
-
-//file oject is built in browser class that takes in file 
 export const parseCSV = (file: File): Promise<string[][]> => {
   return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      const text = reader.result as string;
-      const lines = text.trim().split("\n");
-
-      if (lines.length === 0) return resolve([]);
-
-      const parsed = lines.map(line =>
-        line.split(";").map(cell => cell.trim())
-      );
-
-      resolve(parsed); 
-    };
-
-    reader.onerror = () => reject(reader.error);
-    reader.readAsText(file);
+    Papa.parse<string[]>(file, {
+      skipEmptyLines: true,
+      dynamicTyping: true,
+      delimitersToGuess: [",", ";", "\t", "|"],
+      complete: (result) => {
+        if (result.errors.length > 0) {
+          reject(result.errors);
+        } else {
+          const rows = result.data.map(row =>
+            Object.values(row).map(cell => String(cell).trim())
+          );
+          resolve(rows);
+        }
+      },
+      error: (error) => reject(error),
+    });
   });
 };
