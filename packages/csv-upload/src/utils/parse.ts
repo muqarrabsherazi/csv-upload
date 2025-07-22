@@ -13,11 +13,10 @@ export const parseCSV = (file: File): Promise<string[][]> => {
       if (lines.length === 0) return resolve([]);
 
       const parsed = lines.map(line =>
-        line.split(";").map(cell => cell.trim())
+        line.split(",").map(cell => cell.trim())
       );
 
-      resolve(parsed); // ✅ Return the parsed array
-    };
+      resolve(parsed); 
 
     reader.onerror = () => reject(reader.error);
     reader.readAsText(file);
