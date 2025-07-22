@@ -11,7 +11,7 @@ export const validator: Record<CSVPrimitiveType, (value:string) => boolean> = {
 export const checkRequired = (required: boolean | undefined, value: string) => required ? value.trim().length != 0 : true
 
 export const validate = (field: CSVFieldSchema, value: string): string | null  => {
-  if (!field.required && value.trim().length == 0)
+  if (!("required" in field) && !field.required && value.trim().length == 0)
     return null;
     
   const isNonEmpty = field.required? value.trim().length != 0 : true; 

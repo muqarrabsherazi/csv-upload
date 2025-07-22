@@ -8,7 +8,10 @@ export const isNum = (value: string): boolean => {
 };
 
 export const isBool = (value: string): boolean => {
-  return /^(true|false)$/i.test(value.trim());
+  const booleans = [
+    "true", "false", "yes", "no", "y", "n",
+  ]
+  return booleans.some((b) => value.trim().toLowerCase() === b);
 };
 
 export const isDate = (value: string): boolean => {

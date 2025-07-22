@@ -12,17 +12,18 @@ export interface TableProps {
 const Table: FC<TableProps> = () => {
   const {rows, resetInputCellCoords} = useTable(); 
   const {errors} = useErrors()
-
   useEscapeKey({onEscapePress: resetInputCellCoords});
 
-  useEffect(() => {
-    console.log(rows);
-  }, [rows])
-
 
   useEffect(() => {
-    console.log();
-  }, [rows])
+    console.log(errors);
+  }, [errors])
+
+  // useEffect(() => {
+  //   console.log(rows);
+  // }, [rows])
+
+
 
   return (
     <table style={{ borderCollapse: "collapse", width: "100%" }}>

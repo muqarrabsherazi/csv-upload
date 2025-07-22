@@ -4,8 +4,8 @@ import useValidate from "./useValidate";
 
 
 
-const useCSVUpload = () => {
-  const { clearRows, setHeaders, addRow } = useTable();
+const useParser = () => {
+  const { schema, clearRows, setHeaders, addRow } = useTable();
   const {checkValidationError} = useValidate(); 
 
   const upload = async (file: File) => {
@@ -16,8 +16,10 @@ const useCSVUpload = () => {
     setHeaders(data[0]);
 
     data.slice(1).forEach((row, rowIndex) => {
-      row.forEach((cell, colIndex) => checkValidationError({row: rowIndex, col:colIndex}, cell)) 
-      addRow(row);
+      row
+        .slice(0, schema.fields.length)
+        .forEach((cell, colIndex) => checkValidationError({row:rowIndex, col:colIndex}, cell)) 
+      addRow(row.slice(0, schema.fields.length));
     });
   };
 
@@ -25,4 +27,4 @@ const useCSVUpload = () => {
 };
 
 
-export default useCSVUpload; 
+export default useParser; 

@@ -14,7 +14,8 @@ interface InputCellProps {
 }
 
 const InputCell: FC<InputCellProps> = ({ coords, value, errorMsg }) => {
-  const { getCell, setCell } = useTable();
+  const { getCell, setCell, resetInputCellCoords } = useTable();
+
 
   const { checkValidationError } = useValidate();
   const { debounced: debouncedSetCell} = useDebounced(() => { 
@@ -54,6 +55,10 @@ const InputCell: FC<InputCellProps> = ({ coords, value, errorMsg }) => {
         background: "transparent",   // Optional: looks like plain cell
       }}
         placeholder={getCell(coords)} value={cellValue} onChange={(e) => setCellValue(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key != "Enter") return;
+          resetInputCellCoords(); 
+        }}  
       />
     </td>
   )
