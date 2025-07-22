@@ -19,7 +19,7 @@ const Table: FC<TableProps> = () => {
     // console.log(rows);
     console.log(errors)
 
-  }, [errors])
+  }, [rows])
 
   return (
     <table style={{ borderCollapse: "collapse", width: "100%" }}>

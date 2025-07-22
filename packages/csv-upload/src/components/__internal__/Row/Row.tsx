@@ -1,9 +1,9 @@
 import { FC } from "react"
-import Cell from "../Cell"
-import serializeCoords from "../../../utils/makeKey"
-import InputCell from "../InputCell";
-import isInputCell from "../../../utils/isInputCell";
-import { useTable } from "../../../contexts/TableProvider";
+import Cell from "@components/internal/Cell"
+import serializeCoords from "@utils/makeKey"
+import InputCell from "@components/internal/InputCell";
+import isInputCell from "@utils/isInputCell";
+import { useTable } from "@contexts/TableProvider";
 import { useErrors } from "@contexts/ErrorProvider";
 
 interface RowProps {
