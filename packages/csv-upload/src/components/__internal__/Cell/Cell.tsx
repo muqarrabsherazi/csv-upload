@@ -2,6 +2,7 @@ import { FC } from "react"
 import { useTable } from "@contexts/TableProvider";
 import { Coords } from "../../../../../types/src/types/coordsType";
 
+
 interface CellProps {
   coords: Coords,
   value: string
