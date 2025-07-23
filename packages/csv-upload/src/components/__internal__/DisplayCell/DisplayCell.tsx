@@ -1,15 +1,12 @@
 import { FC } from "react"
 import { useTable } from "@contexts/TableProvider";
-import { Coords } from "../../../../../types/src/types/coordsType";
+import { CSVCellData } from "types"
+import { CellProps } from "@components/Cell";
 
-interface CellProps {
-  coords: Coords,
-  value: string
-  errorMsg: string | null 
-}
+export interface DisplayCellProps extends CellProps{}
 
 
-const Cell: FC<CellProps> = ({coords, value, errorMsg}) => {
+const DisplayCell: FC<DisplayCellProps> = ({coords, value, errorMsg}) => {
 
   const {setInputCellCoords} = useTable()
   const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -33,4 +30,4 @@ const Cell: FC<CellProps> = ({coords, value, errorMsg}) => {
   )
 }
 
-export default Cell;
+export default DisplayCell;

@@ -5,12 +5,10 @@ import { validate } from "@validators/validateCell";
 import { useErrors } from "@contexts/ErrorProvider";
 import useValidate from "@hooks/useValidate";
 import useDebounced from "@hooks/useDebouncedSetCell";
+import { CellProps } from "@components/Cell";
 
 
-interface InputCellProps {
-  coords: Coords
-  value: string
-  errorMsg: string | null
+export interface InputCellProps extends CellProps {
 }
 
 const InputCell: FC<InputCellProps> = ({ coords, value, errorMsg }) => {

@@ -19,5 +19,5 @@
       "@components/internal/*": ["./src/components/__internal__/*"]
     }
   },
-  "include": ["src", "../types/src/types/coordsType.ts"]
+  "include": ["src", "../types/src/types/*", "../types/src/coordsType.ts", "../types/src/cellDataType.ts"]
 }

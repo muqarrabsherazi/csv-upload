@@ -1,5 +1,5 @@
 import CsvUpload from "csv-upload";
-import { CSVSchema } from "types";
+import { CSVSchema, CSVCellData } from "types";
 
 
 function App() {
@@ -26,8 +26,19 @@ function App() {
         <CsvUpload.AddCSVButton>
           Add csv
         </CsvUpload.AddCSVButton>
-        <CsvUpload.ErrorCount/>
-        <CsvUpload.Table />
+        <CsvUpload.ErrorCount />
+
+        <CsvUpload.Table>
+          {(rows:string[][]) => rows.map((row, rowIndex) =>
+            (<CsvUpload.Row key={rowIndex} rowIndex={rowIndex} row={row}>
+              {(data: CSVCellData[]) => data.map((cellData) =>
+                <CsvUpload.GenericCell key={cellData.key} {...cellData.props}/>
+              )}
+            </CsvUpload.Row>)
+          )}
+        </CsvUpload.Table>
+
+
       </CsvUpload>
 
     </div>

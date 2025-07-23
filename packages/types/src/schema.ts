@@ -20,6 +20,7 @@ export interface CSVFieldSchema {
 export interface CSVSchema {
   /** Array of field definitions */
   fields: CSVFieldSchema[];
+  headers?: boolean;
 }
 
 export interface ConditionalNumberFieldSchema extends CSVFieldSchema {

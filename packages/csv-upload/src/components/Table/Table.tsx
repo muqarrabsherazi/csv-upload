@@ -1,52 +1,47 @@
-import {FC, useEffect} from "react"
-import Row from "@components/internal/Row";
+import { FC, useEffect } from "react"
+import Row from "@components/Row";
 import Header from "@components/internal/Header";
 import { useTable } from "@contexts/TableProvider";
 import useEscapeKey from "@hooks/useEscapeKey";
 import { useErrors } from "@contexts/ErrorProvider";
+import useKeyPressOutside from "@hooks/useKeyPressOutside";
 
 export interface TableProps {
-
+  renderHeaders?: (headers: string[]) => React.ReactNode
+  children?: (rows: string[][]) => React.ReactNode;
 }
 
-const Table: FC<TableProps> = () => {
-  const {rows, resetInputCellCoords} = useTable(); 
-  const {errors} = useErrors()
-  useEscapeKey({onEscapePress: resetInputCellCoords});
+const Table: FC<TableProps> = ({ renderHeaders, children }) => {
+  const { schema, rows, headers, resetInputCellCoords } = useTable();
+  const { errors } = useErrors()
+  useEscapeKey({ onEscapePress: resetInputCellCoords });
+  useKeyPressOutside({ onMouseDown: resetInputCellCoords })
 
 
   useEffect(() => {
     console.log(errors);
   }, [errors])
 
-  useEffect(() => {
-    const handleClick = (event: MouseEvent) => {
-      // console.log("Clicked somewhere on the document", event);
-      // Add your logic here
-      resetInputCellCoords(); 
-    };
 
-    document.addEventListener("click", handleClick);
-
-    return () => {
-      document.removeEventListener("click", handleClick);
-    };
-  }, []);
   // useEffect(() => {
   //   console.log(rows);
   // }, [rows])
+
+  // if (children)
+  //   return children(rows as string[][]);
 
 
 
   return (
     <table style={{ borderCollapse: "collapse", width: "100%" }}>
       <thead>
-        <Header/>
+        {renderHeaders ? renderHeaders(headers) : <Header />}
       </thead>
       <tbody>
-        {rows.map((row, rowIndex) => (
-          <Row key={rowIndex} rowIndex={rowIndex} row={row} />
-        ))}
+        {children ? children(rows) :
+          rows.map((row, rowIndex) => (
+            <Row key={rowIndex} rowIndex={rowIndex} row={row} />
+          ))}
       </tbody>
     </table>
   )
