@@ -7,8 +7,8 @@ import { useErrors } from "@contexts/ErrorProvider";
 import useKeyPressOutside from "@hooks/useKeyPressOutside";
 
 export interface TableProps {
-  renderHeaders?: (headers: string[]) => React.ReactNode
-  children?: (rows: string[][]) => React.ReactNode;
+  renderHeaders?: (header: string, colIndex: number) => React.ReactNode
+  children?: (row: string[], rowIndex: number) => React.ReactNode;
 }
 
 const Table: FC<TableProps> = ({ renderHeaders, children }) => {
@@ -35,10 +35,10 @@ const Table: FC<TableProps> = ({ renderHeaders, children }) => {
   return (
     <table style={{ borderCollapse: "collapse", width: "100%" }}>
       <thead>
-        {renderHeaders ? renderHeaders(headers) : <Header />}
+        {renderHeaders ? headers.map(renderHeaders) : <Header headers={headers} />}
       </thead>
       <tbody>
-        {children ? children(rows) :
+        {children ? rows.map(children) :
           rows.map((row, rowIndex) => (
             <Row key={rowIndex} rowIndex={rowIndex} row={row} />
           ))}

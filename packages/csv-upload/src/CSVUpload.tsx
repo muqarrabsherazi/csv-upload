@@ -23,7 +23,7 @@ interface CsvUploadComponent extends FC<CsvUploadProps> {
   AddCSVButton: FC<AddCSVButtonProps>
   ErrorCount: FC<ErrorCountProps>
   Row: FC<RowProps>
-  GenericCell: FC<CellProps>
+  Cell: FC<CellProps>
   DisplayCell: FC<DisplayCellProps>
   InputCell: FC<InputCellProps>
 }
@@ -57,7 +57,7 @@ CsvUpload.Table = Table
 CsvUpload.AddCSVButton = AddCSVButton
 CsvUpload.ErrorCount = ErrorCount
 CsvUpload.Row = Row
-CsvUpload.GenericCell = Cell 
+CsvUpload.Cell = Cell 
 CsvUpload.DisplayCell = DisplayCell 
 CsvUpload.InputCell = InputCell 
 

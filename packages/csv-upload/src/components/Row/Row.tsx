@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, useMemo } from "react"
 import serializeCoords from "@utils/serializeCoords"
 import isInputCell from "@utils/isInputCell";
 import { useTable } from "@contexts/TableProvider";
@@ -9,7 +9,7 @@ import Cell from "@components/Cell";
 export interface RowProps {
   rowIndex: number,
   row: string[]
-  children?: (data: CSVCellData[]) => React.ReactNode;
+  children?: (data: CSVCellData, colIndex: number) => React.ReactNode;
 }
 
 const Row: FC<RowProps> = ({ rowIndex, row, children }) => {
@@ -39,7 +39,7 @@ const Row: FC<RowProps> = ({ rowIndex, row, children }) => {
   if (children)
     return (
       <tr>
-        {children(data)}
+        {data.map((cellData, colIndex) => children(cellData, colIndex))}
       </tr>
     )
 
