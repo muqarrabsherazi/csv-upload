@@ -1,5 +1,5 @@
 import { useContext, useState, createContext, ReactNode } from 'react';
-import serializeCoords from '@utils/makeKey';
+import serializeCoords from '@utils/serializeCoords';
 import { Coords } from 'types';
 
 type ErrorMap = {

@@ -1,5 +1,5 @@
 import { FC } from "react"
-import serializeCoords from "@utils/makeKey"
+import serializeCoords from "@utils/serializeCoords"
 import isInputCell from "@utils/isInputCell";
 import { useTable } from "@contexts/TableProvider";
 import { useErrors } from "@contexts/ErrorProvider";
