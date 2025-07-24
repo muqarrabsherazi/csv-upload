@@ -1,0 +1,13 @@
+import InputCell from "@components/__internal__/InputCell"
+import type { FC } from "react"
+import { CSVCellType } from "types"
+import DisplayCell from "@components/internal/DisplayCell"
+import { CellProps } from "@components/Cell"
+
+
+const cellMap: Record<CSVCellType, FC<CellProps>> = {
+  "display": DisplayCell,
+  "input": InputCell
+}
+
+export default cellMap; 

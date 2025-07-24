@@ -1,2 +1,3 @@
 export * from "./schema";
-export * from "./types/coordsType"
+export * from "./coordsType"
+export * from "./cellDataType"
