@@ -6,12 +6,14 @@ import  ErrorMessage  from "@components/ErrorMessage"
 import serializeCoords from "@utils/serializeCoords";
 import { useErrors } from "@contexts/ErrorProvider";
 
+
 export interface DisplayCellProps extends CellProps{}
 
 
 const DisplayCell: FC<DisplayCellProps> = ({ coords, value }) => {
   const { setInputCellCoords } = useTable();
   const { errors } = useErrors();
+  const { setHoverCellCoords } = useTable();
 
   const key = serializeCoords(coords);
   const hasError = Boolean(errors[key]);
@@ -19,6 +21,11 @@ const DisplayCell: FC<DisplayCellProps> = ({ coords, value }) => {
   const onClick = (e: React.MouseEvent<HTMLTableCellElement>) => {
     e.stopPropagation();
     setInputCellCoords(coords);
+  };
+
+  const onHover = (e: React.MouseEvent<HTMLTableCellElement>) => {
+    e.stopPropagation();
+    setHoverCellCoords(coords);
   };
   
  return (
@@ -29,11 +36,12 @@ const DisplayCell: FC<DisplayCellProps> = ({ coords, value }) => {
         textAlign: "left",
         maxWidth: "20px",
         position: "relative",
+
       }}
       onClick={onClick}
     >
       {value}
-      <ErrorMessage coords={coords}/>
+      {/*<ErrorMessage  cellData={ cellData}/>*/}
     </td>
   );
 };

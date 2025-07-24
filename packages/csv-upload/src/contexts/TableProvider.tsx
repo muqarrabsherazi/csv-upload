@@ -8,12 +8,15 @@ interface TableContextInterface {
   rows: string[][];
   inputCellCoords: Coords | null;
   headers: string[];
+  hoverCellCoords: Coords | null;
   addRow: (row: string[]) => void,
   getCell: (coords: Coords) => string, 
   setCell: (coords: Coords, value:string) => void, 
   clearRows: () => void, 
   setHeaders: (header: string[]) => void;
   setInputCellCoords:(coords: Coords) => void;
+  setHoverCellCoords:(coords: Coords) => void;
+  resetHoverCellCoords: (coords: Coords) => void;
   resetInputCellCoords: () => void; 
 };
 
@@ -28,11 +31,13 @@ export const TableProvider: FC<TableProviderProps> = ({ children, schema }) => {
   const [rows, setRows] = useState<string[][]>([]);
   const [inputCellCoords, setInputCellCoords] = useState<Coords | null>(null);
   const [headers, setHeaders] = useState<string[]>([]);
+  const [hoverCellCoords, setHoverCellCoords] = useState<Coords | null>(null);
 
   const addRow = (row: string[]) => setRows(prev => [...prev, row]);
   const clearRows = () => setRows([]);
   const getCell = (coords: Coords) => rows[coords.row][coords.col];
-  const resetInputCellCoords = () => setInputCellCoords(null)
+  const resetInputCellCoords = () => setInputCellCoords(null);
+  const resetHoverCellCoords = () => setHoverCellCoords(null);
 
   const setCell = (coords: Coords, value: string) => setRows(prev => {
     // prev[coords.row][coords.col] = value; 
@@ -54,12 +59,16 @@ export const TableProvider: FC<TableProviderProps> = ({ children, schema }) => {
         headers, 
         schema,
         addRow, 
+         hoverCellCoords,
         clearRows, 
         setInputCellCoords,
         resetInputCellCoords,
         setHeaders,
         getCell,
-        setCell
+        setCell,
+        setHoverCellCoords,
+        resetHoverCellCoords
+
       }}>
       {children}
     </TableContext.Provider>
