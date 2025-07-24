@@ -1,6 +1,6 @@
 import { FC, useEffect } from "react"
 import Row from "@components/Row";
-import Header from "@components/internal/Header";
+import Header from "@components/Header";
 import { useTable } from "@contexts/TableProvider";
 import useEscapeKey from "@hooks/useEscapeKey";
 import { useErrors } from "@contexts/ErrorProvider";
@@ -35,7 +35,7 @@ const Table: FC<TableProps> = ({ renderHeaders, children }) => {
   return (
     <table style={{ borderCollapse: "collapse", width: "100%" }}>
       <thead>
-        {renderHeaders ? headers.map(renderHeaders) : <Header headers={headers} />}
+        {renderHeaders ? headers.map(renderHeaders) : <Header />}
       </thead>
       <tbody>
         {children ? rows.map(children) :

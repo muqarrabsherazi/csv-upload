@@ -1,14 +1,15 @@
 import React, {FC, useState } from "react";
 import { CSVSchema } from "types";
 import Table, {type TableProps} from "@components/Table";
-import { TableProvider, useTable } from "@contexts/TableProvider";
+import { TableProvider } from "@contexts/TableProvider";
 import AddCSVButton, {type AddCSVButtonProps} from "@components/AddCSVButton";
 import ErrorCount, {type ErrorCountProps} from "@components/ErrorCount";
 import { ErrorProvider } from "@contexts/ErrorProvider";
 import Row ,{type RowProps} from "@components/Row";
 import Cell, { type CellProps } from "@components/Cell";
-import DisplayCell, {type DisplayCellProps}  from "@components/internal/DisplayCell/";
-import InputCell, { type InputCellProps } from "@components/__internal__/InputCell";
+import DisplayCell, {type DisplayCellProps}  from "@components/DisplayCell";
+import InputCell, { type InputCellProps } from "@components/InputCell";
+import Header, { type HeaderProps } from "@components/Header";
 
 
 
@@ -24,6 +25,7 @@ interface CsvUploadComponent extends FC<CsvUploadProps> {
   ErrorCount: FC<ErrorCountProps>
   Row: FC<RowProps>
   Cell: FC<CellProps>
+  Header: FC<HeaderProps>
   DisplayCell: FC<DisplayCellProps>
   InputCell: FC<InputCellProps>
 }
@@ -60,5 +62,6 @@ CsvUpload.Row = Row
 CsvUpload.Cell = Cell 
 CsvUpload.DisplayCell = DisplayCell 
 CsvUpload.InputCell = InputCell 
+CsvUpload.Header = Header
 
 export default CsvUpload;

@@ -1,7 +1,7 @@
-import InputCell from "@components/__internal__/InputCell"
+import InputCell from "@components/InputCell"
 import type { FC } from "react"
 import { CSVCellType } from "types"
-import DisplayCell from "@components/internal/DisplayCell"
+import DisplayCell from "@components/DisplayCell"
 import { CellProps } from "@components/Cell"
 
 

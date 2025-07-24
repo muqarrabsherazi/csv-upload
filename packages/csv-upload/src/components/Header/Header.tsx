@@ -6,11 +6,11 @@ import { useTable } from "@contexts/TableProvider";
 
 
 export interface HeaderProps {
-  headers: string[]
+  // headers: string[]
 }
 
-const Header: FC<HeaderProps> = ({headers}) => {
-  // const {headers} = useTable(); 
+const Header: FC<HeaderProps> = () => {
+  const {headers} = useTable(); 
   return (
     <tr>
       {
