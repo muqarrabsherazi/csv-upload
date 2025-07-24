@@ -1,6 +1,6 @@
 import { FC, useMemo } from "react"
 import serializeCoords from "@utils/serializeCoords"
-import isInputCell from "@utils/isInputCell";
+import coordsAreEqual from "@utils/isInputCell";
 import { useTable } from "@contexts/TableProvider";
 import { useErrors } from "@contexts/ErrorProvider";
 import type { CSVCellData } from "types";
@@ -22,7 +22,7 @@ const Row: FC<RowProps> = ({ rowIndex, row, children }) => {
     const coords = { row: rowIndex, col: colIndex };
     const errorMsg = errors[serializeCoords(coords)] || null;
     const key = serializeCoords(coords);
-    const type = isInputCell(inputCellCoords, coords) ? "input" : "display"
+    const type = coordsAreEqual(inputCellCoords, coords) ? "input" : "display"
 
     return {
       props: {
