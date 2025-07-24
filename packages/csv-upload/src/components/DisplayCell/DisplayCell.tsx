@@ -2,32 +2,48 @@ import { FC } from "react"
 import { useTable } from "@contexts/TableProvider";
 import { CSVCellData } from "types"
 import { CellProps } from "@components/Cell";
+import  ErrorMessage  from "@components/ErrorMessage"
+import serializeCoords from "@utils/serializeCoords";
+import { useErrors } from "@contexts/ErrorProvider";
+
 
 export interface DisplayCellProps extends CellProps{}
 
 
-const DisplayCell: FC<DisplayCellProps> = ({coords, value, errorMsg}) => {
+const DisplayCell: FC<DisplayCellProps> = ({ coords, value }) => {
+  const { setInputCellCoords } = useTable();
+  const { errors } = useErrors();
+  const { setHoverCellCoords } = useTable();
 
-  const {setInputCellCoords} = useTable()
-  const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  const key = serializeCoords(coords);
+  const hasError = Boolean(errors[key]);
+  
+  const onClick = (e: React.MouseEvent<HTMLTableCellElement>) => {
     e.stopPropagation();
-    setInputCellCoords(coords)
+    setInputCellCoords(coords);
+  };
+
+  const onHover = (e: React.MouseEvent<HTMLTableCellElement>) => {
+    e.stopPropagation();
+    setHoverCellCoords(coords);
   };
   
-  const errorStyle = errorMsg == null ? {} : {border: "1px solid red"}
-  
-  return (
-    <td style={{
-        border: "1px solid black",
+ return (
+    <td
+      style={{
+        border: hasError ? "1px solid red" : "1px solid black",
         padding: "8px",
         textAlign: "left",
-        maxWidth: "20px", 
-        ...errorStyle
+        maxWidth: "20px",
+        position: "relative",
+
       }}
-      onClick={onClick}>
-    {value}
+      onClick={onClick}
+    >
+      {value}
+      {/*<ErrorMessage  cellData={ cellData}/>*/}
     </td>
-  )
-}
+  );
+};
 
 export default DisplayCell;

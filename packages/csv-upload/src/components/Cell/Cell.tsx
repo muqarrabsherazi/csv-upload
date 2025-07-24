@@ -13,3 +13,5 @@ const Cell: FC<CellProps> = ({coords, value, errorMsg, type}) => {
 }
 
 export default Cell;
+
+

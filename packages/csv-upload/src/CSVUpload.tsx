@@ -28,6 +28,7 @@ interface CsvUploadComponent extends FC<CsvUploadProps> {
   Header: FC<HeaderProps>
   DisplayCell: FC<DisplayCellProps>
   InputCell: FC<InputCellProps>
+  
 }
 
 /**
