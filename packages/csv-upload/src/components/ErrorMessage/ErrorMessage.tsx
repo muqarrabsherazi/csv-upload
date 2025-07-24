@@ -4,7 +4,7 @@ import serializeCoords from "@utils/serializeCoords";
 import { Coords, CSVCellData } from "types";
 import { useTable } from "@contexts/TableProvider";
 
-interface ErrorMessageProps {
+export interface ErrorMessageProps {
   cellData: CSVCellData;
 }
 
@@ -23,12 +23,13 @@ const ErrorMessage: React.FC<ErrorMessageProps> = ({ cellData })  => {
         <div
           style={{
             position: "absolute",
-            top: "-25px",
+            // top: "-25px",
             background: "#f44336",
             color: "#fff",
             fontSize: "12px",
             padding: "4px 8px",
             borderRadius: "4px",
+            zIndex: "10"
           }}
         >
           {errorMsg}

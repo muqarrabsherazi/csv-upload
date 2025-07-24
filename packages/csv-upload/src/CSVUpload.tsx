@@ -10,6 +10,7 @@ import Cell, { type CellProps } from "@components/Cell";
 import DisplayCell, {type DisplayCellProps}  from "@components/DisplayCell";
 import InputCell, { type InputCellProps } from "@components/InputCell";
 import Header, { type HeaderProps } from "@components/Header";
+import ErrorMessage, { ErrorMessageProps } from "@components/ErrorMessage";
 
 
 
@@ -23,6 +24,7 @@ interface CsvUploadComponent extends FC<CsvUploadProps> {
   Table: FC<TableProps>
   AddCSVButton: FC<AddCSVButtonProps>
   ErrorCount: FC<ErrorCountProps>
+  ErrorMessage: FC<ErrorMessageProps>
   Row: FC<RowProps>
   Cell: FC<CellProps>
   Header: FC<HeaderProps>
@@ -59,6 +61,7 @@ const CsvUpload: CsvUploadComponent = ({ children, schema, onDataAccepted}) => {
 CsvUpload.Table = Table 
 CsvUpload.AddCSVButton = AddCSVButton
 CsvUpload.ErrorCount = ErrorCount
+CsvUpload.ErrorMessage = ErrorMessage 
 CsvUpload.Row = Row
 CsvUpload.Cell = Cell 
 CsvUpload.DisplayCell = DisplayCell 

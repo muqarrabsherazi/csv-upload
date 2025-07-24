@@ -10,10 +10,9 @@ import { useErrors } from "@contexts/ErrorProvider";
 export interface DisplayCellProps extends CellProps{}
 
 
-const DisplayCell: FC<DisplayCellProps> = ({ coords, value }) => {
-  const { setInputCellCoords } = useTable();
+const DisplayCell: FC<DisplayCellProps> = ({ coords, value, children }) => {
+  const { setInputCellCoords, setHoverCellCoords, resetHoverCellCoords } = useTable();
   const { errors } = useErrors();
-  const { setHoverCellCoords } = useTable();
 
   const key = serializeCoords(coords);
   const hasError = Boolean(errors[key]);
@@ -23,9 +22,14 @@ const DisplayCell: FC<DisplayCellProps> = ({ coords, value }) => {
     setInputCellCoords(coords);
   };
 
-  const onHover = (e: React.MouseEvent<HTMLTableCellElement>) => {
+  const onMouseEnter = (e: React.MouseEvent<HTMLTableCellElement>) => {
     e.stopPropagation();
     setHoverCellCoords(coords);
+  };
+
+  const onMouseLeave = (e: React.MouseEvent<HTMLTableCellElement>) => {
+    e.stopPropagation();
+    resetHoverCellCoords(); 
   };
   
  return (
@@ -39,9 +43,13 @@ const DisplayCell: FC<DisplayCellProps> = ({ coords, value }) => {
 
       }}
       onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+
     >
       {value}
-      {/*<ErrorMessage  cellData={ cellData}/>*/}
+      {children}
+
     </td>
   );
 };

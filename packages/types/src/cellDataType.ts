@@ -1,6 +1,7 @@
 
 import { Coords } from "./coordsType"
 
+
 export type CSVCellType = "display" | "input"
 
 export interface CSVCellData {

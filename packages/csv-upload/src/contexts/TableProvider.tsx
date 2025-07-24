@@ -16,7 +16,7 @@ interface TableContextInterface {
   setHeaders: (header: string[]) => void;
   setInputCellCoords:(coords: Coords) => void;
   setHoverCellCoords:(coords: Coords) => void;
-  resetHoverCellCoords: (coords: Coords) => void;
+  resetHoverCellCoords: () => void;
   resetInputCellCoords: () => void; 
 };
 

@@ -35,9 +35,7 @@ function App() {
             {
               (cellData: CSVCellData) =>
                 <CsvUpload.Cell key={cellData.key} {...cellData.props} >
-
-                  {/* <CsvUpload.ErrorMessage styling errorMsg ></CsvUpload.ErrorMessage> */}
-
+                  <CsvUpload.ErrorMessage cellData={cellData}/>
                 </CsvUpload.Cell>
                 // <td key={cellData.key} 
                 //   style={{background: cellData.props.coords.row % 2 === 0 ? "yellow": "white" }}
