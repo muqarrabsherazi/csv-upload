@@ -10,6 +10,7 @@ type ErrorMap = {
 type ErrorContextType = {
   errors: ErrorMap;
   setErrors: (errors: ErrorMap) => void;
+  getError: (coords: Coords) => string | null;
   clearErrors: () => void;
   addError: (coords: Coords, message: string) => void;
   removeError: (coords: Coords) => void
@@ -22,6 +23,7 @@ export const ErrorProvider = ({ children }: { children: ReactNode }) => {
   ``
   const [errors, setErrors] = useState<ErrorMap>({});
 
+  const getError = (coords: Coords) => serializeCoords(coords) in errors ? errors[serializeCoords(coords)] : null
   const clearErrors = () => setErrors({});
   const addError = (coords:Coords, message: string) => {
     const key = serializeCoords(coords);
@@ -42,7 +44,7 @@ export const ErrorProvider = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <ErrorContext.Provider value={{ errors, setErrors, clearErrors, addError, removeError }}>
+    <ErrorContext.Provider value={{ errors, getError, setErrors, clearErrors, addError, removeError }}>
       {children}
     </ErrorContext.Provider>
   );

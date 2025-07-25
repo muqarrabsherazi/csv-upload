@@ -2,6 +2,9 @@ import { createContext, useState, useContext, ReactNode, type FC, useEffect } fr
 import { CSVFieldSchema, CSVPrimitiveType, CSVSchema } from "types";
 import { type Coords } from "types";
 import { validator, checkRequired } from "@validators/validateCell";
+import { serialize } from "v8";
+import serializeCoords from "@utils/serializeCoords";
+import { error } from "console";
 
 interface TableContextInterface {
   schema: CSVSchema, 
@@ -10,7 +13,7 @@ interface TableContextInterface {
   headers: string[];
   hoverCellCoords: Coords | null;
   addRow: (row: string[]) => void,
-  getCell: (coords: Coords) => string, 
+  getCellValue: (coords: Coords) => string, 
   setCell: (coords: Coords, value:string) => void, 
   clearRows: () => void, 
   setHeaders: (header: string[]) => void;
@@ -35,7 +38,7 @@ export const TableProvider: FC<TableProviderProps> = ({ children, schema }) => {
 
   const addRow = (row: string[]) => setRows(prev => [...prev, row]);
   const clearRows = () => setRows([]);
-  const getCell = (coords: Coords) => rows[coords.row][coords.col];
+  const getCellValue = (coords: Coords) => rows[coords.row][coords.col];
   const resetInputCellCoords = () => setInputCellCoords(null);
   const resetHoverCellCoords = () => setHoverCellCoords(null);
 
@@ -64,7 +67,7 @@ export const TableProvider: FC<TableProviderProps> = ({ children, schema }) => {
         setInputCellCoords,
         resetInputCellCoords,
         setHeaders,
-        getCell,
+        getCellValue,
         setCell,
         setHoverCellCoords,
         resetHoverCellCoords

@@ -27,7 +27,7 @@ function App() {
           Add csv
         </CsvUpload.AddCSVButton>
         <CsvUpload.ErrorCount />
-
+        
         <CsvUpload.Table>
         {
           (row: string[], rowIndex: number) =>
