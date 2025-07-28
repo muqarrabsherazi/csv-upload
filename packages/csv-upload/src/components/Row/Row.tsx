@@ -5,17 +5,20 @@ import { useTable } from "@contexts/TableProvider";
 import { useErrors } from "@contexts/ErrorProvider";
 import type { CSVCellData } from "types";
 import Cell from "@components/Cell";
+import { useRow } from "@contexts/RowProvider";
 
 export interface RowProps {
-  rowIndex: number,
-  row: string[]
   children?: (data: CSVCellData, colIndex: number) => React.ReactNode;
+  className?: {
+    root?: string
+  }
 }
 
-const Row: FC<RowProps> = ({ rowIndex, row, children }) => {
+const Row: FC<RowProps> = ({className,  children }) => {
 
   const { inputCellCoords } = useTable();
   const { errors } = useErrors();
+  const {rowIndex, row} = useRow();
 
 
   const data: CSVCellData[] = row.map((value, colIndex) => {
@@ -38,7 +41,7 @@ const Row: FC<RowProps> = ({ rowIndex, row, children }) => {
   
   if (children)
     return (
-      <tr>
+      <tr className={className?.root?? ""}>
         {data.map((cellData, colIndex) => children(cellData, colIndex))}
       </tr>
     )

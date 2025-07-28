@@ -1,36 +1,35 @@
-import { FC, useState, useCallback, useRef, useEffect } from "react"
+import { FC, useState, useEffect } from "react"
 import { useTable } from "@contexts/TableProvider";
-import type { Coords } from "types";
-import { validate } from "@validators/validateCell";
-import { useErrors } from "@contexts/ErrorProvider";
 import useValidate from "@hooks/useValidate";
 import useDebounced from "@hooks/useDebouncedSetCell";
 import { CellProps } from "@components/Cell";
+import { useCell } from "@contexts/CellProvider";
 
 
 export interface InputCellProps extends CellProps {
+  classNames: {
+    root?: string; 
+    rootError?: string;
+    input?: string;
+    inputError?: string;
+  }
+
 }
 
-const InputCell: FC<InputCellProps> = ({ coords, value, errorMsg }) => {
-  const { getCell, setCell, resetInputCellCoords } = useTable();
-
-
+const InputCell: FC<InputCellProps> = ({children, classNames}) => {
+  const {value, coords, errorMsg} = useCell(); 
+  const {setCell, resetInputCellCoords } = useTable();
   const { checkValidationError } = useValidate();
+  const [cellValue, setCellValue] = useState(value);
+
   const { debounced: debouncedSetCell} = useDebounced(() => { 
     setCell(coords, cellValue); 
     checkValidationError(coords, cellValue) 
   });
 
-  const [cellValue, setCellValue] = useState(value);
-
-
-
   useEffect(() => {
     debouncedSetCell()
   }, [cellValue])
-
-
-
 
   const errorStyle = errorMsg == null ? {} : { border: "1px solid red" }
   return (
@@ -41,6 +40,7 @@ const InputCell: FC<InputCellProps> = ({ coords, value, errorMsg }) => {
       maxWidth: "20px",
       ...errorStyle
     }}
+    className = {classNames?.root?? ""  + " " + (errorMsg ? classNames?.rootError?? "" : "")}
     onClick={(e) => e.stopPropagation()}
     
     >
@@ -55,13 +55,16 @@ const InputCell: FC<InputCellProps> = ({ coords, value, errorMsg }) => {
         // outline: "none",             // Optional: prevent outline on focus
         background: "transparent",   // Optional: looks like plain cell
       }}
-        placeholder={getCell(coords)} value={cellValue} onChange={(e) => setCellValue(e.target.value)}
+
+        className = {classNames?.input?? ""  + " " + (errorMsg ? classNames?.inputError?? "" : "")}
+        value={cellValue} onChange={(e) => setCellValue(e.target.value)}
         onKeyDown={(e) => {
           if (e.key != "Enter") return;
           resetInputCellCoords(); 
         }}  
         
       />
+      {children}
     </td>
   )
 }

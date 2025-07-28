@@ -2,14 +2,18 @@ import React from "react";
 import { useErrors } from "@contexts/ErrorProvider"
 
 
-export interface ErrorCountProps {}
+export interface ErrorCountProps {
+  className? : {
+    root?: string
+  }
+}
 
-const ErrorCount: React.FC<ErrorCountProps> = () => {
+const ErrorCount: React.FC<ErrorCountProps> = ({className}) => {
   const { errors } = useErrors();
   const errorCount = Object.keys(errors).length;
 
   return (
-    <div>
+    <div className={className?.root?? ""}>
       {errorCount > 0
         ? `${errorCount} error${errorCount > 1 ? "s" : ""} found`
         : "No errors"}
