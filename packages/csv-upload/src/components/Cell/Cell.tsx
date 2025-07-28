@@ -1,29 +1,12 @@
-import React, { FC, ReactNode } from "react"
-import { useTable } from "@contexts/TableProvider";
-import { CSVCellData } from "types"
-import cellMap from "@utils/cellMap";
+import { FC } from "react";
 import { useCell } from "@contexts/CellProvider";
+import cellMap from "@utils/cellMap";
 
-// export type CellProps = CSVCellData["props"] & {children?: ReactNode}
-export interface CellProps{
-  children: ReactNode
-}
+const Cell: FC = () => {
+  const { coords, value, errorMsg, type } = useCell();
+  const RenderCell = cellMap[type];
 
-
-
-const Cell: FC<CellProps> = ({children}) => {
-  const {type} = useCell(); 
-  const RenderCell = cellMap[type]; 
-  
-                  
-                    
-  return (
-    <RenderCell>
-      {children}
-    </RenderCell>
-  )
-}
+  return <RenderCell coords={coords} value={value} errorMsg={errorMsg} type={type} />;
+};
 
 export default Cell;
-
-

@@ -18,37 +18,37 @@ function App() {
     ]
   };
 
-  return (
+    return (
     <div>
       <h1>CSV Upload Example</h1>
+<<<<<<< HEAD
       {/* <CsvUpload schema={schema} /> */}
       <CsvUpload.Provider schema={schema}>
         <CsvUpload.AddCSVButton>
           Add csv
         </CsvUpload.AddCSVButton>
+=======
+
+      <CsvUpload schema={schema}>
+        <CsvUpload.AddCSVButton>Add CSV</CsvUpload.AddCSVButton>
+>>>>>>> d5a7c30 (used context to refactor the code)
         <CsvUpload.ErrorCount />
-        
+
         <CsvUpload.Table>
-        {
-          (row: string[], rowIndex: number) =>
-            <CsvUpload.Row key={rowIndex} rowIndex={rowIndex} row={row}>
-            {
-              (cellData: CSVCellData) =>
-                <CsvUpload.Cell key={cellData.key} {...cellData.props} >
-                  <CsvUpload.ErrorMessage cellData={cellData}/>
-                </CsvUpload.Cell>
-                // <td key={cellData.key} 
-                //   style={{background: cellData.props.coords.row % 2 === 0 ? "yellow": "white" }}
-                // >{cellData.props.value}</td>
-              // () => <td>hello world</td>
-            }
-            </CsvUpload.Row>
-        }
+          <CsvUpload.Row>
+            <CsvUpload.Cell>
+              <CsvUpload.ErrorMessage />
+            </CsvUpload.Cell>
+          </CsvUpload.Row>
         </CsvUpload.Table>
+<<<<<<< HEAD
       </CsvUpload.Provider>
 
 
 
+=======
+      </CsvUpload>
+>>>>>>> d5a7c30 (used context to refactor the code)
     </div>
   );
 }
