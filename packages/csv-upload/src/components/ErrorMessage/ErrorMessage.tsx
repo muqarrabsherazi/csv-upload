@@ -1,24 +1,26 @@
-import React, { useState, cloneElement, isValidElement } from "react";
-import { useErrors } from "@contexts/ErrorProvider";
-import serializeCoords from "@utils/serializeCoords";
-import { Coords, CSVCellData } from "types";
+import React from "react";
 import { useTable } from "@contexts/TableProvider";
+import { useCell } from "@contexts/CellProvider";
 
 export interface ErrorMessageProps {
-  cellData: CSVCellData;
+  className?: {
+    root?: string
+    messageBox?: string
+  }
 }
 
-const ErrorMessage: React.FC<ErrorMessageProps> = ({ cellData })  => {
+const ErrorMessage: React.FC<ErrorMessageProps> = ({className})  => {
   const { hoverCellCoords } = useTable();
-  const { coords, errorMsg } = cellData.props;
+  const { coords, errorMsg } = useCell();
   
     const isHovered =
     hoverCellCoords &&
     hoverCellCoords.row === coords.row &&
     hoverCellCoords.col === coords.col;
 
+
     return (
-    <div style={{ position: "relative" }}>
+    <div className={className?.root?? "" } style={{ position: "relative" }}>
       {isHovered && errorMsg && (
         <div
           style={{
@@ -31,6 +33,7 @@ const ErrorMessage: React.FC<ErrorMessageProps> = ({ cellData })  => {
             borderRadius: "4px",
             zIndex: "10"
           }}
+          className={className?.messageBox ?? ""}
         >
           {errorMsg}
         </div>

@@ -7,15 +7,19 @@ import { useTable } from "@contexts/TableProvider";
 
 export interface HeaderProps {
   // headers: string[]
+  className?: {
+    root?: string
+    cell?: string
+  }
 }
 
-const Header: FC<HeaderProps> = () => {
+const Header: FC<HeaderProps> = ({className}) => {
   const {headers} = useTable(); 
   return (
-    <tr>
+    <tr className={className?.root?? ""}>
       {
         headers.map((header, headerIndex) => (
-          <th
+          <th className={className?.cell?? ""}
             key={makeHeaderKey(headerIndex)}
             style={{
               border: "1px solid black",

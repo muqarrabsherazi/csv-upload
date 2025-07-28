@@ -7,18 +7,22 @@ import { useCell } from "@contexts/CellProvider";
 // export type CellProps = CSVCellData["props"] & {children?: ReactNode}
 export interface CellProps{
   children: ReactNode
+  classNames?: {
+    root?: string
+    rootError?:string
+  }
 }
 
 
 
-const Cell: FC<CellProps> = ({children}) => {
+const Cell: FC<CellProps> = ({children, classNames = {}}) => {
   const {type} = useCell(); 
   const RenderCell = cellMap[type]; 
   
                   
                     
   return (
-    <RenderCell>
+    <RenderCell classNames={classNames}>
       {children}
     </RenderCell>
   )

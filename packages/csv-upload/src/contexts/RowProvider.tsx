@@ -4,6 +4,7 @@ import { type Coords } from "types";
 interface RowContextInterface {
   cellCoords: Coords[]
   row: string[]
+  rowIndex: number
 };
 
 const RowContext = createContext<RowContextInterface | undefined>(undefined);
@@ -18,7 +19,7 @@ export const RowProvider: FC<RowProviderProps> = ({rowIndex, row, children}) => 
   const cellCoords = row.map((_, colIndex) => ({row: rowIndex, col: colIndex}));
   
   return(
-    <RowContext.Provider value={{cellCoords, row}}>
+    <RowContext.Provider value={{cellCoords, row, rowIndex}}>
       {children}
     </RowContext.Provider>
   )

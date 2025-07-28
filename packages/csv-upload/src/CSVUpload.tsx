@@ -11,7 +11,7 @@ import DisplayCell, { type DisplayCellProps } from "@components/DisplayCell";
 import InputCell, { type InputCellProps } from "@components/InputCell";
 import Header, { type HeaderProps } from "@components/Header";
 import ErrorMessage, { ErrorMessageProps } from "@components/ErrorMessage";
-import RootProvider, {RootProviderProps} from "@components/Provider";
+import RootProvider, {RootProviderProps} from "@components/RootProvider";
 
 
 
