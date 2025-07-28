@@ -1,26 +1,23 @@
-import React, {FC, useState } from "react";
+import React, { FC, ProviderProps, useState } from "react";
 import { CSVSchema } from "types";
-import Table, {type TableProps} from "@components/Table";
+import Table, { type TableProps } from "@components/Table";
 import { TableProvider } from "@contexts/TableProvider";
-import AddCSVButton, {type AddCSVButtonProps} from "@components/AddCSVButton";
-import ErrorCount, {type ErrorCountProps} from "@components/ErrorCount";
+import AddCSVButton, { type AddCSVButtonProps } from "@components/AddCSVButton";
+import ErrorCount, { type ErrorCountProps } from "@components/ErrorCount";
 import { ErrorProvider } from "@contexts/ErrorProvider";
-import Row ,{type RowProps} from "@components/Row";
+import Row, { type RowProps } from "@components/Row";
 import Cell, { type CellProps } from "@components/Cell";
-import DisplayCell, {type DisplayCellProps}  from "@components/DisplayCell";
+import DisplayCell, { type DisplayCellProps } from "@components/DisplayCell";
 import InputCell, { type InputCellProps } from "@components/InputCell";
 import Header, { type HeaderProps } from "@components/Header";
 import ErrorMessage, { ErrorMessageProps } from "@components/ErrorMessage";
+import RootProvider, {RootProviderProps} from "@components/Provider";
 
 
 
-export interface CsvUploadProps {
-  schema: CSVSchema;
-  onDataAccepted?: (rows: Record<string, unknown>[]) => void;
-  children: React.ReactNode
-}
 
-interface CsvUploadComponent extends FC<CsvUploadProps> {
+interface CsvUploadComponent {
+  Provider: FC<RootProviderProps>
   Table: FC<TableProps>
   AddCSVButton: FC<AddCSVButtonProps>
   ErrorCount: FC<ErrorCountProps>
@@ -30,7 +27,7 @@ interface CsvUploadComponent extends FC<CsvUploadProps> {
   Header: FC<HeaderProps>
   DisplayCell: FC<DisplayCellProps>
   InputCell: FC<InputCellProps>
-  
+
 }
 
 /**
@@ -44,28 +41,28 @@ interface CsvUploadComponent extends FC<CsvUploadProps> {
  */
 
 
-const CsvUpload: CsvUploadComponent = ({ children, schema, onDataAccepted}) => {
+const CsvUpload: CsvUploadComponent = {
+  Provider: RootProvider,  
+  Table: Table,
+  AddCSVButton: AddCSVButton,
+  ErrorCount: ErrorCount,
+  ErrorMessage: ErrorMessage,
+  Row: Row,
+  Cell: Cell,
+  DisplayCell: DisplayCell,
+  InputCell: InputCell,
+  Header: Header,
+}
 
-  // TODO: Implement CSV parsing, validation logic, and editable table UI.
 
-  return (
-    <TableProvider schema={schema}>
-      <ErrorProvider>
-        {children}
-      </ErrorProvider>
-    </TableProvider>
-  );
-};
-
-
-CsvUpload.Table = Table 
+CsvUpload.Table = Table
 CsvUpload.AddCSVButton = AddCSVButton
 CsvUpload.ErrorCount = ErrorCount
-CsvUpload.ErrorMessage = ErrorMessage 
+CsvUpload.ErrorMessage = ErrorMessage
 CsvUpload.Row = Row
-CsvUpload.Cell = Cell 
-CsvUpload.DisplayCell = DisplayCell 
-CsvUpload.InputCell = InputCell 
+CsvUpload.Cell = Cell
+CsvUpload.DisplayCell = DisplayCell
+CsvUpload.InputCell = InputCell
 CsvUpload.Header = Header
 
 export default CsvUpload;

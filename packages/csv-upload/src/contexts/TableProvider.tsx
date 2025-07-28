@@ -26,12 +26,13 @@ interface TableContextInterface {
 const TableContext = createContext<TableContextInterface | undefined>(undefined);
 
 interface TableProviderProps {
-  schema: CSVSchema,
-  children: ReactNode, 
+  schema: CSVSchema
+  data?: string[][]
+  children: ReactNode
 }
 
-export const TableProvider: FC<TableProviderProps> = ({ children, schema }) => {
-  const [rows, setRows] = useState<string[][]>([]);
+export const TableProvider: FC<TableProviderProps> = ({ children, schema, data = [] }) => {
+  const [rows, setRows] = useState<string[][]>(data);
   const [inputCellCoords, setInputCellCoords] = useState<Coords | null>(null);
   const [headers, setHeaders] = useState<string[]>([]);
   const [hoverCellCoords, setHoverCellCoords] = useState<Coords | null>(null);
@@ -43,9 +44,6 @@ export const TableProvider: FC<TableProviderProps> = ({ children, schema }) => {
   const resetHoverCellCoords = () => setHoverCellCoords(null);
 
   const setCell = (coords: Coords, value: string) => setRows(prev => {
-    // prev[coords.row][coords.col] = value; 
-    
-    const {type, required} = schema.fields[coords.col]; 
     const newRows = [...prev];
     const newRow = [...newRows[coords.row]];
     newRow[coords.col] = value; 
@@ -59,10 +57,10 @@ export const TableProvider: FC<TableProviderProps> = ({ children, schema }) => {
       value={{ 
         rows, 
         inputCellCoords, 
+        hoverCellCoords,
         headers, 
         schema,
         addRow, 
-         hoverCellCoords,
         clearRows, 
         setInputCellCoords,
         resetInputCellCoords,

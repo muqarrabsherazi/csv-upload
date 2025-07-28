@@ -26,10 +26,10 @@ const Row: FC<RowProps> = ({ rowIndex, row, children }) => {
 
     return {
       props: {
-        coords: coords,
-        value: value,
-        errorMsg: errorMsg,
-        type: type
+        coords,
+        value,
+        errorMsg,
+        type
       },
       key: key,
     }

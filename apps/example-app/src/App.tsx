@@ -22,7 +22,7 @@ function App() {
     <div>
       <h1>CSV Upload Example</h1>
       {/* <CsvUpload schema={schema} /> */}
-      <CsvUpload schema={schema}>
+      <CsvUpload.Provider schema={schema}>
         <CsvUpload.AddCSVButton>
           Add csv
         </CsvUpload.AddCSVButton>
@@ -45,7 +45,7 @@ function App() {
             </CsvUpload.Row>
         }
         </CsvUpload.Table>
-      </CsvUpload>
+      </CsvUpload.Provider>
 
 
 

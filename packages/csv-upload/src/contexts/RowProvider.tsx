@@ -3,21 +3,22 @@ import { type Coords } from "types";
 
 interface RowContextInterface {
   cellCoords: Coords[]
+  row: string[]
 };
 
 const RowContext = createContext<RowContextInterface | undefined>(undefined);
 
 interface RowProviderProps {
   rowIndex: number
-  rowLength: number
+  row: string[]
   children: ReactNode
 }
 
-export const RowProvider: FC<RowProviderProps> = ({rowIndex, rowLength, children}) => {
-  const cellCoords = Array.from({length: rowLength}).map((_, colIndex) => ({row: rowIndex, col: colIndex}));
+export const RowProvider: FC<RowProviderProps> = ({rowIndex, row, children}) => {
+  const cellCoords = row.map((_, colIndex) => ({row: rowIndex, col: colIndex}));
   
   return(
-    <RowContext.Provider value={{cellCoords}}>
+    <RowContext.Provider value={{cellCoords, row}}>
       {children}
     </RowContext.Provider>
   )
