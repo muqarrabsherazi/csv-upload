@@ -4,7 +4,9 @@ import { CellProvider } from "@contexts/CellProvider";
 import Cell from "@components/Cell";
 import serializeCoords from "@utils/serializeCoords";
 
-const Row: FC = () => {
+export interface RowProps{}
+
+const Row: FC<RowProps> = () => {
   const { cellCoords } = useRow();
 
   return (

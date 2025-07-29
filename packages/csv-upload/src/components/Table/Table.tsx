@@ -3,14 +3,16 @@ import { useTable } from "@contexts/TableProvider";
 import Row from "@components/Row";
 import { RowProvider } from "@contexts/RowProvider";
 
-const Table: FC = () => {
+export interface TableProps{}
+
+const Table: FC <TableProps> = () => {
   const { rows } = useTable(); 
 
   return (
     <table>
       <tbody>
         {rows.map((row, rowIndex) => (
-          <RowProvider key={rowIndex} rowIndex={rowIndex} rowLength={row.length}>
+          <RowProvider key={rowIndex} rowIndex={rowIndex} row={row}>
             <Row />
           </RowProvider>
         ))}
