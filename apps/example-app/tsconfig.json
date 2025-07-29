@@ -3,11 +3,9 @@
   "compilerOptions": {
     "outDir": "dist",
     "types": ["react", "react-dom"],
-    "baseUrl": ".",
-    "paths": {
-      "csv-upload": ["../../packages/csv-upload/src"],
-      "types": ["../../packages/types/src"]
-    }
   },
-  "include": ["src"]
-} 
+  "include": ["src"],
+  "references": [
+    { "path": "../../packages/csv-upload" }
+  ]
+  }

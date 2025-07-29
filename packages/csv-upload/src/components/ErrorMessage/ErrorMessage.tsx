@@ -3,13 +3,13 @@ import { useTable } from "@contexts/TableProvider";
 import { useCell } from "@contexts/CellProvider";
 
 export interface ErrorMessageProps {
-  className?: {
+  classNames?: {
     root?: string
     messageBox?: string
   }
 }
 
-const ErrorMessage: React.FC<ErrorMessageProps> = ({className})  => {
+const ErrorMessage: React.FC<ErrorMessageProps> = ({classNames})  => {
   const { hoverCellCoords } = useTable();
   const { coords, errorMsg } = useCell();
   
@@ -20,7 +20,7 @@ const ErrorMessage: React.FC<ErrorMessageProps> = ({className})  => {
 
 
     return (
-    <div className={className?.root?? "" } style={{ position: "relative" }}>
+    <div className={classNames?.root?? "" } style={{ position: "relative" }}>
       {isHovered && errorMsg && (
         <div
           style={{
@@ -33,7 +33,7 @@ const ErrorMessage: React.FC<ErrorMessageProps> = ({className})  => {
             borderRadius: "4px",
             zIndex: "10"
           }}
-          className={className?.messageBox ?? ""}
+          className={classNames?.messageBox ?? ""}
         >
           {errorMsg}
         </div>

@@ -1,10 +1,9 @@
 import { FC } from "react";
 import { ReactNode } from "react";
 import { useTable } from "@contexts/TableProvider";
-import useEscapeKey from "@hooks/useEscapeKey";
-import { useErrors } from "@contexts/ErrorProvider";
-import useKeyPressOutside from "@hooks/useKeyPressOutside";
 import { RowProvider } from "@contexts/RowProvider";
+import useEscapeKey from "@hooks/useEscapeKey";
+import useKeyPressOutside from "@hooks/useKeyPressOutside";
 
 export interface TableProps {
   renderHeaders: ReactNode
@@ -17,16 +16,21 @@ export interface TableProps {
 }
 
 const Table: FC <TableProps> = ({ renderHeaders, children, classNames}) => {
-  const { rows } = useTable(); 
+  const { rows, resetInputCellCoords} = useTable(); 
+  
+  useEscapeKey({onEscapePress: resetInputCellCoords})
+  useKeyPressOutside({onMouseDown: resetInputCellCoords})
 
   return (
     <table style={{
       width:"100%"
-    }}>
-      <thead>
+    }}
+      className={classNames?.root?? ""}
+    >
+      <thead className={classNames?.head?? ""}>
         {renderHeaders}
       </thead>
-      <tbody>
+      <tbody className={classNames?.body?? ""}>
         {rows.map((row, rowIndex) => (
           <RowProvider key={rowIndex} rowIndex={rowIndex} row={row}>
             {children}

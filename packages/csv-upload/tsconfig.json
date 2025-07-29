@@ -7,6 +7,7 @@
     "declarationMap": true,
     "types": ["node", "react", "react-dom"], 
     "baseUrl": ".",
+    "composite": true,
     "paths": {
       "types": ["../types/src"], 
       "@components/*": ["./src/components/*"],
