@@ -1,12 +1,11 @@
-import React, { FC, ReactNode } from "react"
-import { useTable } from "@contexts/TableProvider";
-import { CSVCellData } from "types"
-import cellMap from "@utils/cellMap";
+import { ReactNode } from "react";
+import { FC } from "react";
 import { useCell } from "@contexts/CellProvider";
+import cellMap from "@utils/cellMap";
 
 // export type CellProps = CSVCellData["props"] & {children?: ReactNode}
 export interface CellProps{
-  children: ReactNode
+  children?: ReactNode
   classNames?: {
     root?: string
     rootError?:string
@@ -14,13 +13,10 @@ export interface CellProps{
 }
 
 
-
 const Cell: FC<CellProps> = ({children, classNames = {}}) => {
   const {type} = useCell(); 
   const RenderCell = cellMap[type]; 
-  
-                  
-                    
+                 
   return (
     <RenderCell classNames={classNames}>
       {children}
@@ -29,5 +25,3 @@ const Cell: FC<CellProps> = ({children, classNames = {}}) => {
 }
 
 export default Cell;
-
-

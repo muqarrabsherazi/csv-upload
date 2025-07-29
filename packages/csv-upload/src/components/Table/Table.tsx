@@ -1,14 +1,14 @@
-import { FC, useEffect } from "react"
-import Row from "@components/Row";
-import Header from "@components/Header";
+import { FC } from "react";
+import { ReactNode } from "react";
 import { useTable } from "@contexts/TableProvider";
 import useEscapeKey from "@hooks/useEscapeKey";
 import { useErrors } from "@contexts/ErrorProvider";
 import useKeyPressOutside from "@hooks/useKeyPressOutside";
+import { RowProvider } from "@contexts/RowProvider";
 
 export interface TableProps {
-  renderHeaders?: (header: string, colIndex: number) => React.ReactNode
-  children?: (row: string[], rowIndex: number) => React.ReactNode;
+  renderHeaders: ReactNode
+  children: ReactNode;
   classNames?: {
     root?: string 
     head?: string
@@ -16,43 +16,25 @@ export interface TableProps {
   }
 }
 
-const Table: FC<TableProps> = ({ renderHeaders, children, classNames}) => {
-  const { schema, rows, headers, resetInputCellCoords } = useTable();
-  const { errors } = useErrors()
-  useEscapeKey({ onEscapePress: resetInputCellCoords });
-  useKeyPressOutside({ onMouseDown: resetInputCellCoords })
-
-
-  useEffect(() => {
-    console.log(errors);
-  }, [errors])
-
-
-  // useEffect(() => {
-  //   console.log(rows);
-  // }, [rows])
-
-  // if (children)
-  //   return children(rows as string[][]);
-
-
+const Table: FC <TableProps> = ({ renderHeaders, children, classNames}) => {
+  const { rows } = useTable(); 
 
   return (
-    <table style={{ borderCollapse: "collapse", width: "100%" }} 
-      className={classNames?.root?? ""}
-    
-    >
-      <thead className={classNames?.head?? ""}>
-        {renderHeaders ? headers.map(renderHeaders) : <Header />}
+    <table style={{
+      width:"100%"
+    }}>
+      <thead>
+        {renderHeaders}
       </thead>
-      <tbody className={classNames?.body?? ""}>
-        {children ? rows.map(children) :
-          rows.map((row, rowIndex) => 
-            <Row key={rowIndex} rowIndex={rowIndex} row={row} />
-          ))}
+      <tbody>
+        {rows.map((row, rowIndex) => (
+          <RowProvider key={rowIndex} rowIndex={rowIndex} row={row}>
+            {children}
+          </RowProvider>
+        ))}
       </tbody>
     </table>
-  )
-}
+  );
+};
 
 export default Table;

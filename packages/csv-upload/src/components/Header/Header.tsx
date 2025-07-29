@@ -1,4 +1,4 @@
-import { FC } from "react"
+  import { FC } from "react"
 import { CSVFieldSchema } from "types";
 import makeHeaderKey from "@utils/makeHeaderKey";
 import { useTable } from "@contexts/TableProvider";

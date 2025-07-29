@@ -1,12 +1,12 @@
-import React, { FC, ProviderProps, useState } from "react";
+import React, { FC } from "react";
 import { CSVSchema } from "types";
+
+// Components
 import Table, { type TableProps } from "@components/Table";
-import { TableProvider } from "@contexts/TableProvider";
 import AddCSVButton, { type AddCSVButtonProps } from "@components/AddCSVButton";
 import ErrorCount, { type ErrorCountProps } from "@components/ErrorCount";
-import { ErrorProvider } from "@contexts/ErrorProvider";
 import Row, { type RowProps } from "@components/Row";
-import Cell, { type CellProps } from "@components/Cell";
+import Cell, {type CellProps} from "@components/Cell";
 import DisplayCell, { type DisplayCellProps } from "@components/DisplayCell";
 import InputCell, { type InputCellProps } from "@components/InputCell";
 import Header, { type HeaderProps } from "@components/Header";
@@ -14,6 +14,11 @@ import ErrorMessage, { ErrorMessageProps } from "@components/ErrorMessage";
 import RootProvider, {RootProviderProps} from "@components/RootProvider";
 
 
+// Contexts
+import { TableProvider } from "@contexts/TableProvider";
+import { ErrorProvider } from "@contexts/ErrorProvider";
+import { RowProvider } from "@contexts/RowProvider";
+import { CellProvider } from "@contexts/CellProvider";
 
 
 interface CsvUploadComponent {

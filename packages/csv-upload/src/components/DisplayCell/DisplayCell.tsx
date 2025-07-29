@@ -42,7 +42,7 @@ const DisplayCell: FC<DisplayCellProps> = ({children, classNames}) => {
         position: "relative",
 
       }}
-      className={classNames?.root ?? "" + errorClassName}
+      
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}

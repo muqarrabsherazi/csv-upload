@@ -29,12 +29,6 @@ const AddCSVButton: FC<AddCSVButtonProps> = ({ children, classNames}) => {
 
   return (
     <div className={classNames?.root ?? ""}>
-      <button type="button" 
-        className={classNames?.button ?? ""} 
-        onClick={handleClick}
-      >
-        {children}
-      </button>
       <input
         type="file"
         accept=".csv"
