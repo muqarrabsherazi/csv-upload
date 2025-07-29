@@ -6,6 +6,6 @@
   },
   "include": ["src"],
   "references": [
-    "../../packa"
+    { "path": "../../packages/csv-upload" }
   ]
-} 
+  }

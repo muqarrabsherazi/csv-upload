@@ -24,7 +24,7 @@ function App() {
     <div>
       <h1>CSV Upload Example</h1>
       {/* <CsvUpload schema={schema} /> */}
-      <CsvUpload.Provider> 
+      <CsvUpload.Provider schema={schema}> 
         <CsvUpload.AddCSVButton>
           Add csv
         </CsvUpload.AddCSVButton >
@@ -37,9 +37,6 @@ function App() {
             </CsvUpload.Cell>
           </CsvUpload.Row>
         </CsvUpload.Table>
-
-
-        <Table></Table>
 
       </CsvUpload.Provider>
 
