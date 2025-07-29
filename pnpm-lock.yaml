@@ -72,6 +72,9 @@ importers:
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
+      dsl-validator:
+        specifier: workspace:^
+        version: link:../dsl-validator
       papaparse:
         specifier: ^5.5.3
         version: 5.5.3
@@ -100,6 +103,12 @@ importers:
       typescript:
         specifier: ^5.4.0
         version: 5.8.3
+
+  packages/dsl-validator:
+    dependencies:
+      date-fns:
+        specifier: ^4.1.0
+        version: 4.1.0
 
   packages/types:
     devDependencies:
