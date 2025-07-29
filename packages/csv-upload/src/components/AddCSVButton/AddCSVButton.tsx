@@ -29,14 +29,23 @@ const AddCSVButton: FC<AddCSVButtonProps> = ({ children, classNames}) => {
 
   return (
     <div className={classNames?.root ?? ""}>
+      <button
+        type="button"
+        onClick={() => fileInputRef.current?.click()}
+      >
+        Add CSV
+      </button>
+
       <input
         type="file"
         accept=".csv"
         ref={fileInputRef}
         onChange={handleChange}
         className={classNames?.input ?? ""}
+        style={{ display: "none" }} // <-- hides the file input
       />
     </div>
+
   );
 };
 
