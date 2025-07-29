@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "date-fns": "^4.1.0",
+    "dsl-validator": "workspace:^",
     "papaparse": "^5.5.3",
     "react": "^18.2.0",
     "types": "workspace:*"
