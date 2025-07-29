@@ -6,11 +6,13 @@ import Table, { type TableProps } from "@components/Table";
 import AddCSVButton, { type AddCSVButtonProps } from "@components/AddCSVButton";
 import ErrorCount, { type ErrorCountProps } from "@components/ErrorCount";
 import Row, { type RowProps } from "@components/Row";
-import Cell from "@components/Cell";
+import Cell, {type CellProps} from "@components/Cell";
 import DisplayCell, { type DisplayCellProps } from "@components/DisplayCell";
 import InputCell, { type InputCellProps } from "@components/InputCell";
 import Header, { type HeaderProps } from "@components/Header";
-import ErrorMessage, { type ErrorMessageProps } from "@components/ErrorMessage";
+import ErrorMessage, { ErrorMessageProps } from "@components/ErrorMessage";
+import RootProvider, {RootProviderProps} from "@components/RootProvider";
+
 
 // Contexts
 import { TableProvider } from "@contexts/TableProvider";

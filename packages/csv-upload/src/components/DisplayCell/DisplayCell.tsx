@@ -11,7 +11,7 @@ import { useCell } from "@contexts/CellProvider";
 export interface DisplayCellProps extends CellProps{}
 
 
-const DisplayCell: FC<DisplayCellProps> = ({children}) => {
+const DisplayCell: FC<DisplayCellProps> = ({children, classNames}) => {
   const {value, coords, errorMsg} = useCell(); 
   const { setInputCellCoords, setHoverCellCoords, resetHoverCellCoords } = useTable();
   
@@ -29,6 +29,8 @@ const DisplayCell: FC<DisplayCellProps> = ({children}) => {
     e.stopPropagation();
     resetHoverCellCoords(); 
   };
+
+  const errorClassName = (errorMsg ? classNames?.rootError ?? "" : "")
   
  return (
     <td
@@ -40,6 +42,7 @@ const DisplayCell: FC<DisplayCellProps> = ({children}) => {
         position: "relative",
 
       }}
+      
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}

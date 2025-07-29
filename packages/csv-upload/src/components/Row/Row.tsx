@@ -1,21 +1,26 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { useRow } from "@contexts/RowProvider";
 import { CellProvider } from "@contexts/CellProvider";
 import Cell from "@components/Cell";
 import serializeCoords from "@utils/serializeCoords";
 
-export interface RowProps{}
+export interface RowProps{
+  children: ReactNode
+  classNames?: {
+    root?: string
+  }
+}
 
-const Row: FC<RowProps> = () => {
+const Row: FC<RowProps> = ({children, classNames}) => {
   const { cellCoords } = useRow();
 
   return (
-    <tr>
+    <tr className={classNames?.root?? ""}>
       {cellCoords.map((coords) => {
         const key = serializeCoords(coords);
         return (
           <CellProvider key={key} coords={coords}>
-            <Cell />
+            {children}
           </CellProvider>
         );
       })}
