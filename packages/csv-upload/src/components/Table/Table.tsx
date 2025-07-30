@@ -15,9 +15,13 @@ export interface TableProps {
 }
 
 const Table: FC <TableProps> = ({ headers, children, classNames}) => {
-  const { rows, resetInputCellCoords} = useTable(); 
+  const { rows, inputCellRef, resetInputCellCoords} = useTable(); 
 
-  useKeyPressOutside({onMouseDown: resetInputCellCoords})
+  useKeyPressOutside({onMouseDown: () => {
+    resetInputCellCoords(); 
+    const input = inputCellRef.current?.querySelector("input");
+    input?.blur();
+  }})
 
   return (
     <table style={{

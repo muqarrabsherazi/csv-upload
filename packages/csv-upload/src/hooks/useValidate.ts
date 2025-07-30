@@ -8,13 +8,13 @@ const useValidate = (): {checkValidationError: (coords: CSVCellCoords, value: st
   const {schema} = useTable();
   
 
-  const checkValidationError = (coords: CSVCellCoords, value: string,) => {
+  const checkValidationError = (coords: CSVCellCoords, value: string) => {
     const field = schema.fields[coords.col];
     const errorMsg = validate(field, value)
     if (errorMsg == null)
-      removeError(coords);
+      removeError(coords, "frontend");
     else
-      addError(coords, field.errorMsg || errorMsg);
+      addError(coords, field.errorMsg || errorMsg, "frontend");
   }
   return {checkValidationError}
 }

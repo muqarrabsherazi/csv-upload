@@ -24,7 +24,7 @@ export const CellProvider: FC<CellProviderProps> = ({coords, children}) => {
   const {getError} = useErrors()
 
   const value = useMemo(() => getCellValue(coords), [coords]); 
-  const errorMsg = useMemo(() => getError(coords), [coords]); 
+  const errorMsg = useMemo(() => getError(coords)?.msg ?? null, [coords]); 
   const type = coordsAreEqual(inputCellCoords, coords) ? "input" : "display"  
   const shouldDisplayError =  errorMsg != null && 
         (coordsAreEqual(hoverCellCoords, coords) || coordsAreEqual(inputCellCoords, coords))

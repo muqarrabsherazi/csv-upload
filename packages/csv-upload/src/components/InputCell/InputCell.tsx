@@ -1,9 +1,10 @@
-import { FC, useState, useEffect, RefObject } from "react"
+import { FC, useState, useEffect, RefObject, useRef } from "react"
 import useValidate from "@hooks/useValidate";
 import useDebounced from "@hooks/useDebouncedSetCell";
 import { CellProps } from "@components/Cell";
 import useCell from "@hooks/useCell";
 import useTable from "@hooks/useTable";
+import useErrors from "@hooks/useErrors";
 
 
 export interface InputCellProps extends CellProps {
@@ -19,6 +20,8 @@ const InputCell: FC<InputCellProps> = ({ children, classNames }) => {
   const { value, coords, errorMsg } = useCell();
   const { inputCellRef, setCell, resetInputCellCoords } = useTable();
   const { checkValidationError } = useValidate();
+  const {removeError} = useErrors()
+  const initialValue = useRef<string>(value);
   const [cellValue, setCellValue] = useState(value);
 
   const { debounced: debouncedSetCell } = useDebounced(() => {
@@ -63,7 +66,11 @@ const InputCell: FC<InputCellProps> = ({ children, classNames }) => {
             checkValidationError(coords, cellValue);
             resetInputCellCoords();
           }}
-          onBlur={() => resetInputCellCoords()}
+          onBlur={() => {
+            resetInputCellCoords();
+            if (cellValue != initialValue.current)
+              removeError(coords, "backend")
+          }}
         
 
         />

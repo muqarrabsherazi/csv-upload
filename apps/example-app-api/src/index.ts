@@ -11,7 +11,8 @@ app.use(express.json());
 const backendErrors: CSVError[]  = [
   {
     coords: {row: 0, col: 0},
-    msg: "hi from backend"
+    msg: "hi from backend", 
+    type: "backend"
   }
 ]
 
