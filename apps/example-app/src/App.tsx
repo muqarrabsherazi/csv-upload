@@ -18,8 +18,6 @@ function App() {
     ]
   };
 
-  const {Table} = CsvUpload;
-
     return (
     <div>
       <h1>CSV Upload Example</h1>
@@ -29,6 +27,9 @@ function App() {
           Add csv
         </CsvUpload.AddCSVButton >
         <CsvUpload.ErrorCount />
+        <CsvUpload.JumpToError>
+          Show Error
+        </CsvUpload.JumpToError>
 
         <CsvUpload.Table renderHeaders={<CsvUpload.Header/>}>
           <CsvUpload.Row >

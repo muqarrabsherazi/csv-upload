@@ -1,5 +1,4 @@
 import React, { FC, ComponentType } from "react";
-import { CSVSchema } from "types";
 
 // Components
 import Table, { type TableProps } from "@components/Table";
@@ -12,14 +11,16 @@ import InputCell, { type InputCellProps } from "@components/InputCell";
 import Header, { type HeaderProps } from "@components/Header";
 import ErrorMessage, { ErrorMessageProps } from "@components/ErrorMessage";
 import RootProvider, {RootProviderProps} from "@components/RootProvider";
+import JumpToFirstError, { JumpToFirstErrorProps } from "@components/JumpToError";
 
 
 export interface CsvUploadComponent {
-  Provider: ComponentType<RootProviderProps> 
+  Provider: FC<RootProviderProps> 
   Table: FC<TableProps>
   AddCSVButton: FC<AddCSVButtonProps>
   ErrorCount: FC<ErrorCountProps>
   ErrorMessage: FC<ErrorMessageProps>
+  JumpToError: FC<JumpToFirstErrorProps>
   Row: FC<RowProps>
   Cell: FC<CellProps>
   Header: FC<HeaderProps>
@@ -45,6 +46,7 @@ const CsvUpload: CsvUploadComponent = {
   AddCSVButton: AddCSVButton,
   ErrorCount: ErrorCount,
   ErrorMessage: ErrorMessage,
+  JumpToError: JumpToFirstError, 
   Row: Row,
   Cell: Cell,
   DisplayCell: DisplayCell,

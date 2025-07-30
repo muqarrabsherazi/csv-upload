@@ -3,7 +3,7 @@ import { CSVCellType, type Coords } from "types";
 import { useTable } from "./TableProvider";
 import { useErrors } from "./ErrorProvider";
 import coordsAreEqual from "@utils/isInputCell";
-import serializeCoords from "@utils/serializeCoords";
+import { RefObject } from "react";
 
 interface CellContextInterface {
   value: string, 
@@ -34,7 +34,7 @@ export const CellProvider: FC<CellProviderProps> = ({coords, children}) => {
       value, 
       errorMsg, 
       type,
-      coords
+      coords, 
     }}>
       {children}
     </CellContext.Provider>

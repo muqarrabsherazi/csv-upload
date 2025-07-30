@@ -11,7 +11,7 @@ export interface RootProviderProps {
   children: React.ReactNode
 }
 
-const RootProvider = ({ children, schema, onDataAccepted, data = []}: RootProviderProps) => {
+const RootProvider: FC<RootProviderProps> = ({ children, schema, onDataAccepted, data = []}) => {
 
   return (
     <TableProvider schema={schema} data={data}>
