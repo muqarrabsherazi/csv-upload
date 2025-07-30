@@ -7,14 +7,14 @@ import { CSVSchema } from "types";
 export interface RootProviderProps {
   schema: CSVSchema;
   data?: string[][]
-  onDataAccepted?: (rows: Record<string, unknown>[]) => void;
+  onUploadClick?: (rows: string[][]) => void;
   children: React.ReactNode
 }
 
-const RootProvider: FC<RootProviderProps> = ({ children, schema, onDataAccepted, data = []}) => {
+const RootProvider: FC<RootProviderProps> = ({ children, schema, onUploadClick, data = []}) => {
 
   return (
-    <TableProvider schema={schema} data={data}>
+    <TableProvider schema={schema} data={data} onUploadClick={onUploadClick} >
       <ErrorProvider>
         {children}
       </ErrorProvider>

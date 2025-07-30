@@ -18,17 +18,19 @@ interface TableContextInterface {
   setHoverCellCoords:(coords: Coords) => void;
   resetHoverCellCoords: () => void;
   resetInputCellCoords: () => void; 
+  onUploadClick: (rows: string[][]) => void
 };
 
 const TableContext = createContext<TableContextInterface | undefined>(undefined);
 
 interface TableProviderProps {
   schema: CSVSchema
+  onUploadClick: (rows: string[][]) => void
   data?: string[][]
   children: ReactNode
 }
 
-export const TableProvider: FC<TableProviderProps> = ({ children, schema, data = [] }) => {
+export const TableProvider: FC<TableProviderProps> = ({ children, schema, onUploadClick, data = [] }) => {
   const [rows, setRows] = useState<string[][]>(data);
   const [inputCellCoords, setInputCellCoords] = useState<Coords | null>(null);
   const [headers, setHeaders] = useState<string[]>([]);
@@ -67,7 +69,8 @@ export const TableProvider: FC<TableProviderProps> = ({ children, schema, data =
         getCellValue,
         setCell,
         setHoverCellCoords,
-        resetHoverCellCoords
+        resetHoverCellCoords,
+        onUploadClick, 
 
       }}>
       {children}
