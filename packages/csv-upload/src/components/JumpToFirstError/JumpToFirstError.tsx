@@ -1,7 +1,7 @@
 import React, { useState,  useEffect, useMemo, ReactNode } from "react";
 import useErrors  from "@hooks/useErrors"
-import { useTable } from "@contexts/TableProvider";
 import deserializeCoords from "@utils/deserializeCoords";
+import useTable from "@hooks/useTable";
 
 
 export interface JumpToFirstErrorProps {

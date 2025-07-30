@@ -1,9 +1,9 @@
 import { FC, useState, useEffect, RefObject } from "react"
-import { useTable } from "@contexts/TableProvider";
 import useValidate from "@hooks/useValidate";
 import useDebounced from "@hooks/useDebouncedSetCell";
 import { CellProps } from "@components/Cell";
 import useCell from "@hooks/useCell";
+import useTable from "@hooks/useTable";
 
 
 export interface InputCellProps extends CellProps {

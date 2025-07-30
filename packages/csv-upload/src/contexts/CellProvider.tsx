@@ -1,9 +1,8 @@
 import { createContext, useState, useContext, ReactNode, type FC, useEffect, useMemo } from "react";
 import { CSVCellType, type Coords } from "types";
-import { useTable } from "./TableProvider";
 import  useErrors  from "@hooks/useErrors";
 import coordsAreEqual from "@utils/isInputCell";
-import { RefObject } from "react";
+import useTable from "@hooks/useTable";
 
 export interface CellContextInterface {
   value: string, 
