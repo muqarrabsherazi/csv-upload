@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, ComponentType } from "react";
 import { CSVSchema } from "types";
 
 // Components
@@ -14,15 +14,8 @@ import ErrorMessage, { ErrorMessageProps } from "@components/ErrorMessage";
 import RootProvider, {RootProviderProps} from "@components/RootProvider";
 
 
-// Contexts
-import { TableProvider } from "@contexts/TableProvider";
-import { ErrorProvider } from "@contexts/ErrorProvider";
-import { RowProvider } from "@contexts/RowProvider";
-import { CellProvider } from "@contexts/CellProvider";
-
-
-interface CsvUploadComponent {
-  Provider: FC<RootProviderProps>
+export interface CsvUploadComponent {
+  Provider: ComponentType<RootProviderProps> 
   Table: FC<TableProps>
   AddCSVButton: FC<AddCSVButtonProps>
   ErrorCount: FC<ErrorCountProps>
@@ -58,16 +51,5 @@ const CsvUpload: CsvUploadComponent = {
   InputCell: InputCell,
   Header: Header,
 }
-
-
-CsvUpload.Table = Table
-CsvUpload.AddCSVButton = AddCSVButton
-CsvUpload.ErrorCount = ErrorCount
-CsvUpload.ErrorMessage = ErrorMessage
-CsvUpload.Row = Row
-CsvUpload.Cell = Cell
-CsvUpload.DisplayCell = DisplayCell
-CsvUpload.InputCell = InputCell
-CsvUpload.Header = Header
 
 export default CsvUpload;
