@@ -1,6 +1,5 @@
 
-import { useEffect, useRef } from "react";
-import { Coords, CSVFieldSchema } from "types";
+import { useRef } from "react";
 
 const useDebounced = (ftn: () => void): {debounced: ()=> void} => {
 

@@ -1,12 +1,11 @@
   import { FC } from "react"
 import { CSVFieldSchema } from "types";
 import makeHeaderKey from "@utils/makeHeaderKey";
-import { useTable } from "@contexts/TableProvider";
+import useTable from "@hooks/useTable";
 
 
 
 export interface HeaderProps {
-  // headers: string[]
   className?: {
     root?: string
     cell?: string

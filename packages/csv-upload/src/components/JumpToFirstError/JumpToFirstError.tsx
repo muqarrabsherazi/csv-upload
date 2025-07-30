@@ -1,17 +1,17 @@
 import React, { useState,  useEffect, useMemo, ReactNode } from "react";
-import { useErrors } from "@contexts/ErrorProvider"
-import { useTable } from "@contexts/TableProvider";
+import useErrors  from "@hooks/useErrors"
 import deserializeCoords from "@utils/deserializeCoords";
+import useTable from "@hooks/useTable";
 
 
 export interface JumpToFirstErrorProps {
-  className? : {
-    root?: string
+  classNames? : {
+    button?: string
   }
   children: ReactNode
 }
 
-const JumpToFirstError: React.FC<JumpToFirstErrorProps> = ({className, children}) => {
+const JumpToFirstError: React.FC<JumpToFirstErrorProps> = ({classNames, children}) => {
   const { errors } = useErrors();
   const {inputCellCoords, inputCellRef, setInputCellCoords} = useTable();
   const [scroll, setScoll] = useState<boolean>(false)
@@ -27,14 +27,13 @@ const JumpToFirstError: React.FC<JumpToFirstErrorProps> = ({className, children}
   }
 
   useEffect(() => {
-    if (!scroll || inputCellCoords == null) 
-      
+    if (!scroll || inputCellCoords == null) return
     inputCellRef.current?.scrollIntoView({behavior: "smooth", block: "center"});
     setScoll(false);
   }, [inputCellCoords, scroll])
 
   return (
-    <button onClick={onClick}>
+    <button className={classNames?.button?? "" } onClick={onClick} disabled={errorCells.length == 0}>
       {children} 
     </button>
   );

@@ -1,13 +1,13 @@
 import { createContext, useState, useContext, ReactNode, type FC, useEffect } from "react";
 import { type Coords } from "types";
 
-interface RowContextInterface {
+export interface RowContextInterface {
   cellCoords: Coords[]
   row: string[]
   rowIndex: number
 };
 
-const RowContext = createContext<RowContextInterface | undefined>(undefined);
+export const RowContext = createContext<RowContextInterface | undefined>(undefined);
 
 interface RowProviderProps {
   rowIndex: number
@@ -27,10 +27,3 @@ export const RowProvider: FC<RowProviderProps> = ({rowIndex, row, children}) => 
 };
 
 
-export const useRow = () => {
-  const context = useContext(RowContext);
-  if (!context) {
-    throw new Error("useTable must be used within a RowsProvider");
-  }
-  return context;
-};

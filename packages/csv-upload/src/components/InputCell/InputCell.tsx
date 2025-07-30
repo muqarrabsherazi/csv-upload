@@ -1,9 +1,9 @@
 import { FC, useState, useEffect, RefObject } from "react"
-import { useTable } from "@contexts/TableProvider";
 import useValidate from "@hooks/useValidate";
 import useDebounced from "@hooks/useDebouncedSetCell";
 import { CellProps } from "@components/Cell";
-import { useCell } from "@contexts/CellProvider";
+import useCell from "@hooks/useCell";
+import useTable from "@hooks/useTable";
 
 
 export interface InputCellProps extends CellProps {
@@ -52,8 +52,6 @@ const InputCell: FC<InputCellProps> = ({ children, classNames }) => {
           font: "inherit",              // Match surrounding text
           padding: 0,                   // Optional: remove default input padding
           margin: 0,                    // Optional: remove default input margin
-          // border: "none",              // Optional: remove input border
-          // outline: "none",             // Optional: prevent outline on focus
           background: "transparent",   // Optional: looks like plain cell
         }}
 
@@ -63,6 +61,8 @@ const InputCell: FC<InputCellProps> = ({ children, classNames }) => {
             if (e.key != "Enter") return;
             resetInputCellCoords();
           }}
+          onBlur={() => resetInputCellCoords()}
+        
 
         />
         {children}

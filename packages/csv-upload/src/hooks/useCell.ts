@@ -1,13 +1,11 @@
-
 import { useContext } from "react";
-import { RowContext } from "@contexts/RowProvider";
+import { CellContext } from "@contexts/CellProvider";
 
-const useRow = () => {
-  const context = useContext(RowContext);
+const useCell = () => {
+  const context = useContext(CellContext);
   if (!context) {
     throw new Error("useTable must be used within a RowsProvider");
   }
   return context;
 };
-
-export default useRow; 
+export default useCell; 

@@ -1,11 +1,7 @@
 import { FC } from "react"
-import { useTable } from "@contexts/TableProvider";
-import { CSVCellData } from "types"
+import useTable from "@hooks/useTable";
 import { CellProps } from "@components/Cell";
-import  ErrorMessage  from "@components/ErrorMessage"
-import serializeCoords from "@utils/serializeCoords";
-import { useErrors } from "@contexts/ErrorProvider";
-import { useCell } from "@contexts/CellProvider";
+import useCell from "@hooks/useCell";
 
 
 export interface DisplayCellProps extends CellProps{}
@@ -41,11 +37,11 @@ const DisplayCell: FC<DisplayCellProps> = ({children, classNames}) => {
         maxWidth: "20px",
         position: "relative",
 
-      }}
-      
+      }} 
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      className={classNames?.root??"" + errorClassName}
 
     >
       {value}

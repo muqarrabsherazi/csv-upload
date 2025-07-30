@@ -1,43 +1,32 @@
 import React from "react";
-import { useTable } from "@contexts/TableProvider";
-import { useCell } from "@contexts/CellProvider";
+import useCell from "@hooks/useCell";
+
 
 export interface ErrorMessageProps {
   classNames?: {
     root?: string
-    messageBox?: string
   }
 }
 
-const ErrorMessage: React.FC<ErrorMessageProps> = ({classNames})  => {
-  const { hoverCellCoords } = useTable();
-  const { coords, errorMsg } = useCell();
-  
-    const isHovered =
-    hoverCellCoords &&
-    hoverCellCoords.row === coords.row &&
-    hoverCellCoords.col === coords.col;
+const ErrorMessage: React.FC<ErrorMessageProps> = ({ classNames }) => {
+  const { errorMsg, shouldDisplayError } = useCell();
 
+  if (!shouldDisplayError) return (<></>)
 
-    return (
-    <div className={classNames?.root?? "" } style={{ position: "relative" }}>
-      {isHovered && errorMsg && (
-        <div
-          style={{
-            position: "absolute",
-            // top: "-25px",
-            background: "#f44336",
-            color: "#fff",
-            fontSize: "12px",
-            padding: "4px 8px",
-            borderRadius: "4px",
-            zIndex: "10"
-          }}
-          className={classNames?.messageBox ?? ""}
-        >
-          {errorMsg}
-        </div>
-      )}
+  return (
+    <div
+      style={{
+        position: "absolute",
+        background: "#f44336",
+        color: "#fff",
+        fontSize: "12px",
+        padding: "4px 8px",
+        borderRadius: "4px",
+        zIndex: "10"
+      }}
+      className={classNames?.root ?? ""}
+    >
+      {errorMsg}
     </div>
   );
 };
@@ -45,4 +34,3 @@ const ErrorMessage: React.FC<ErrorMessageProps> = ({classNames})  => {
 export default ErrorMessage;
 
 
- 

@@ -1,18 +1,18 @@
 import { createContext, useState, useContext, ReactNode, type FC, useEffect, useMemo } from "react";
 import { CSVCellType, type Coords } from "types";
-import { useTable } from "./TableProvider";
-import { useErrors } from "./ErrorProvider";
+import  useErrors  from "@hooks/useErrors";
 import coordsAreEqual from "@utils/isInputCell";
-import { RefObject } from "react";
+import useTable from "@hooks/useTable";
 
-interface CellContextInterface {
+export interface CellContextInterface {
   value: string, 
   type: CSVCellType, 
   errorMsg: string | null
+  shouldDisplayError: boolean
   coords: Coords
-};
+}
 
-const CellContext = createContext<CellContextInterface | undefined>(undefined);
+export const CellContext = createContext<CellContextInterface | undefined>(undefined);
 
 interface CellProviderProps {
   coords: Coords
@@ -20,14 +20,15 @@ interface CellProviderProps {
 }
 
 export const CellProvider: FC<CellProviderProps> = ({coords, children}) => {
-  const {inputCellCoords, getCellValue} = useTable()
+  const {inputCellCoords, hoverCellCoords, getCellValue} = useTable()
   const {getError} = useErrors()
 
   const value = useMemo(() => getCellValue(coords), [coords]); 
   const errorMsg = useMemo(() => getError(coords), [coords]); 
   const type = coordsAreEqual(inputCellCoords, coords) ? "input" : "display"  
+  const shouldDisplayError =  errorMsg != null && 
+        (coordsAreEqual(hoverCellCoords, coords) || coordsAreEqual(inputCellCoords, coords))
   
-
 
   return(
     <CellContext.Provider value={{
@@ -35,6 +36,7 @@ export const CellProvider: FC<CellProviderProps> = ({coords, children}) => {
       errorMsg, 
       type,
       coords, 
+      shouldDisplayError
     }}>
       {children}
     </CellContext.Provider>
@@ -42,11 +44,3 @@ export const CellProvider: FC<CellProviderProps> = ({coords, children}) => {
 
 };
 
-
-export const useCell = () => {
-  const context = useContext(CellContext);
-  if (!context) {
-    throw new Error("useTable must be used within a RowsProvider");
-  }
-  return context;
-};

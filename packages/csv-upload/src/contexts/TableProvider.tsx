@@ -2,7 +2,7 @@ import { createContext, useState, useContext, ReactNode, type FC, useEffect, use
 import { type CSVSchema } from "types";
 import { type Coords } from "types";
 
-interface TableContextInterface {
+export interface TableContextInterface {
   schema: CSVSchema, 
   rows: string[][];
   inputCellCoords: Coords | null;
@@ -21,7 +21,7 @@ interface TableContextInterface {
   onUploadClick: (rows: string[][]) => void
 };
 
-const TableContext = createContext<TableContextInterface | undefined>(undefined);
+export const TableContext = createContext<TableContextInterface | undefined>(undefined);
 
 interface TableProviderProps {
   schema: CSVSchema
@@ -78,11 +78,3 @@ export const TableProvider: FC<TableProviderProps> = ({ children, schema, onUplo
   );
 };
 
-
-export const useTable = () => {
-  const context = useContext(TableContext);
-  if (!context) {
-    throw new Error("useTable must be used within a RowsProvider");
-  }
-  return context;
-};

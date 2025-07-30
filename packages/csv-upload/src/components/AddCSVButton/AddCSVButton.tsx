@@ -15,15 +15,12 @@ const AddCSVButton: FC<AddCSVButtonProps> = ({ children, classNames}) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const upload = useParser(); 
 
-  
-
-  const handleClick = () => fileInputRef.current?.click();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       upload(file);
-      e.target.value = ""; // Reset to allow same file again
+      e.target.value = ""; 
     }
   };
 
@@ -33,7 +30,7 @@ const AddCSVButton: FC<AddCSVButtonProps> = ({ children, classNames}) => {
         type="button"
         onClick={() => fileInputRef.current?.click()}
       >
-        Add CSV
+        {children}
       </button>
 
       <input
@@ -42,7 +39,7 @@ const AddCSVButton: FC<AddCSVButtonProps> = ({ children, classNames}) => {
         ref={fileInputRef}
         onChange={handleChange}
         className={classNames?.input ?? ""}
-        style={{ display: "none" }} // <-- hides the file input
+        style={{ display: "none" }} 
       />
       
     </div>

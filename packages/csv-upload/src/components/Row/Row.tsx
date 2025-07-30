@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import { useRow } from "@contexts/RowProvider";
+import useRow from "@hooks/useRow";
 import { CellProvider } from "@contexts/CellProvider";
 import serializeCoords from "@utils/serializeCoords";
 
