@@ -22,7 +22,7 @@ function App() {
     <div>
       <h1>CSV Upload Example</h1>
 
-      <CsvUpload.Provider schema={schema}>
+      <CsvUpload.Provider schema={schema} onUploadClick={(rows) => {}}>
         <CsvUpload.AddCSVButton>
           Add csv
         </CsvUpload.AddCSVButton >

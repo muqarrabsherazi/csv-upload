@@ -3,7 +3,7 @@ import { useTable } from "@contexts/TableProvider";
 import useValidate from "@hooks/useValidate";
 import useDebounced from "@hooks/useDebouncedSetCell";
 import { CellProps } from "@components/Cell";
-import { useCell } from "@contexts/CellProvider";
+import useCell from "@hooks/useCell";
 
 
 export interface InputCellProps extends CellProps {

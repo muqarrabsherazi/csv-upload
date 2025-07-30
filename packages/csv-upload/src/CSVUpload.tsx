@@ -11,7 +11,7 @@ import InputCell, { type InputCellProps } from "@components/InputCell";
 import Header, { type HeaderProps } from "@components/Header";
 import ErrorMessage, { ErrorMessageProps } from "@components/ErrorMessage";
 import RootProvider, {RootProviderProps} from "@components/RootProvider";
-import JumpToFirstError, { JumpToFirstErrorProps } from "@components/JumpToError";
+import JumpToFirstError, { JumpToFirstErrorProps } from "@components/JumpToFirstError";
 
 
 export interface CsvUploadComponent {

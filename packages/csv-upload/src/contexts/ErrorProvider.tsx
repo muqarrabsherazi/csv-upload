@@ -7,7 +7,7 @@ type ErrorMap = {
 
 };
 
-type ErrorContextType = {
+export interface ErrorContextInterface {
   errors: ErrorMap;
   setErrors: (errors: ErrorMap) => void;
   getError: (coords: Coords) => string | null;
@@ -17,7 +17,7 @@ type ErrorContextType = {
 
 };
 
-const ErrorContext = createContext<ErrorContextType | undefined>(undefined);
+export const ErrorContext = createContext<ErrorContextInterface | undefined>(undefined);
 
 export const ErrorProvider = ({ children }: { children: ReactNode }) => {
   ``
@@ -48,12 +48,4 @@ export const ErrorProvider = ({ children }: { children: ReactNode }) => {
       {children}
     </ErrorContext.Provider>
   );
-};
-
-export const useErrors = () => {
-  const context = useContext(ErrorContext);
-  if (!context) {
-    throw new Error("useErrors must be used within an ErrorProvider");
-  }
-  return context;
 };

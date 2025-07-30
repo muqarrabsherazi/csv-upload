@@ -1,18 +1,18 @@
 import { createContext, useState, useContext, ReactNode, type FC, useEffect, useMemo } from "react";
 import { CSVCellType, type Coords } from "types";
 import { useTable } from "./TableProvider";
-import { useErrors } from "./ErrorProvider";
+import  useErrors  from "@hooks/useError";
 import coordsAreEqual from "@utils/isInputCell";
 import { RefObject } from "react";
 
-interface CellContextInterface {
+export interface CellContextInterface {
   value: string, 
   type: CSVCellType, 
   errorMsg: string | null
   coords: Coords
-};
+}
 
-const CellContext = createContext<CellContextInterface | undefined>(undefined);
+export const CellContext = createContext<CellContextInterface | undefined>(undefined);
 
 interface CellProviderProps {
   coords: Coords
@@ -42,11 +42,3 @@ export const CellProvider: FC<CellProviderProps> = ({coords, children}) => {
 
 };
 
-
-export const useCell = () => {
-  const context = useContext(CellContext);
-  if (!context) {
-    throw new Error("useTable must be used within a RowsProvider");
-  }
-  return context;
-};
