@@ -3,7 +3,7 @@ import serializeCoords from '@utils/serializeCoords';
 import { CSVCellCoords, CSVError, CSVErrorType } from 'types';
 import errorDifference from '@utils/errorDifference';
 
-type ErrorValue = {msg: string, type: CSVErrorType}
+export type ErrorValue = {msg: string, type: CSVErrorType}
 
 type ErrorMap = {
   [cellKey: string]: ErrorValue;

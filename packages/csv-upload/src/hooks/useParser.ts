@@ -6,7 +6,7 @@ import useValidate from "@hooks/useValidate";
 
 const useParser = () => {
   const { schema, clearRows, setHeaders, addRow } = useTable();
-  const {checkValidationError} = useValidate(); 
+  const {checkFrontendError: checkValidationError} = useValidate(); 
 
   const upload = async (file: File) => {
     const data = await parseCSV(file);

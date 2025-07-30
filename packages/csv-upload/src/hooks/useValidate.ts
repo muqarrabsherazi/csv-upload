@@ -3,12 +3,12 @@ import useErrors from "@hooks/useErrors";
 import { validate } from "dsl-validator";
 import useTable from "@hooks/useTable";
 
-const useValidate = (): {checkValidationError: (coords: CSVCellCoords, value: string,) => void} => {
+const useValidate = (): {checkFrontendError: (coords: CSVCellCoords, value: string,) => void} => {
   const {addError, removeError} = useErrors(); 
   const {schema} = useTable();
-  
 
-  const checkValidationError = (coords: CSVCellCoords, value: string) => {
+
+  const checkFrontendError = (coords: CSVCellCoords, value: string) => {
     const field = schema.fields[coords.col];
     const errorMsg = validate(field, value)
     if (errorMsg == null)
@@ -16,7 +16,8 @@ const useValidate = (): {checkValidationError: (coords: CSVCellCoords, value: st
     else
       addError(coords, field.errorMsg || errorMsg, "frontend");
   }
-  return {checkValidationError}
+
+  return {checkFrontendError}
 }
 
 export default useValidate; 
