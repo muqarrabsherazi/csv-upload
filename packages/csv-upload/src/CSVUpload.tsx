@@ -16,6 +16,7 @@ import { CellContextInterface } from "@contexts/CellProvider";
 import { RowContextInterface } from "@contexts/RowProvider";
 import useCell from "@hooks/useCell";
 import useRow from "@hooks/useRow";
+import UploadButton from "@components/UploadButton";
 
 
 export interface CsvUploadComponent {
@@ -32,6 +33,7 @@ export interface CsvUploadComponent {
   InputCell: FC<InputCellProps>
   useCell: () => CellContextInterface
   useRow: () => RowContextInterface
+  UploadButton: FC<UploadButton>
 }
 
 /**
@@ -58,7 +60,8 @@ const CsvUpload: CsvUploadComponent = {
   InputCell: InputCell,
   Header: Header,
   useCell: useCell, 
-  useRow: useRow
+  useRow: useRow,
+  UploadButton: UploadButton,
 }
 
 export default CsvUpload;
