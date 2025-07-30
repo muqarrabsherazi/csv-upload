@@ -21,8 +21,8 @@ function App() {
     return (
     <div>
       <h1>CSV Upload Example</h1>
-      {/* <CsvUpload schema={schema} /> */}
-      <CsvUpload.Provider schema={schema}> 
+
+      <CsvUpload.Provider schema={schema}>
         <CsvUpload.AddCSVButton>
           Add csv
         </CsvUpload.AddCSVButton >
@@ -31,6 +31,8 @@ function App() {
           Show Error
         </CsvUpload.JumpToFirstError>
 
+
+        <CsvUpload.ErrorCount />
         <CsvUpload.Table renderHeaders={<CsvUpload.Header/>}>
           <CsvUpload.Row >
             <CsvUpload.Cell>
