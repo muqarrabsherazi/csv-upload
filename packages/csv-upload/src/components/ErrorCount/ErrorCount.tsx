@@ -1,4 +1,4 @@
-import React from "react";
+import  {FC } from "react";
 import { useErrors } from "@contexts/ErrorProvider"
 
 
@@ -8,7 +8,7 @@ export interface ErrorCountProps {
   }
 }
 
-const ErrorCount: React.FC<ErrorCountProps> = ({className}) => {
+const ErrorCount: FC<ErrorCountProps> = ({className}) => {
   const { errors } = useErrors();
   const errorCount = Object.keys(errors).length;
 

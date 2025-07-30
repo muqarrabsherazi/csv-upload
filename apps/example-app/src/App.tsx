@@ -18,15 +18,19 @@ function App() {
     ]
   };
 
-  const {Table} = CsvUpload;
-
     return (
     <div>
       <h1>CSV Upload Example</h1>
 
       <CsvUpload.Provider schema={schema}>
         <CsvUpload.AddCSVButton>
-        </CsvUpload.AddCSVButton>
+          Add csv
+        </CsvUpload.AddCSVButton >
+        <CsvUpload.ErrorCount />
+        <CsvUpload.JumpToFirstError>
+          Show Error
+        </CsvUpload.JumpToFirstError>
+
 
         <CsvUpload.ErrorCount />
         <CsvUpload.Table renderHeaders={<CsvUpload.Header/>}>

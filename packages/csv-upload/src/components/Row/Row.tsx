@@ -1,7 +1,6 @@
 import { FC, ReactNode } from "react";
 import { useRow } from "@contexts/RowProvider";
 import { CellProvider } from "@contexts/CellProvider";
-import Cell from "@components/Cell";
 import serializeCoords from "@utils/serializeCoords";
 
 export interface RowProps{
