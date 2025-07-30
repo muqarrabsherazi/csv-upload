@@ -12,6 +12,10 @@ import Header, { type HeaderProps } from "@components/Header";
 import ErrorMessage, { ErrorMessageProps } from "@components/ErrorMessage";
 import RootProvider, {RootProviderProps} from "@components/RootProvider";
 import JumpToFirstError, { JumpToFirstErrorProps } from "@components/JumpToFirstError";
+import { CellContextInterface } from "@contexts/CellProvider";
+import { RowContextInterface } from "@contexts/RowProvider";
+import useCell from "@hooks/useCell";
+import useRow from "@hooks/useRow";
 
 
 export interface CsvUploadComponent {
@@ -26,7 +30,8 @@ export interface CsvUploadComponent {
   Header: FC<HeaderProps>
   DisplayCell: FC<DisplayCellProps>
   InputCell: FC<InputCellProps>
-
+  useCell: () => CellContextInterface
+  useRow: () => RowContextInterface
 }
 
 /**
@@ -52,6 +57,8 @@ const CsvUpload: CsvUploadComponent = {
   DisplayCell: DisplayCell,
   InputCell: InputCell,
   Header: Header,
+  useCell: useCell, 
+  useRow: useRow
 }
 
 export default CsvUpload;

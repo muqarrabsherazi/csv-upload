@@ -27,8 +27,7 @@ const JumpToFirstError: React.FC<JumpToFirstErrorProps> = ({classNames, children
   }
 
   useEffect(() => {
-    if (!scroll || inputCellCoords == null) 
-      
+    if (!scroll || inputCellCoords == null) return
     inputCellRef.current?.scrollIntoView({behavior: "smooth", block: "center"});
     setScoll(false);
   }, [inputCellCoords, scroll])

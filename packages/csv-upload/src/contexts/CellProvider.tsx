@@ -8,6 +8,7 @@ export interface CellContextInterface {
   value: string, 
   type: CSVCellType, 
   errorMsg: string | null
+  shouldDisplayError: boolean
   coords: Coords
 }
 
@@ -19,13 +20,15 @@ interface CellProviderProps {
 }
 
 export const CellProvider: FC<CellProviderProps> = ({coords, children}) => {
-  const {inputCellCoords, getCellValue} = useTable()
+  const {inputCellCoords, hoverCellCoords, getCellValue} = useTable()
   const {getError} = useErrors()
 
   const value = useMemo(() => getCellValue(coords), [coords]); 
   const errorMsg = useMemo(() => getError(coords), [coords]); 
   const type = coordsAreEqual(inputCellCoords, coords) ? "input" : "display"  
-  
+  const shouldDisplayError =  errorMsg != null && 
+        coordsAreEqual(hoverCellCoords, coords) && coordsAreEqual(inputCellCoords, coords)
+
 
 
   return(
@@ -34,6 +37,7 @@ export const CellProvider: FC<CellProviderProps> = ({coords, children}) => {
       errorMsg, 
       type,
       coords, 
+      shouldDisplayError
     }}>
       {children}
     </CellContext.Provider>

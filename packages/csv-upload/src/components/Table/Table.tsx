@@ -1,8 +1,6 @@
 import { FC } from "react";
 import { ReactNode } from "react";
 import { RowProvider } from "@contexts/RowProvider";
-import useEscapeKey from "@hooks/useEscapeKey";
-import useKeyPressOutside from "@hooks/useKeyPressOutside";
 import useTable from "@hooks/useTable";
 
 export interface TableProps {
