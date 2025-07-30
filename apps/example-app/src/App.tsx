@@ -27,9 +27,9 @@ function App() {
           Add csv
         </CsvUpload.AddCSVButton >
         <CsvUpload.ErrorCount />
-        <CsvUpload.JumpToError>
+        <CsvUpload.JumpToFirstError>
           Show Error
-        </CsvUpload.JumpToError>
+        </CsvUpload.JumpToFirstError>
 
         <CsvUpload.Table renderHeaders={<CsvUpload.Header/>}>
           <CsvUpload.Row >

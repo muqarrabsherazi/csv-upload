@@ -20,7 +20,7 @@ export interface CsvUploadComponent {
   AddCSVButton: FC<AddCSVButtonProps>
   ErrorCount: FC<ErrorCountProps>
   ErrorMessage: FC<ErrorMessageProps>
-  JumpToError: FC<JumpToFirstErrorProps>
+  JumpToFirstError: FC<JumpToFirstErrorProps>
   Row: FC<RowProps>
   Cell: FC<CellProps>
   Header: FC<HeaderProps>
@@ -46,7 +46,7 @@ const CsvUpload: CsvUploadComponent = {
   AddCSVButton: AddCSVButton,
   ErrorCount: ErrorCount,
   ErrorMessage: ErrorMessage,
-  JumpToError: JumpToFirstError, 
+  JumpToFirstError: JumpToFirstError, 
   Row: Row,
   Cell: Cell,
   DisplayCell: DisplayCell,
