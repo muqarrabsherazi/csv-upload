@@ -1,5 +1,5 @@
 import  {FC } from "react";
-import useErrors from "@hooks/useError";
+import useErrors from "@hooks/useErrors";
 
 
 export interface ErrorCountProps {

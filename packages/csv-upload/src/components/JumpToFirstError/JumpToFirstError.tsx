@@ -1,5 +1,5 @@
 import React, { useState,  useEffect, useMemo, ReactNode } from "react";
-import useErrors  from "@hooks/useError"
+import useErrors  from "@hooks/useErrors"
 import { useTable } from "@contexts/TableProvider";
 import deserializeCoords from "@utils/deserializeCoords";
 
