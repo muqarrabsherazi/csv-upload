@@ -1,6 +1,6 @@
 import { CSVCellCoords } from "types"
 import useErrors from "@hooks/useErrors";
-import { validate } from "../../../dsl-validator/src/validateCell";
+import { validate } from "dsl-validator";
 import useTable from "@hooks/useTable";
 
 const useValidate = (): {checkValidationError: (coords: CSVCellCoords, value: string,) => void} => {

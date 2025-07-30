@@ -6,5 +6,9 @@
     "module": "CommonJS",
     "types": ["node"]
   },
-  "include": ["src"]
+  "include": ["src", "../../packages/dsl-validator/src"],
+  "references": [
+    { "path": "../../packages/csv-upload" },
+    { "path": "../../packages/dsl-validator" }
+  ]
 } 

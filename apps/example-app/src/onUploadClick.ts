@@ -1,6 +1,6 @@
 import { io, type Socket} from "socket.io-client"
 
-const onUploadClick = (rows: string[][], socket: Socket, chunkNum: number) => {
+const onUploadClick = async (rows: string[][], socket: Socket, chunkNum: number, pauseStream: boolean) => {
   const chunkLength = Math.ceil(rows.length / chunkNum)
   console.log(rows.length)
 

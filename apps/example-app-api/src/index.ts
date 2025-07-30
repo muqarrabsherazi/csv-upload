@@ -2,13 +2,20 @@ import express from 'express';
 import cors from 'cors';
 import { Server } from 'socket.io';
 import http from "http"
+import { CSVError } from 'types';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
+const backendErrors: CSVError[]  = [
+  {
+    coords: {row: 0, col: 0},
+    msg: "hi from backend"
+  }
+]
 
-app.get('/', (_req, res) => {
+app.get('/', (req, res) => {
   res.json({ message: 'API is up!' });
 });
 
@@ -25,7 +32,9 @@ io.on("connection",(socket) =>  {
 
   socket.on("csv", (data) => {
     console.log(data)
+    socket.emit("error", backendErrors)
   })
+
 })
 
 

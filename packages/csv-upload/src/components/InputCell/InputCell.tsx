@@ -59,6 +59,8 @@ const InputCell: FC<InputCellProps> = ({ children, classNames }) => {
           value={cellValue} onChange={(e) => setCellValue(e.target.value)}
           onKeyDown={(e) => {
             if (e.key != "Enter") return;
+            setCell(coords, cellValue);
+            checkValidationError(coords, cellValue);
             resetInputCellCoords();
           }}
           onBlur={() => resetInputCellCoords()}
