@@ -1,12 +1,12 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import useTable from "@hooks/useTable";
 import useErrors from "@hooks/useErrors";
 
-interface UploadButton{
-
+export interface UploadButtonProps{
+  children: ReactNode
 }
 
-const UploadButton: FC<UploadButton> =({}) => {
+const UploadButton: FC<UploadButtonProps> =({children}) => {
     const {rows , onUploadClick} =useTable();
     const { errors } = useErrors();
 
@@ -35,7 +35,7 @@ const UploadButton: FC<UploadButton> =({}) => {
         transition: "all 0.2s ease-in-out"
       }}
     >
-      Upload CSV
+      {children}
     </button>
   );
 };

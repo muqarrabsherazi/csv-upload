@@ -1,21 +1,21 @@
 import { createContext, useState, useContext, ReactNode, type FC, useEffect, useReducer, useRef, RefObject } from "react";
-import { type CSVSchema } from "types";
-import { type Coords } from "types";
+import { type CSVSchema } from "dsl-validator";
+import { type CSVCellCoords } from "types";
 
 export interface TableContextInterface {
   schema: CSVSchema, 
   rows: string[][];
-  inputCellCoords: Coords | null;
+  inputCellCoords: CSVCellCoords | null;
   inputCellRef: RefObject<HTMLDivElement | null>;
   headers: string[];
-  hoverCellCoords: Coords | null;
+  hoverCellCoords: CSVCellCoords | null;
   addRow: (row: string[]) => void,
-  getCellValue: (coords: Coords) => string, 
-  setCell: (coords: Coords, value:string) => void, 
+  getCellValue: (coords: CSVCellCoords) => string, 
+  setCell: (coords: CSVCellCoords, value:string) => void, 
   clearRows: () => void, 
   setHeaders: (header: string[]) => void;
-  setInputCellCoords:(coords: Coords) => void;
-  setHoverCellCoords:(coords: Coords) => void;
+  setInputCellCoords:(coords: CSVCellCoords) => void;
+  setHoverCellCoords:(coords: CSVCellCoords) => void;
   resetHoverCellCoords: () => void;
   resetInputCellCoords: () => void; 
   onUploadClick: (rows: string[][]) => void
@@ -32,18 +32,18 @@ interface TableProviderProps {
 
 export const TableProvider: FC<TableProviderProps> = ({ children, schema, onUploadClick, data = [] }) => {
   const [rows, setRows] = useState<string[][]>(data);
-  const [inputCellCoords, setInputCellCoords] = useState<Coords | null>(null);
+  const [inputCellCoords, setInputCellCoords] = useState<CSVCellCoords | null>(null);
   const [headers, setHeaders] = useState<string[]>([]);
-  const [hoverCellCoords, setHoverCellCoords] = useState<Coords | null>(null);
+  const [hoverCellCoords, setHoverCellCoords] = useState<CSVCellCoords | null>(null);
   const inputCellRef = useRef<HTMLDivElement | null>(null)
 
   const addRow = (row: string[]) => setRows(prev => [...prev, row]);
   const clearRows = () => setRows([]);
-  const getCellValue = (coords: Coords) => rows[coords.row][coords.col];
+  const getCellValue = (coords: CSVCellCoords) => rows[coords.row][coords.col];
   const resetInputCellCoords = () => setInputCellCoords(null);
   const resetHoverCellCoords = () => setHoverCellCoords(null);
 
-  const setCell = (coords: Coords, value: string) => setRows(prev => {
+  const setCell = (coords: CSVCellCoords, value: string) => setRows(prev => {
     const newRows = [...prev];
     const newRow = [...newRows[coords.row]];
     newRow[coords.col] = value; 

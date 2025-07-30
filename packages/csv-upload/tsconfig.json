@@ -10,18 +10,18 @@
     "composite": true,
     "paths": {
       "types": ["../types/src"], 
+      "dsl-validator": ["../dsl-validator/src"],
       "@components/*": ["./src/components/*"],
       "@contexts/*": ["./src/contexts/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@utils/*": ["./src/utils/*"],
-      "@validators/*": ["../dsl-validator/validators/*"],
       "@types/*": ["./src/types/*"],
-
       "@components/internal/*": ["./src/components/__internal__/*"]
     }
   },
-  "include": ["src", "../types/src/types/*", "../types/src/coordsType.ts", "../types/src/cellDataType.ts", "../dsl-validator/validators"],
+  "include": ["src", "../types/src/types/*", "../types/src/coordsType.ts", "../types/src/cellDataType.ts", "../dsl-validator/src"],
   "references": [
-    {"path": "../types"}
+    {"path": "../types"},
+    {"path": "../dsl-validator"}
   ]
 }

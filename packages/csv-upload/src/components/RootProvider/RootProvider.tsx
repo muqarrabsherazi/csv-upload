@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { TableProvider } from "@contexts/TableProvider";
 import { ErrorProvider } from "@contexts/ErrorProvider";
-import { CSVSchema } from "types";
+import { CSVSchema } from "dsl-validator";
 
 
 export interface RootProviderProps {

@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, ReactNode, type FC, useEffect, useMemo } from "react";
-import { CSVCellType, type Coords } from "types";
+import { CSVCellType, type CSVCellCoords } from "types";
 import  useErrors  from "@hooks/useErrors";
 import coordsAreEqual from "@utils/isInputCell";
 import useTable from "@hooks/useTable";
@@ -9,13 +9,13 @@ export interface CellContextInterface {
   type: CSVCellType, 
   errorMsg: string | null
   shouldDisplayError: boolean
-  coords: Coords
+  coords: CSVCellCoords
 }
 
 export const CellContext = createContext<CellContextInterface | undefined>(undefined);
 
 interface CellProviderProps {
-  coords: Coords
+  coords: CSVCellCoords
   children: ReactNode
 }
 

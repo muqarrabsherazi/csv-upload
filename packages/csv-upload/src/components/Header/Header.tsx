@@ -1,5 +1,5 @@
   import { FC } from "react"
-import { CSVFieldSchema } from "types";
+import { CSVFieldSchema } from "dsl-validator";
 import makeHeaderKey from "@utils/makeHeaderKey";
 import useTable from "@hooks/useTable";
 
