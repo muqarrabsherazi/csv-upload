@@ -7,7 +7,7 @@ import { CSVSchema } from "types";
 export interface RootProviderProps {
   schema: CSVSchema;
   data?: string[][]
-  onUploadClick?: (rows: string[][]) => void;
+  onUploadClick: (rows: string[][]) => void;
   children: React.ReactNode
 }
 
