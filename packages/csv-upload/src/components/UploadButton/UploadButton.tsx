@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { useTable } from "@contexts/TableProvider";
-import { useErrors } from "@contexts/ErrorProvider";
+import useTable from "@hooks/useTable";
+import useErrors from "@hooks/useErrors";
 
 interface UploadButton{
 
