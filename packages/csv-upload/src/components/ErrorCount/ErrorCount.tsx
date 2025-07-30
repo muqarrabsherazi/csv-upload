@@ -14,9 +14,7 @@ const ErrorCount: FC<ErrorCountProps> = ({className}) => {
 
   return (
     <div className={className?.root?? ""}>
-      {errorCount > 0
-        ? `${errorCount} error${errorCount > 1 ? "s" : ""} found`
-        : "No errors"}
+      {errorCount > 0 && `${errorCount} error${errorCount > 1 ? "s" : ""} found`}
     </div>
   );
 };

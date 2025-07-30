@@ -16,10 +16,7 @@ export interface TableProps {
 }
 
 const Table: FC <TableProps> = ({ renderHeaders, children, classNames}) => {
-  const { rows, resetInputCellCoords} = useTable(); 
-  
-  useEscapeKey({onEscapePress: resetInputCellCoords})
-  useKeyPressOutside({onMouseDown: resetInputCellCoords})
+  const { rows } = useTable(); 
 
   return (
     <table style={{

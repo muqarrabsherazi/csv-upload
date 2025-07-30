@@ -1,6 +1,7 @@
 import React from "react";
-import { useTable } from "@contexts/TableProvider";
-import { useCell } from "@contexts/CellProvider";
+import useTable from "@hooks/useTable";
+import useCell from "@hooks/useCell";
+
 
 export interface ErrorMessageProps {
   classNames?: {
@@ -25,7 +26,6 @@ const ErrorMessage: React.FC<ErrorMessageProps> = ({classNames})  => {
         <div
           style={{
             position: "absolute",
-            // top: "-25px",
             background: "#f44336",
             color: "#fff",
             fontSize: "12px",

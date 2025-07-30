@@ -52,8 +52,6 @@ const InputCell: FC<InputCellProps> = ({ children, classNames }) => {
           font: "inherit",              // Match surrounding text
           padding: 0,                   // Optional: remove default input padding
           margin: 0,                    // Optional: remove default input margin
-          // border: "none",              // Optional: remove input border
-          // outline: "none",             // Optional: prevent outline on focus
           background: "transparent",   // Optional: looks like plain cell
         }}
 
@@ -63,6 +61,7 @@ const InputCell: FC<InputCellProps> = ({ children, classNames }) => {
             if (e.key != "Enter") return;
             resetInputCellCoords();
           }}
+          onBlur={() => resetInputCellCoords()}
 
         />
         {children}

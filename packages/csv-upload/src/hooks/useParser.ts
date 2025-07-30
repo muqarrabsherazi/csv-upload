@@ -1,5 +1,5 @@
-import { useTable } from "@contexts/TableProvider";
 import { parseCSV } from "@utils/parse";
+import useTable from "@hooks/useTable";
 import useValidate from "@hooks/useValidate";
 
 

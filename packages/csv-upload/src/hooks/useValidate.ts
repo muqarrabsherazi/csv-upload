@@ -1,7 +1,7 @@
-import { useErrors } from "@contexts/ErrorProvider"
 import { Coords } from "types"
+import useErrors from "@hooks/useErrors";
 import { validate } from "@validators/validateCell";
-import { useTable } from "@contexts/TableProvider";
+import useTable from "@hooks/useTable";
 
 const useValidate = (): {checkValidationError: (coords: Coords, value: string,) => void} => {
   const {addError, removeError} = useErrors(); 

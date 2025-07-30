@@ -32,7 +32,6 @@ function App() {
         </CsvUpload.JumpToFirstError>
 
 
-        <CsvUpload.ErrorCount />
         <CsvUpload.Table renderHeaders={<CsvUpload.Header/>}>
           <CsvUpload.Row >
             <CsvUpload.Cell>

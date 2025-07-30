@@ -1,9 +1,8 @@
 import { ReactNode } from "react";
 import { FC } from "react";
-import { useCell } from "@contexts/CellProvider";
 import cellMap from "@utils/cellMap";
+import useCell from "@hooks/useCell";
 
-// export type CellProps = CSVCellData["props"] & {children?: ReactNode}
 export interface CellProps{
   children?: ReactNode
   classNames?: {
