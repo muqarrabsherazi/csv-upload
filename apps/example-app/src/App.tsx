@@ -1,15 +1,9 @@
-import CsvUpload from "../../../packages/csv-upload/src";
-import { CSVSchema, CSVCellData } from "types";
+import CsvUpload from "csv-upload";
+import { CSVSchema} from "types";
 
 
 function App() {
   const schema: CSVSchema = {
-    // fields: [
-    //   // { name: "name", type: "string" },
-    //   // // { name: "Date of Birth", type: "date", required: true },
-    //   // { name: "age", type: "number", required: true },
-
-    // ],
     fields: [
       {name: "Countries", type: "string"}, 
       {name: "Currency", type: "string"}, 
@@ -28,11 +22,10 @@ function App() {
         </CsvUpload.AddCSVButton >
         <CsvUpload.ErrorCount />
         <CsvUpload.JumpToFirstError>
-          Show Error
+          Jump to validation error 
         </CsvUpload.JumpToFirstError>
 
-
-        <CsvUpload.Table renderHeaders={<CsvUpload.Header/>}>
+        <CsvUpload.Table headers={<CsvUpload.Header/>}>
           <CsvUpload.Row >
             <CsvUpload.Cell>
               <CsvUpload.ErrorMessage />

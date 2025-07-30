@@ -1,5 +1,4 @@
 import React from "react";
-import useTable from "@hooks/useTable";
 import useCell from "@hooks/useCell";
 
 

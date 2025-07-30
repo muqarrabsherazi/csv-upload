@@ -62,6 +62,7 @@ const InputCell: FC<InputCellProps> = ({ children, classNames }) => {
             resetInputCellCoords();
           }}
           onBlur={() => resetInputCellCoords()}
+        
 
         />
         {children}
