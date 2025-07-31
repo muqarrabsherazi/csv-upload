@@ -5,24 +5,41 @@
 
 export type CSVPrimitiveType = "string" | "number" | "boolean" | "date";
 
-export interface CSVFieldSchema {
-  /** Column name as it appears in the CSV header */
+export type CSVDateFormats = 
+  "yyyy-MM-dd" |
+  "dd-MM-yyyy" |
+  "MM-dd-yyyy" |
+  "yyyy/MM/dd" |
+  "dd/MM/yyyy" |
+  "MM/dd/yyyy" |
+  "yyyy.MM.dd" |
+  "dd MMMM yyyy" |
+  "MMMM dd, yyyy" |
+  "MMMM dd,yyyy" |
+  "MMM dd, yyyy" |
+  "MMM dd,yyyy" |
+  "dd.MM.yyyy" |
+  "dd MMM yyyy"
+
+export interface CSVFieldBasicSchema {
   name: string;
-  /** Primitive data type */
   type: CSVPrimitiveType;
-  /** Whether the column is mandatory */
   required?: boolean;
-  /** Optional custom validator function */
   validator?: (value: string) => string | null;
   errorMsg?: string
 }
 
-export interface CSVSchema {
-  /** Array of field definitions */
-  fields: CSVFieldSchema[];
-  headers?: boolean;
+export interface CSVFieldDateSchema extends CSVFieldBasicSchema {
+  type: "date"
+  dateFormats: CSVDateFormats[]
 }
 
-export interface ConditionalNumberFieldSchema extends CSVFieldSchema {
+export interface ConditionalNumberFieldSchema extends CSVFieldBasicSchema {
   condition: string // "<10", "===100"
+}
+
+export type CSVFieldSchema = CSVFieldBasicSchema | CSVFieldDateSchema
+
+export interface CSVSchema {
+  fields: CSVFieldSchema[];
 }
