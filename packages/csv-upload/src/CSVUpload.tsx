@@ -34,6 +34,7 @@ export interface CsvUploadComponent {
   UploadButton: FC<UploadButtonProps>
   useCell: () => CellContextInterface
   useRow: () => RowContextInterface
+  UploadButton: FC<UploadButton>
 }
 
 /**
@@ -61,7 +62,8 @@ const CsvUpload: CsvUploadComponent = {
   UploadButton: UploadButton, 
   Header: Header,
   useCell: useCell, 
-  useRow: useRow
+  useRow: useRow,
+  UploadButton: UploadButton,
 }
 
 export default CsvUpload;
