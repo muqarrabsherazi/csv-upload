@@ -5,7 +5,8 @@
 
 export type CSVPrimitiveType = "string" | "number" | "boolean" | "date";
 
-export type CSVDateFormats = 
+type NonEmptyArray<T> = [T, ...T[]];
+export type CSVDateFormat = 
   "yyyy-MM-dd" |
   "dd-MM-yyyy" |
   "MM-dd-yyyy" |
@@ -31,7 +32,7 @@ export interface CSVFieldBasicSchema {
 
 export interface CSVFieldDateSchema extends CSVFieldBasicSchema {
   type: "date"
-  dateFormats: CSVDateFormats[]
+  dateFormats: NonEmptyArray<CSVDateFormat>
 }
 
 export interface ConditionalNumberFieldSchema extends CSVFieldBasicSchema {

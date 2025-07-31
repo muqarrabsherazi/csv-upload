@@ -1,28 +1,39 @@
 import { parse, isValid } from "date-fns";
 import { CSVFieldBasicSchema, CSVFieldDateSchema, CSVFieldSchema } from "./schema";
-export const isString = (value: string): boolean => {
-  return typeof value === "string"
+import { ErrorMsg } from "types";
+export const isString = (value: string): ErrorMsg => {
+  if (typeof value != "string")
+    return "Value should be of string type";
+  return null;
 };
 
-export const isNum = (value: string, field: CSVFieldBasicSchema): boolean => {
-  return !Number.isNaN(Number(value))
+export const isNum = (value: string, field: CSVFieldBasicSchema): ErrorMsg => {
+  if (Number.isNaN(Number(value)))
+    return field.errorMsg ?? "Value should be a number type"
+  return null;
 };
 
-export const isBool = (value: string, field: CSVFieldBasicSchema): boolean => {
+export const isBool = (value: string, field: CSVFieldBasicSchema): ErrorMsg => {
   const booleans = [
     "true", "false",
   ]
-  return booleans.some((b) => value.toLowerCase() === b);
+  if (!booleans.some((b) => value.toLowerCase() === b))
+    return "Value should be of boolean type";
+  return null
 };
 
-export const isDate = (value: string, field: CSVFieldSchema): boolean => {
-  if (field.type != "date") return false
+export const isDate = (value: string, field: CSVFieldSchema): ErrorMsg => {
   
   const dateField = field as CSVFieldDateSchema; 
-  return dateField.dateFormats.some((format) => {
+  const valid =  dateField.dateFormats.some((format) => {
     const parsed = parse(value, format, new Date());
     return isValid(parsed);
-
   })
+
+  if (!valid)
+    return `Value should be of type date with format: ${dateField.dateFormats.join(',')}`
+
+  return null
+
 }
 
