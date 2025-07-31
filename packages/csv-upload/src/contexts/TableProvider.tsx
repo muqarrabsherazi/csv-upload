@@ -61,6 +61,13 @@ export const TableProvider: FC<TableProviderProps> = ({ children, schema, onUplo
   } 
 
 
+  // useEffect(() => {
+  //   setRows(data);
+  //   setLastChangedRow(null)
+  //   resetHoverCellCoords();
+  //   resetInputCellCoords();
+  // }, [data])
+
   return (
     <TableContext.Provider  
       value={{ 

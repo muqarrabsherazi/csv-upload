@@ -18,7 +18,8 @@ const useUploadData = (
     socket.on("error", (data: CSVSocketError) => {
 
       const batchSize = Math.ceil(rowsLengthRef.current / batchNum)
-      if (data.startIndex < uploadIndexRef.current * batchSize) return; 
+      const currentStartIndex = uploadIndexRef.current * batchSize;
+      if (data.startIndex < currentStartIndex) return; 
 
       const nextStartIndex = (uploadIndexRef.current + 1) * batchSize
       if (data.errors.length == 0 && nextStartIndex < rowsLengthRef.current)

@@ -72,8 +72,8 @@ export const ErrorProvider: FC<ErrorProviderProps> = ({ children, externalErrors
       })
     }
     prevErrors.current = externalErrors;
+    
   }, [externalErrors])
-
 
   return (
     <ErrorContext.Provider value={{ errors, getError, setErrors, clearErrors, addError, removeError }}>
