@@ -8,7 +8,7 @@ export interface RootProviderProps {
   schema: CSVSchema;
   data?: string[][];
   errors?: CSVError[];
-  onUploadClick: (rows: string[][]) => void;
+  onUploadClick: (rows: string[][], lastChangedRow: number) => void;
   onErrorResolve? : () => void
   children: React.ReactNode;
 }

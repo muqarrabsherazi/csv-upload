@@ -9,6 +9,7 @@ export interface TableContextInterface {
   inputCellRef: RefObject<HTMLDivElement | null>;
   headers: string[];
   hoverCellCoords: CSVCellCoords | null;
+  lastChangedRow: number | null; 
   addRow: (row: string[]) => void,
   getCellValue: (coords: CSVCellCoords) => string, 
   setCell: (coords: CSVCellCoords, value:string) => void, 
@@ -18,14 +19,14 @@ export interface TableContextInterface {
   setHoverCellCoords:(coords: CSVCellCoords) => void;
   resetHoverCellCoords: () => void;
   resetInputCellCoords: () => void; 
-  onUploadClick: (rows: string[][]) => void
+  onUploadClick: (rows: string[][], lastChangedRow: number) => void
 };
 
 export const TableContext = createContext<TableContextInterface | undefined>(undefined);
 
 interface TableProviderProps {
   schema: CSVSchema
-  onUploadClick: (rows: string[][]) => void
+  onUploadClick: (rows: string[][], lastChangedRow: number) => void
   data?: string[][]
   children: ReactNode
 }
@@ -35,7 +36,9 @@ export const TableProvider: FC<TableProviderProps> = ({ children, schema, onUplo
   const [inputCellCoords, setInputCellCoords] = useState<CSVCellCoords | null>(null);
   const [headers, setHeaders] = useState<string[]>([]);
   const [hoverCellCoords, setHoverCellCoords] = useState<CSVCellCoords | null>(null);
+  const [lastChangedRow, setLastChangedRow] = useState<number | null>(null);
   const inputCellRef = useRef<HTMLDivElement | null>(null)
+
 
   const addRow = (row: string[]) => setRows(prev => [...prev, row]);
   const clearRows = () => setRows([]);
@@ -48,8 +51,14 @@ export const TableProvider: FC<TableProviderProps> = ({ children, schema, onUplo
     const newRow = [...newRows[coords.row]];
     newRow[coords.col] = value; 
     newRows[coords.row] = newRow; 
+    setLastChangedRow(prev => prev == null? coords.row :Math.min(prev, coords.row));
     return newRows;  
   });
+
+  const modifiedOnUploadClick = (rows: string[][], lastChangedRow: number) => {
+    onUploadClick(rows, lastChangedRow);
+    setLastChangedRow(null);
+  } 
 
 
   return (
@@ -61,6 +70,7 @@ export const TableProvider: FC<TableProviderProps> = ({ children, schema, onUplo
         hoverCellCoords,
         headers, 
         schema,
+        lastChangedRow,
         addRow, 
         clearRows, 
         setInputCellCoords,
@@ -70,7 +80,7 @@ export const TableProvider: FC<TableProviderProps> = ({ children, schema, onUplo
         setCell,
         setHoverCellCoords,
         resetHoverCellCoords,
-        onUploadClick, 
+        onUploadClick: modifiedOnUploadClick
 
       }}>
       {children}

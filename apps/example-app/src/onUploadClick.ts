@@ -1,15 +1,71 @@
+import { useEffect, useRef, useState } from "react"
 import { io, type Socket} from "socket.io-client"
+import { CSVError, CSVSocketError } from "types";
 
-const onUploadClick = async (rows: string[][], socket: Socket, chunkNum: number, pauseStream: boolean) => {
-  const chunkLength = Math.ceil(rows.length / chunkNum)
-  console.log(rows.length)
+const useUploadData = (
+  socket: Socket, 
+  batchNum: number, 
+  setErrors: (error: CSVError[]) => void
 
-  Array.from({length: chunkNum}).forEach((_, chunk) => {
-    const startIndex = chunk * chunkLength; 
-    const endIndex = Math.min((chunk + 1) * chunkLength, rows.length);
-    console.log(rows.slice(startIndex, endIndex))
-    socket.emit("csv", rows.slice(startIndex, endIndex));
-  })
+) => {
+  const [rows, setRows] = useState<string[][]>([]);
+  const rowsLengthRef = useRef<number>(0);
+  const uploadIndexRef = useRef<number>(0);
+  const [uploadNextBatch, setUploadNextBatch] = useState<boolean>(false);
+  const [uploading, setUploading] = useState<boolean>(false);
+
+  useEffect(() => {
+    socket.on("error", (data: CSVSocketError) => {
+
+      const batchSize = Math.ceil(rowsLengthRef.current / batchNum)
+      if (data.startIndex < uploadIndexRef.current * batchSize) return; 
+
+      const nextStartIndex = (uploadIndexRef.current + 1) * batchSize
+      if (data.errors.length == 0 && nextStartIndex < rowsLengthRef.current)
+      {
+        uploadIndexRef.current += 1;
+        setUploadNextBatch(true);
+      }
+      else
+      {
+        setUploading(false);
+      }
+      setErrors(data.errors);
+    })
+  }, [])
+
+  useEffect(() => {
+    if (!uploadNextBatch) return; 
+    setUploadNextBatch(false);
+    const batchSize = Math.ceil(rows.length / batchNum)
+    const startIndex = uploadIndexRef.current * batchSize; 
+    const endIndex = Math.min((uploadIndexRef.current + 1) * batchSize, rows.length);
+    const data = {
+      batchSize: batchSize, 
+      startIndex: startIndex, 
+      rows: rows.slice(startIndex, endIndex)
+    }
+    console.log(data)
+    socket.emit("csv", data);
+    if (endIndex == rows.length) setUploading(false);
+
+  }, [uploadNextBatch])
+
+  
+  const onUploadClick = (rows: string[][], lastChangedRow: number) => {
+    console.log(lastChangedRow);
+    if (uploading) return;
+    const batchSize = Math.ceil(rows.length / batchNum)
+    setUploading(true);
+    setRows(rows);
+    rowsLengthRef.current = rows.length;
+    uploadIndexRef.current = Math.floor(lastChangedRow / batchSize);
+    console.log(uploadIndexRef.current);
+    setUploadNextBatch(true);
+
+  }
+  return {onUploadClick}
+   
 }
 
-export default onUploadClick;
+export default useUploadData;

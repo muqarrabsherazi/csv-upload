@@ -1,6 +1,6 @@
 import CsvUpload from "csv-upload";
 import { CSVSchema} from "dsl-validator";
-import onUploadClick from "./onUploadClick";
+import useUploadData from "./onUploadClick";
 import { io } from "socket.io-client";
 import { CSVError } from "types"
 import { useEffect, useState } from "react";
@@ -16,16 +16,9 @@ function App() {
     ]
   };
   const [errors, setErrors] = useState<CSVError[]>([])
-  const [pauseStream, setPauseStream] = useState<boolean>(false);
 
-  useEffect(() => {socket.on("error", 
-    (error) => {
-      setErrors(error)
-      setPauseStream(true);
-    })}, [])
-
-  const onErrorResove = () => setPauseStream(false);
-  
+    
+  const {onUploadClick}  = useUploadData(socket, 10, setErrors)
 
     return (
     <div>
@@ -34,8 +27,7 @@ function App() {
       <CsvUpload.Provider 
         schema={schema} 
         errors={errors} 
-        onUploadClick={(rows) => onUploadClick(rows, socket, 10, pauseStream)}
-        onErrorResolve={onErrorResove} 
+        onUploadClick={onUploadClick}
         >
 
         <CsvUpload.AddCSVButton>

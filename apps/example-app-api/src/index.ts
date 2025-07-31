@@ -2,16 +2,17 @@ import express from 'express';
 import cors from 'cors';
 import { Server } from 'socket.io';
 import http from "http"
-import { CSVError } from 'types';
+import { CSVError, CSVSocketData } from 'types';
+import { error } from 'console';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const backendErrors: CSVError[]  = [
+const backendErrors: CSVError[] = [
   {
-    coords: {row: 0, col: 0},
-    msg: "hi from backend", 
+    coords: { row: 40, col: 2 },
+    msg: "hi from backend",
     type: "backend"
   }
 ]
@@ -29,11 +30,15 @@ const io = new Server(server, {
 })
 
 
-io.on("connection",(socket) =>  {
-
-  socket.on("csv", (data) => {
+io.on("connection", (socket) => {
+  socket.on("csv", (data: CSVSocketData) => {
     console.log(data)
-    socket.emit("error", backendErrors)
+    socket.emit("error",
+      {
+        startIndex: data.startIndex,
+        errors: backendErrors[0].coords.row < data.startIndex + data.batchSize ? backendErrors: []
+        // errors: []
+      })
   })
 
 })

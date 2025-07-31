@@ -9,6 +9,7 @@ type ErrorMap = {
   [cellKey: string]: ErrorValue;
 };
 
+
 export interface ErrorContextInterface {
   errors: ErrorMap;
   setErrors: (errors: ErrorMap) => void;
@@ -27,7 +28,7 @@ export interface ErrorProviderProps {
   children: ReactNode
 }
 
-export const ErrorProvider: FC<ErrorProviderProps> = ({ children, externalErrors, onErrorResolve }) => {
+export const ErrorProvider: FC<ErrorProviderProps> = ({ children, externalErrors}) => {
   const [errors, setErrors] = useState<ErrorMap>({});
   const prevErrors = useRef<CSVError[] | null>(null);
 
@@ -72,13 +73,6 @@ export const ErrorProvider: FC<ErrorProviderProps> = ({ children, externalErrors
     }
     prevErrors.current = externalErrors;
   }, [externalErrors])
-
-  useEffect(() => {
-    if (onErrorResolve != null && Object.keys(errors).length === 0) 
-      onErrorResolve();
-
-  }, [errors])
-
 
 
   return (

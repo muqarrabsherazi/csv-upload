@@ -7,7 +7,7 @@ export interface UploadButtonProps{
 }
 
 const UploadButton: FC<UploadButtonProps> =({children}) => {
-    const {rows , onUploadClick} =useTable();
+    const {rows , lastChangedRow, onUploadClick} =useTable();
     const { errors } = useErrors();
 
     const hasErrors = Object.keys(errors).length > 0;
@@ -15,7 +15,7 @@ const UploadButton: FC<UploadButtonProps> =({children}) => {
 
     const handleClick = () => {
         if (!isDisabled) {
-            onUploadClick(rows);
+            onUploadClick(rows, lastChangedRow ?? 0);
         }
 
     };
