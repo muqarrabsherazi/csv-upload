@@ -31,6 +31,8 @@ const JumpToFirstError: React.FC<JumpToFirstErrorProps> = ({classNames, children
     inputCellRef.current?.scrollIntoView({behavior: "smooth", block: "center"});
     setScoll(false);
   }, [inputCellCoords, scroll])
+  
+  if (errorCells.length === 0) return null;
 
   return (
     <button className={classNames?.button?? "" } onClick={onClick} disabled={errorCells.length == 0}>

@@ -1,3 +1,4 @@
+  
   import { FC } from "react"
 import { CSVFieldBasicSchema } from "dsl-validator";
 import makeHeaderKey from "@utils/makeHeaderKey";
@@ -20,11 +21,6 @@ const Header: FC<HeaderProps> = ({className}) => {
         headers.map((header, headerIndex) => (
           <th className={className?.cell?? ""}
             key={makeHeaderKey(headerIndex)}
-            style={{
-              border: "1px solid black",
-              padding: "8px",
-              textAlign: "left",
-            }}
           >
             {header}
           </th>
