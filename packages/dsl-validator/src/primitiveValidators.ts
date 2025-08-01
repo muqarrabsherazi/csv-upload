@@ -1,46 +1,54 @@
 import { parse, isValid } from "date-fns";
-export const isString = (value: string): boolean => {
-  return typeof value === "string" && value.trim().length > 0;
+import {CSVFieldDateSchema, CSVFieldNumberSchema, CSVFieldSchema, CSVFieldStringSchema } from "./schema";
+import { ErrorMsg } from "types";
+
+export const isString = (value: string, field: CSVFieldSchema): ErrorMsg => {
+  if (typeof value != "string")
+    return field.errorMsg ?? "Value should be of string type";
+
+  const stringField = field as CSVFieldStringSchema; 
+  if (stringField.options && !stringField.options.some((opt) => opt == value))
+    return field.errorMsg ?? `Value should be one of these: ${stringField.options.map(o => `"${o}"`).join(' , ')}`
+
+  return null;
 };
 
-export const isNum = (value: string): boolean => {
-  return /^-?\d+(\.\d+)?$/.test(value.trim());
+export const isNum = (value: string, field: CSVFieldSchema): ErrorMsg => {
+  if (Number.isNaN(Number(value)))
+    return field.errorMsg ?? "Value should be a number type"
+
+  const numberField = field as CSVFieldNumberSchema;
+
+  if (numberField.min && Number(value) < numberField.min)
+    return field.errorMsg ?? `Value should be greater than ${numberField.min}`
+
+  if (numberField.max && Number(value) > numberField.max)
+    return field.errorMsg ?? `Value should be less than ${numberField.max}`
+
+  return null;
 };
 
-export const isBool = (value: string): boolean => {
+export const isBool = (value: string, field: CSVFieldSchema): ErrorMsg => {
   const booleans = [
-    "true", "false", "yes", "no", "y", "n",
+    "true", "false",
   ]
-  return booleans.some((b) => value.trim().toLowerCase() === b);
+  if (!booleans.some((b) => value.toLowerCase() === b))
+    return field.errorMsg ?? "Value should be of boolean type";
+  return null
 };
 
-export const isDate = (value: string): boolean => {
-
-const dateFormats = [
-  "yyyy-MM-dd",       // 2021-07-21
-  "dd-MM-yyyy",       // 21-07-2021
-  "MM-dd-yyyy",       // 07-21-2021
-  "yyyy/MM/dd",       // 2021/07/21
-  "dd/MM/yyyy",       // 21/07/2021
-  "MM/dd/yyyy",       // 07/21/2021
-  "yyyy.MM.dd",       // 2021.07.21
-  "dd MMMM yyyy",     // 21 July 2021
-  "MMMM dd, yyyy",    // July 21, 2021
-  "MMMM dd,yyyy",    // July 21,2021
-  "MMM dd, yyyy",     // Jul 21, 2021
-  "MMM dd,yyyy",     // Jul 21,2021
-  "dd.MM.yyyy",       // 21.07.2021
-  "dd MMM yyyy",      // 21 Jul 2021
-];
-
-  const trimmed = value.trim();
-
-  const patternsMatch = dateFormats.some((format) => {
-    const parsed = parse(trimmed, format, new Date());
+export const isDate = (value: string, field: CSVFieldSchema): ErrorMsg => {
+  
+  const dateField = field as CSVFieldDateSchema; 
+  const valid =  dateField.dateFormats.some((format) => {
+    const parsed = parse(value, format, new Date());
     return isValid(parsed);
-
   })
-  return patternsMatch;
+
+  if (!valid)
+    return field.errorMsg ?? `Value should be of type date with format: ${dateField.dateFormats.map(f => `(${f})`).join(' , ')}`
+
+  return null
 
 }
 

@@ -1,5 +1,5 @@
 import CsvUpload from "csv-upload";
-import { CSVSchema} from "dsl-validator";
+import { CSVSchema, CSVFieldSchema} from "dsl-validator";
 import useUploadData from "./onUploadClick";
 import { io } from "socket.io-client";
 import { CSVError } from "types"
@@ -11,9 +11,15 @@ function App() {
     fields: [
       {name: "Countries", type: "string"}, 
       {name: "Currency", type: "string"}, 
-      {name: "Price", type: "number"}, 
-      {name: "Adjust", type: "boolean", required : true}
+      {name: "Price", type: "number", min: 30, max: 40}, 
+      {name: "Adjust", type: "string", options:["Y", "N"]}
     ]
+    // fields: [
+    //   {name: "Date of Birth", type: "date", dateFormats: ["MM-dd-yyyy"]},
+    //   {name: "Date of Birth", type: "number"}
+    // ]
+
+    
   };
   const [errors, setErrors] = useState<CSVError[]>([])
 

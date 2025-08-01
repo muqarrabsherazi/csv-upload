@@ -1,28 +1,52 @@
-/**
- * A minimal DSL to describe the structure of a CSV file.
- * Interns should expand this as the project grows.
- */
-
 export type CSVPrimitiveType = "string" | "number" | "boolean" | "date";
 
-export interface CSVFieldSchema {
-  /** Column name as it appears in the CSV header */
+type NonEmptyArray<T> = [T, ...T[]];
+export type CSVDateFormat = 
+  "yyyy-MM-dd" | "dd-MM-yyyy" | "MM-dd-yyyy" |
+  "yyyy/MM/dd" | "dd/MM/yyyy" | "MM/dd/yyyy" |
+  "yyyy.MM.dd" | "dd MMMM yyyy" | "MMMM dd, yyyy" |
+  "MMMM dd,yyyy" | "MMM dd, yyyy" | "MMM dd,yyyy" |
+  "dd.MM.yyyy" | "dd MMM yyyy";
+
+interface CSVFieldBase {
   name: string;
-  /** Primitive data type */
-  type: CSVPrimitiveType;
-  /** Whether the column is mandatory */
   required?: boolean;
-  /** Optional custom validator function */
   validator?: (value: string) => string | null;
-  errorMsg?: string
+  errorMsg?: string;
 }
+
+// export interface CSVFieldBasicSchema extends CSVFieldBase {
+//   type: Exclude<CSVPrimitiveType, "date">; // "string" | "number" | "boolean"
+// }
+
+export interface CSVFieldStringSchema extends CSVFieldBase {
+  type: "string"; 
+  options?: string[];
+}
+
+export interface CSVFieldNumberSchema extends CSVFieldBase {
+  type: "number"; 
+  min?: number; 
+  max?: number;
+}
+
+export interface CSVFieldBooleanSchema extends CSVFieldBase {
+  type: "boolean"; 
+}
+
+export interface CSVFieldDateSchema extends CSVFieldBase {
+  type: "date";
+  dateFormats: NonEmptyArray<CSVDateFormat>; // Required
+}
+
+export type CSVFieldSchema = 
+  // | CSVFieldBasicSchema 
+  | CSVFieldDateSchema 
+  | CSVFieldStringSchema
+  | CSVFieldNumberSchema
+  | CSVFieldBooleanSchema
+
 
 export interface CSVSchema {
-  /** Array of field definitions */
   fields: CSVFieldSchema[];
-  headers?: boolean;
-}
-
-export interface ConditionalNumberFieldSchema extends CSVFieldSchema {
-  condition: string // "<10", "===100"
 }

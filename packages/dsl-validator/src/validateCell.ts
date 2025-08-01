@@ -1,7 +1,8 @@
-import { CSVFieldSchema, CSVPrimitiveType } from "types"
+import { CSVDateFormat, CSVFieldSchema, CSVPrimitiveType } from "./schema"
 import { isBool, isDate, isNum, isString } from "./primitiveValidators"
+import { ErrorMsg } from "types"
 
-export const validator: Record<CSVPrimitiveType, (value:string) => boolean> = {
+export const validator: Record<CSVPrimitiveType, (value:string, field: CSVFieldSchema) => ErrorMsg> = {
   "string": isString, 
   "number": isNum,
   "boolean": isBool, 
@@ -14,14 +15,14 @@ export const validate = (field: CSVFieldSchema, value: string): string | null  =
   if (field.validator != undefined) 
     return field.validator(value) 
 
-  if (!("required" in field) && !field.required && value.trim().length == 0)
+  if (!field.required && !value)
     return null;
     
   const isNonEmpty = field.required? value.trim().length != 0 : true; 
-  const isValid = validator[field.type](value) && isNonEmpty
+  const errorMsg = validator[field.type](value, field)
 
 
   if (!isNonEmpty) return "Value should be non-empty"
-  if (!isValid) return `Value should be of type ${field.type}`
+  if (errorMsg != null) return errorMsg 
   return null; 
 }
