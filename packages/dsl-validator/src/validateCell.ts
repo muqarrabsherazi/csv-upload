@@ -1,4 +1,4 @@
-import { CSVDateFormat, CSVFieldBasicSchema, CSVFieldSchema, CSVPrimitiveType } from "./schema"
+import { CSVDateFormat, CSVFieldSchema, CSVPrimitiveType } from "./schema"
 import { isBool, isDate, isNum, isString } from "./primitiveValidators"
 import { ErrorMsg } from "types"
 

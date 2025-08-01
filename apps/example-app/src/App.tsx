@@ -8,15 +8,16 @@ const socket = io("http://localhost:4000");
 
 function App() {
   const schema: CSVSchema = {
-    // fields: [
-    //   {name: "Countries", type: "string"}, 
-    //   {name: "Currency", type: "string"}, 
-    //   {name: "Price", type: "number"}, 
-    //   {name: "Adjust", type: "boolean", required : true}
-    // ]
     fields: [
-      {name: "Date of Birth", type: "date", dateFormats: ["MM-dd-yyyy"]}
+      {name: "Countries", type: "string"}, 
+      {name: "Currency", type: "string"}, 
+      {name: "Price", type: "number"}, 
+      {name: "Adjust", type: "string", options:["Y", "N"]}
     ]
+    // fields: [
+    //   {name: "Date of Birth", type: "date", dateFormats: ["MM-dd-yyyy"]},
+    //   {name: "Date of Birth", type: "number"}
+    // ]
 
     
   };

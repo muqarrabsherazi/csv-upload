@@ -15,21 +15,35 @@ interface CSVFieldBase {
   errorMsg?: string;
 }
 
-// 2. Non-date fields (excludes "date" type)
-export interface CSVFieldBasicSchema extends CSVFieldBase {
-  type: Exclude<CSVPrimitiveType, "date">; // "string" | "number" | "boolean"
+// export interface CSVFieldBasicSchema extends CSVFieldBase {
+//   type: Exclude<CSVPrimitiveType, "date">; // "string" | "number" | "boolean"
+// }
+
+export interface CSVFieldStringSchema extends CSVFieldBase {
+  type: "string"; 
+  options?: string[];
 }
 
-// 3. Date fields (requires dateFormats)
+export interface CSVFieldNumberSchema extends CSVFieldBase {
+  type: "number"; 
+}
+
+export interface CSVFieldBooleanSchema extends CSVFieldBase {
+  type: "boolean"; 
+}
+
 export interface CSVFieldDateSchema extends CSVFieldBase {
   type: "date";
   dateFormats: NonEmptyArray<CSVDateFormat>; // Required
 }
 
-// 4. Discriminated union
 export type CSVFieldSchema = 
-  | CSVFieldBasicSchema 
-  | CSVFieldDateSchema;
+  // | CSVFieldBasicSchema 
+  | CSVFieldDateSchema 
+  | CSVFieldStringSchema
+  | CSVFieldNumberSchema
+  | CSVFieldBooleanSchema
+
 
 export interface CSVSchema {
   fields: CSVFieldSchema[];

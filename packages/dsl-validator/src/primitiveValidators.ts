@@ -1,10 +1,15 @@
 import { parse, isValid } from "date-fns";
-import { CSVFieldBasicSchema, CSVFieldDateSchema, CSVFieldSchema } from "./schema";
+import {CSVFieldDateSchema, CSVFieldSchema, CSVFieldStringSchema } from "./schema";
 import { ErrorMsg } from "types";
 
 export const isString = (value: string, field: CSVFieldSchema): ErrorMsg => {
   if (typeof value != "string")
     return field.errorMsg ?? "Value should be of string type";
+
+  const stringField = field as CSVFieldStringSchema; 
+  if (stringField.options && !stringField.options.some((opt) => opt == value))
+    return field.errorMsg ?? `Value should be one of these: ${stringField.options.map(o => `"${o}"`).join(' , ')}`
+
   return null;
 };
 
