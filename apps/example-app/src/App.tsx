@@ -1,5 +1,5 @@
 import CsvUpload from "csv-upload";
-import { CSVSchema} from "dsl-validator";
+import { CSVSchema, CSVFieldSchema} from "dsl-validator";
 import useUploadData from "./onUploadClick";
 import { io } from "socket.io-client";
 import { CSVError } from "types"
@@ -15,7 +15,7 @@ function App() {
     //   {name: "Adjust", type: "boolean", required : true}
     // ]
     fields: [
-      {name: "Date of Birth", type: "date", dateFormats: ["MMMM dd,yyyy"]}
+      {name: "Date of Birth", type: "date", dateFormats: ["MM-dd-yyyy"]}
     ]
 
     
