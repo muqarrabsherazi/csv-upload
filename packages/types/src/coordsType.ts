@@ -1,1 +1,1 @@
-export type Coords = {row: number, col: number}
+export type CSVCellCoords = {row: number, col: number}

@@ -13,6 +13,7 @@
     "csv-upload": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "socket.io-client": "^4.8.1",
     "types": "workspace:*"
   },
   "devDependencies": {

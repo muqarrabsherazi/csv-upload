@@ -1,6 +1,6 @@
-import { Coords } from "types"
+import { CSVCellCoords } from "types"
 
-const deserializeCoords = (key: string): Coords =>
+const deserializeCoords = (key: string): CSVCellCoords =>
 {
   const keys = key.split(":")
   return {

@@ -1,13 +1,13 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import useTable from "@hooks/useTable";
 import useErrors from "@hooks/useErrors";
 
-interface UploadButton{
-
+export interface UploadButtonProps{
+  children: ReactNode
 }
 
-const UploadButton: FC<UploadButton> =({}) => {
-    const {rows , onUploadClick} =useTable();
+const UploadButton: FC<UploadButtonProps> =({children}) => {
+    const {rows , lastChangedRow, onUploadClick} =useTable();
     const { errors } = useErrors();
 
     const hasErrors = Object.keys(errors).length > 0;
@@ -15,7 +15,7 @@ const UploadButton: FC<UploadButton> =({}) => {
 
     const handleClick = () => {
         if (!isDisabled) {
-            onUploadClick(rows);
+            onUploadClick(rows, lastChangedRow ?? 0);
         }
 
     };
@@ -35,7 +35,7 @@ const UploadButton: FC<UploadButton> =({}) => {
         transition: "all 0.2s ease-in-out"
       }}
     >
-      Upload CSV
+      {children}
     </button>
   );
 };

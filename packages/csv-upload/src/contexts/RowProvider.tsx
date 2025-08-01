@@ -1,8 +1,8 @@
 import { createContext, useState, useContext, ReactNode, type FC, useEffect } from "react";
-import { type Coords } from "types";
+import { type CSVCellCoords } from "types";
 
 export interface RowContextInterface {
-  cellCoords: Coords[]
+  cellCoords: CSVCellCoords[]
   row: string[]
   rowIndex: number
 };

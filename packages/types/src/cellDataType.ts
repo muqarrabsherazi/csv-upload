@@ -1,12 +1,12 @@
 
-import { Coords } from "./coordsType"
+import { CSVCellCoords } from "./coordsType"
 
 
 export type CSVCellType = "display" | "input"
 
 export interface CSVCellData {
   props: {
-    coords: Coords, 
+    coords: CSVCellCoords, 
     value: string, 
     errorMsg: string | null;
     type: CSVCellType

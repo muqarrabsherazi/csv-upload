@@ -1,4 +1,4 @@
-import { Coords } from "types";
+import { CSVCellCoords } from "types";
 
-const serializeCoords = (coords: Coords): string => `${coords.row}:${coords.col}`;
+const serializeCoords = (coords: CSVCellCoords): string => `${coords.row}:${coords.col}`;
 export default serializeCoords;

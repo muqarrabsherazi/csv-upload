@@ -1,7 +1,7 @@
 import { createContext, useState, useContext, ReactNode, type FC, useEffect, useMemo } from "react";
-import { CSVCellType, type Coords } from "types";
+import { CSVCellType, type CSVCellCoords } from "types";
 import  useErrors  from "@hooks/useErrors";
-import coordsAreEqual from "@utils/isInputCell";
+import coordsAreEqual from "@utils/coordsAreEqual";
 import useTable from "@hooks/useTable";
 
 export interface CellContextInterface {
@@ -9,13 +9,13 @@ export interface CellContextInterface {
   type: CSVCellType, 
   errorMsg: string | null
   shouldDisplayError: boolean
-  coords: Coords
+  coords: CSVCellCoords
 }
 
 export const CellContext = createContext<CellContextInterface | undefined>(undefined);
 
 interface CellProviderProps {
-  coords: Coords
+  coords: CSVCellCoords
   children: ReactNode
 }
 
@@ -24,7 +24,7 @@ export const CellProvider: FC<CellProviderProps> = ({coords, children}) => {
   const {getError} = useErrors()
 
   const value = useMemo(() => getCellValue(coords), [coords]); 
-  const errorMsg = useMemo(() => getError(coords), [coords]); 
+  const errorMsg = useMemo(() => getError(coords)?.msg ?? null, [coords]); 
   const type = coordsAreEqual(inputCellCoords, coords) ? "input" : "display"  
   const shouldDisplayError =  errorMsg != null && 
         (coordsAreEqual(hoverCellCoords, coords) || coordsAreEqual(inputCellCoords, coords))

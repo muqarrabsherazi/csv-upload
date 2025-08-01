@@ -3,9 +3,14 @@
   "compilerOptions": {
     "outDir": "dist",
     "types": ["react", "react-dom"],
+    "paths": {
+      "dsl-validator": ["../../packages/dsl-validator/src"],
+      "csv-upload": ["../../packages/csv-upload/src"]
+    }
   },
-  "include": ["src"],
+  "include": ["src", "../../packages/dsl-validator/src"],
   "references": [
-    { "path": "../../packages/csv-upload" }
+    { "path": "../../packages/csv-upload" },
+    { "path": "../../packages/dsl-validator" }
   ]
   }

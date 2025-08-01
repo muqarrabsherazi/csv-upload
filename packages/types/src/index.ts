@@ -1,3 +1,5 @@
-export * from "../../dsl-validator/schema";
 export * from "./coordsType"
 export * from "./cellDataType"
+export * from "./errorInterface"
+export * from "./socketDataInterface"
+export * from "./socketErrorInterface"
