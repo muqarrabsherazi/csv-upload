@@ -26,6 +26,8 @@ export interface CSVFieldStringSchema extends CSVFieldBase {
 
 export interface CSVFieldNumberSchema extends CSVFieldBase {
   type: "number"; 
+  min?: number; 
+  max?: number;
 }
 
 export interface CSVFieldBooleanSchema extends CSVFieldBase {

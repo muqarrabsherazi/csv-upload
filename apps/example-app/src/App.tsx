@@ -11,7 +11,7 @@ function App() {
     fields: [
       {name: "Countries", type: "string"}, 
       {name: "Currency", type: "string"}, 
-      {name: "Price", type: "number"}, 
+      {name: "Price", type: "number", min: 30, max: 40}, 
       {name: "Adjust", type: "string", options:["Y", "N"]}
     ]
     // fields: [

@@ -1,5 +1,5 @@
 import { parse, isValid } from "date-fns";
-import {CSVFieldDateSchema, CSVFieldSchema, CSVFieldStringSchema } from "./schema";
+import {CSVFieldDateSchema, CSVFieldNumberSchema, CSVFieldSchema, CSVFieldStringSchema } from "./schema";
 import { ErrorMsg } from "types";
 
 export const isString = (value: string, field: CSVFieldSchema): ErrorMsg => {
@@ -16,6 +16,15 @@ export const isString = (value: string, field: CSVFieldSchema): ErrorMsg => {
 export const isNum = (value: string, field: CSVFieldSchema): ErrorMsg => {
   if (Number.isNaN(Number(value)))
     return field.errorMsg ?? "Value should be a number type"
+
+  const numberField = field as CSVFieldNumberSchema;
+
+  if (numberField.min && Number(value) < numberField.min)
+    return field.errorMsg ?? `Value should be greater than ${numberField.min}`
+
+  if (numberField.max && Number(value) > numberField.max)
+    return field.errorMsg ?? `Value should be less than ${numberField.max}`
+
   return null;
 };
 
