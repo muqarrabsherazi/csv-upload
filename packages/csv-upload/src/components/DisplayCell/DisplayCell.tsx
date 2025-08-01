@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, useEffect } from "react"
 import useTable from "@hooks/useTable";
 import { CellProps } from "@components/Cell";
 import useCell from "@hooks/useCell";
@@ -30,18 +30,10 @@ const DisplayCell: FC<DisplayCellProps> = ({children, classNames}) => {
   
  return (
     <td
-      style={{
-        border: errorMsg ? "1px solid red" : "1px solid black",
-        padding: "8px",
-        textAlign: "left",
-        maxWidth: "20px",
-        position: "relative",
-
-      }} 
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className={classNames?.root??"" + errorClassName}
+      className={(classNames?.root??"") + " " + errorClassName}
 
     >
       {value}

@@ -31,31 +31,25 @@ const InputCell: FC<InputCellProps> = ({ children, classNames }) => {
   }, [cellValue])
 
   const errorStyle = errorMsg == null ? {} : { border: "1px solid red" }
+  const errorClassName = (errorMsg ? classNames?.rootError ?? "" : "")
+  const errorInputClassName = (errorMsg ? classNames?.inputError?? "" : "")
+
+  useEffect(() => {
+    if (inputCellRef.current)
+      inputCellRef.current.focus({preventScroll: true});
+  }, [inputCellRef.current])
+
+
   return (
     <td
-      style={{
-        border: "1px solid black",
-        padding: "8px",
-        textAlign: "left",
-        maxWidth: "20px",
-        ...errorStyle
-      }}
-      className={classNames?.root ?? "" + " " + (errorMsg ? classNames?.rootError ?? "" : "")}
+      className={(classNames?.root ?? "") + " " + errorClassName}
       onClick={(e) => e.stopPropagation()}
 
     >
-      <div ref={inputCellRef as RefObject<HTMLDivElement>}>
-        <input style={{
-          width: "100%",
-          height: "100%",
-          boxSizing: "border-box",     // Critical: includes padding in width
-          font: "inherit",              // Match surrounding text
-          padding: 0,                   // Optional: remove default input padding
-          margin: 0,                    // Optional: remove default input margin
-          background: "transparent",   // Optional: looks like plain cell
-        }}
 
-          className={classNames?.input ?? "" + " " + (errorMsg ? classNames?.inputError ?? "" : "")}
+        <input
+          ref={inputCellRef as RefObject<HTMLInputElement>}    
+          className={classNames?.input ?? "" + " " + errorInputClassName}
           value={cellValue} onChange={(e) => setCellValue(e.target.value)}
           onKeyDown={(e) => {
             if (e.key != "Enter") return;
@@ -67,7 +61,6 @@ const InputCell: FC<InputCellProps> = ({ children, classNames }) => {
         />
         {children}
 
-      </div>
     </td>
   )
 }

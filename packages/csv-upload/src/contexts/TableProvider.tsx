@@ -6,7 +6,7 @@ export interface TableContextInterface {
   schema: CSVSchema, 
   rows: string[][];
   inputCellCoords: Coords | null;
-  inputCellRef: RefObject<HTMLDivElement | null>;
+  inputCellRef: RefObject<HTMLInputElement | null>;
   headers: string[];
   hoverCellCoords: Coords | null;
   addRow: (row: string[]) => void,
@@ -35,7 +35,7 @@ export const TableProvider: FC<TableProviderProps> = ({ children, schema, onUplo
   const [inputCellCoords, setInputCellCoords] = useState<Coords | null>(null);
   const [headers, setHeaders] = useState<string[]>([]);
   const [hoverCellCoords, setHoverCellCoords] = useState<Coords | null>(null);
-  const inputCellRef = useRef<HTMLDivElement | null>(null)
+  const inputCellRef = useRef<HTMLInputElement | null>(null)
 
   const addRow = (row: string[]) => setRows(prev => [...prev, row]);
   const clearRows = () => setRows([]);
