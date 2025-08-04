@@ -12,5 +12,9 @@
     "build": "pnpm -r run build",
     "start": "pnpm -r --filter './apps/*' run start",
     "lint": "pnpm -r run lint"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6"
   }
-} 
+}

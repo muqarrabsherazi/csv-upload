@@ -22,7 +22,7 @@ interface CellProviderProps {
 export const CellProvider: FC<CellProviderProps> = ({coords, children}) => {
   const {inputCellCoords, hoverCellCoords, getCellValue} = useTable()
   const {getError} = useErrors()
-
+            
   const value = useMemo(() => getCellValue(coords), [coords]); 
   const errorMsg = useMemo(() => getError(coords)?.msg ?? null, [coords]); 
   const type = coordsAreEqual(inputCellCoords, coords) ? "input" : "display"  
