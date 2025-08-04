@@ -36,7 +36,6 @@ function App() {
           <CsvUpload.AddCSVButton
             classNames={{
               button: "bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded",
-              input: "hidden"
             }}
           >
             Add CSV
@@ -82,8 +81,9 @@ function App() {
             <CsvUpload.Row classNames={{ root: "hover:bg-gray-50" }}>
               <CsvUpload.Cell
                 classNames={{
-                  root: "px-4 py-2 border-b border-gray-200 text-sm",
-                  rootError: "bg-red-200"
+                  root: "px-4 py-2 border-b border-gray-200 text-sm max-w-1",
+                  rootError: "bg-red-200", 
+                  input: "max-w-32",
                 }}
               >
                 <CsvUpload.ErrorMessage
