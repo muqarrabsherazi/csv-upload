@@ -28,7 +28,7 @@ function App() {
   const { onUploadClick } = useUploadData(socket, 10, setErrors)
 
   return (
-    <CsvUpload.Provider schema={schema} onUploadClick={(rows) => { }}>
+    <CsvUpload.Provider schema={schema} errors={errors} onUploadClick={onUploadClick}>
       <div className="p-6 space-y-6 bg-white rounded-lg shadow">
         <h1 className="text-4xl font-bold">CSV Upload</h1>
         {/* Buttons */}
@@ -36,7 +36,6 @@ function App() {
           <CsvUpload.AddCSVButton
             classNames={{
               button: "bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded",
-              input: "hidden"
             }}
           >
             Add CSV
@@ -62,7 +61,7 @@ function App() {
                 "bg-red-600 hover:bg-red-700 text-white font-medium py-1 px-3 rounded"
             }}
           >
-            Jump to validation error
+            Jump to error
           </CsvUpload.JumpToFirstError>
         </div>
 
@@ -82,8 +81,9 @@ function App() {
             <CsvUpload.Row classNames={{ root: "hover:bg-gray-50" }}>
               <CsvUpload.Cell
                 classNames={{
-                  root: "px-4 py-2 border-b border-gray-200 text-sm",
-                  rootError: "bg-red-200"
+                  root: "px-4 py-2 border-b border-gray-200 text-sm max-w-1",
+                  rootError: "bg-red-200", 
+                  input: "max-w-32",
                 }}
               >
                 <CsvUpload.ErrorMessage

@@ -8,6 +8,8 @@ export interface CellProps{
   classNames?: {
     root?: string
     rootError?:string
+    input?: string
+    inputError?: string
   }
 }
 

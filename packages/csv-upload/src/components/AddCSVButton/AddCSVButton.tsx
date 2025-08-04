@@ -39,7 +39,7 @@ const AddCSVButton: FC<AddCSVButtonProps> = ({ children, classNames}) => {
         accept=".csv"
         ref={fileInputRef}
         onChange={handleChange}
-        className={classNames?.input ?? ""}
+        hidden={true}
       />
       
     </div>
