@@ -5,6 +5,7 @@ import { io } from "socket.io-client";
 import { CSVError } from "types"
 import { useEffect, useState } from "react";
 const socket = io("http://localhost:4000");
+import "./App.css"
 
 function App() {
   const schema: CSVSchema = {
