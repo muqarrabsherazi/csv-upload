@@ -17,6 +17,8 @@ import { RowContextInterface } from "@contexts/RowProvider";
 import useCell from "@hooks/useCell";
 import useRow from "@hooks/useRow";
 import UploadButton, { type UploadButtonProps } from "@components/UploadButton";
+import { TableContextInterface } from "@contexts/TableProvider";
+import useTable from "@hooks/useTable";
 
 
 export interface CsvUploadComponent {
@@ -34,19 +36,9 @@ export interface CsvUploadComponent {
   UploadButton: FC<UploadButtonProps>
   useCell: () => CellContextInterface
   useRow: () => RowContextInterface
+  useTable: () => TableContextInterface
 
 }
-
-/**
- * CsvUpload is a headless (logic-only) React component that:
- * 1. Accepts a CSV file from the user.
- * 2. Parses it into rows.
- * 3. Validates each cell against the provided schema.
- * 4. Exposes the parsed/validated data via the provided callbacks.
- *
- * NOTE: This is just a starting point for interns to build on – the heavy lifting is still TODO.
- */
-
 
 const CsvUpload: CsvUploadComponent = {
   Provider: RootProvider,  
@@ -63,6 +55,7 @@ const CsvUpload: CsvUploadComponent = {
   Header: Header,
   useCell: useCell, 
   useRow: useRow,
+  useTable: useTable
 }
 
 export default CsvUpload;

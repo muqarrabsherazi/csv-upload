@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 
 export default defineConfig({
-  plugins: [react(), tsconfigPaths(),tailwindcss()],
+  plugins: [react(), tsconfigPaths(), tailwindcss()],
   resolve: {
     alias: {
       'csv-upload': resolve(__dirname, '../../packages/csv-upload/src'),

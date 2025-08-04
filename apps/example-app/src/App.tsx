@@ -5,6 +5,7 @@ import { io } from "socket.io-client";
 import { CSVError } from "types"
 import { useEffect, useState } from "react";
 const socket = io("http://localhost:4000");
+import "./App.css"
 
 function App() {
   const schema: CSVSchema = {
@@ -27,7 +28,7 @@ function App() {
   const { onUploadClick } = useUploadData(socket, 10, setErrors)
 
   return (
-    <CsvUpload.Provider schema={schema} onUploadClick={(rows) => { }}>
+    <CsvUpload.Provider schema={schema} errors={errors} onUploadClick={onUploadClick}>
       <div className="p-6 space-y-6 bg-white rounded-lg shadow">
         <h1 className="text-4xl font-bold">CSV Upload</h1>
         {/* Buttons */}
@@ -61,7 +62,7 @@ function App() {
                 "bg-red-600 hover:bg-red-700 text-white font-medium py-1 px-3 rounded"
             }}
           >
-            Jump to validation error
+            Jump to error
           </CsvUpload.JumpToFirstError>
         </div>
 
