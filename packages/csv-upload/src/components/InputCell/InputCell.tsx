@@ -23,7 +23,6 @@ const InputCell: FC<InputCellProps> = ({ children, classNames }) => {
   const { checkFrontendError } = useValidate();
   const {addError, removeError, getError} = useErrors()
   const initialValue = useRef<string>(value);
-  const backendError = useRef<ErrorValue | null>(null)
   
   const [cellValue, setCellValue] = useState(value);
 
@@ -49,6 +48,8 @@ const InputCell: FC<InputCellProps> = ({ children, classNames }) => {
       inputCellRef.current.focus({preventScroll: true});
   }, [inputCellRef.current])
 
+  useEffect(() => console.log((classNames?.input ?? "") + " " + errorInputClassName), [errorInputClassName])
+
 
   return (
     <td
@@ -57,7 +58,7 @@ const InputCell: FC<InputCellProps> = ({ children, classNames }) => {
     >
       <input
         ref={inputCellRef as RefObject<HTMLInputElement>}    
-        className={classNames?.input ?? "" + " " + errorInputClassName}
+        className={(classNames?.input ?? "") + " " + errorInputClassName}
         value={cellValue} onChange={(e) => setCellValue(e.target.value)}
         onKeyDown={(e) => {
           if (e.key != "Enter") return;
@@ -66,8 +67,6 @@ const InputCell: FC<InputCellProps> = ({ children, classNames }) => {
           resetInputCellCoords();
         }}
         onBlur={resetInputCellCoords}
-      
-
       />
       {children}
     </td>

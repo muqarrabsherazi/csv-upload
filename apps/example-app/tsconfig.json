@@ -4,6 +4,7 @@
     "outDir": "dist",
     "types": ["react", "react-dom"],
     "paths": {
+      "types": ["../../packages/types/src"],
       "dsl-validator": ["../../packages/dsl-validator/src"],
       "csv-upload": ["../../packages/csv-upload/src"]
     }

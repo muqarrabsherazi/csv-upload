@@ -17,7 +17,7 @@ export interface TableProps {
 const Table: FC <TableProps> = ({ headers, children, classNames}) => {
   const { schema, rows,  resetInputCellCoords} = useTable(); 
 
-  useKeyPressOutside({onMouseDown: resetInputCellCoords})
+  // useKeyPressOutside({onMouseDown: resetInputCellCoords})
 
   return (
     <table className={classNames?.root?? ""}>

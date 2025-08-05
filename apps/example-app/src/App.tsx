@@ -1,5 +1,5 @@
 import CsvUpload from "csv-upload";
-import { CSVSchema, CSVFieldSchema } from "dsl-validator";
+import { CSVSchema } from "dsl-validator";
 import useUploadData from "./onUploadClick";
 import { io } from "socket.io-client";
 import { CSVError } from "types"
@@ -78,9 +78,10 @@ function App() {
             <CsvUpload.Row classNames={{ root: "hover:bg-gray-50" }}>
               <CsvUpload.Cell
                 classNames={{
-                  root: "px-4 py-2 border-b border-gray-200 text-sm max-w-1",
+                  root: "border-b border-gray-200 text-sm max-w-1",
                   rootError: "bg-red-200", 
-                  input: "w-full",
+                  text: "mx-4 my-2",
+                  input: "w-full h-full px-4 py-2",
                 }}
               >
                 <CsvUpload.ErrorMessage

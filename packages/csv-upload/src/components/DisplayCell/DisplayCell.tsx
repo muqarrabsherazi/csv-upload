@@ -8,6 +8,8 @@ export interface DisplayCellProps extends CellProps{
   classNames: {
     root?: string, 
     rootError?: string
+    text?: string
+    textError?: string
   }
 }
 
@@ -31,17 +33,18 @@ const DisplayCell: FC<DisplayCellProps> = ({children, classNames}) => {
     resetHoverCellCoords(); 
   };
 
-  const errorClassName = (errorMsg ? classNames?.rootError ?? "" : "")
+  const errorRootClassName = (errorMsg ? classNames?.rootError ?? "" : "")
+  const errorTextClassName = (errorMsg ? classNames?.textError ?? "" : "")
   
  return (
     <td
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className={(classNames?.root??"") + " " + errorClassName}
+      className={(classNames?.root??"") + " " + errorRootClassName}
 
     >
-      {value}
+      <p className={(classNames?.text??"") + " " + errorRootClassName}>{value}</p>
       {children}
 
     </td>

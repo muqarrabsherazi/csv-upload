@@ -7,8 +7,11 @@ export const isString = (value: string, field: CSVFieldSchema): ErrorMsg => {
     return field.errorMsg ?? "Value should be of string type";
 
   const stringField = field as CSVFieldStringSchema; 
+  if (stringField.options && !stringField.options.some((opt) => opt == value.trim()))
+    return field.errorMsg ?? `Value should be one of these: ${stringField.options.map(o => `"${o}"`).join(' , ')}${!field.required && ` , ""`}`
+
   if (stringField.options && !stringField.options.some((opt) => opt == value))
-    return field.errorMsg ?? `Value should be one of these: ${stringField.options.map(o => `"${o}"`).join(' , ')}`
+    return field.errorMsg ?? `Value should be one of these: ${stringField.options.map(o => `"${o}"`).join(' , ')}${!field.required && ` , ""`}. Check for whitespaces `
 
   return null;
 };
