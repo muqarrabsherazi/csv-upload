@@ -2,31 +2,44 @@ import { parse, isValid } from "date-fns";
 import {CSVFieldDateSchema, CSVFieldNumberSchema, CSVFieldSchema, CSVFieldStringSchema } from "./schema";
 import { ErrorMsg } from "types";
 
+const checkWhitespaces = (value: string, field: CSVFieldSchema) : boolean=> {
+  if (!field.allowWhiteSpaces && value.trim() != value)
+    return true 
+  return false
+}
+
 export const isString = (value: string, field: CSVFieldSchema): ErrorMsg => {
   if (typeof value != "string")
     return field.errorMsg ?? "Value should be of string type";
 
   const stringField = field as CSVFieldStringSchema; 
   if (stringField.options && !stringField.options.some((opt) => opt == value.trim()))
-    return field.errorMsg ?? `Value should be one of these: ${stringField.options.map(o => `"${o}"`).join(' , ')}${!field.required && ` , ""`}`
+    return field.errorMsg ?? `Value should be one of these: ${stringField.options.map(o => `"${o}"`).join(' , ')}${field.required ? "" :  ` , ""`}`
 
-  if (stringField.options && !stringField.options.some((opt) => opt == value))
-    return field.errorMsg ?? `Value should be one of these: ${stringField.options.map(o => `"${o}"`).join(' , ')}${!field.required && ` , ""`}. Check for whitespaces `
+  if (checkWhitespaces(value, field))
+    return "Whitespaces are not allowed";
+
 
   return null;
 };
 
 export const isNum = (value: string, field: CSVFieldSchema): ErrorMsg => {
   if (Number.isNaN(Number(value)))
-    return field.errorMsg ?? "Value should be a number type"
+    return field.errorMsg ?? "Value should be of number type"
+
+  
 
   const numberField = field as CSVFieldNumberSchema;
+
 
   if (numberField.min && Number(value) < numberField.min)
     return field.errorMsg ?? `Value should be greater than ${numberField.min}`
 
   if (numberField.max && Number(value) > numberField.max)
     return field.errorMsg ?? `Value should be less than ${numberField.max}`
+
+  if (checkWhitespaces(value, field))
+    return "Whitespaces are not allowed";
 
   return null;
 };
@@ -35,8 +48,12 @@ export const isBool = (value: string, field: CSVFieldSchema): ErrorMsg => {
   const booleans = [
     "true", "false",
   ]
-  if (!booleans.some((b) => value.toLowerCase() === b))
+  if (!booleans.some((b) => value.toLowerCase().trim() === b))
     return field.errorMsg ?? "Value should be of boolean type";
+
+  if (checkWhitespaces(value, field))
+    return "Whitespaces are not allowed";
+
   return null
 };
 
@@ -50,6 +67,9 @@ export const isDate = (value: string, field: CSVFieldSchema): ErrorMsg => {
 
   if (!valid)
     return field.errorMsg ?? `Value should be of type date with format: ${dateField.dateFormats.map(f => `(${f})`).join(' , ')}`
+
+  if (checkWhitespaces(value, field))
+    return "Whitespace are not allowed";
 
   return null
 

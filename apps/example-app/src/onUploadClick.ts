@@ -13,6 +13,7 @@ const useUploadData = (
   const uploadIndexRef = useRef<number>(0);
   const [uploadNextBatch, setUploadNextBatch] = useState<boolean>(false);
   const [uploading, setUploading] = useState<boolean>(false);
+  const [uploadSuccess, setUploadSuccess] = useState<boolean>(false);
 
   useEffect(() => {
     socket.on("error", (data: CSVSocketError) => {
@@ -30,10 +31,12 @@ const useUploadData = (
       else
       {
         setUploading(false);
+        setUploadSuccess(true);
       }
       setErrors(data.errors);
     })
   }, [])
+
 
   useEffect(() => {
     if (!uploadNextBatch) return; 
@@ -46,26 +49,27 @@ const useUploadData = (
       startIndex: startIndex, 
       rows: rows.slice(startIndex, endIndex)
     }
-    console.log(data)
     socket.emit("csv", data);
-    if (endIndex == rows.length) setUploading(false);
+    if (endIndex == rows.length){
+      setUploading(false);
+      setUploadSuccess(true);
+    } 
 
   }, [uploadNextBatch])
 
   
   const onUploadClick = (rows: string[][], lastChangedRow: number) => {
-    console.log(lastChangedRow);
     if (uploading) return;
+    setUploadSuccess(false);
     const batchSize = Math.ceil(rows.length / batchNum)
     setUploading(true);
     setRows(rows);
     rowsLengthRef.current = rows.length;
     uploadIndexRef.current = Math.floor(lastChangedRow / batchSize);
-    console.log(uploadIndexRef.current);
     setUploadNextBatch(true);
 
   }
-  return {onUploadClick}
+  return {uploadSuccess, onUploadClick}
    
 }
 

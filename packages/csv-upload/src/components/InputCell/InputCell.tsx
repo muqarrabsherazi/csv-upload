@@ -48,9 +48,6 @@ const InputCell: FC<InputCellProps> = ({ children, classNames }) => {
       inputCellRef.current.focus({preventScroll: true});
   }, [inputCellRef.current])
 
-  useEffect(() => console.log((classNames?.input ?? "") + " " + errorInputClassName), [errorInputClassName])
-
-
   return (
     <td
       className={(classNames?.root ?? "") + " " + errorClassName}

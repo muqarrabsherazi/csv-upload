@@ -5,7 +5,7 @@ import useTable from "@hooks/useTable";
 import useKeyPressOutside from "@hooks/useKeyPressOutside";
 
 export interface TableProps {
-  headers: ReactNode
+  headers?: ReactNode
   children: ReactNode;
   classNames?: {
     root?: string 
@@ -22,7 +22,7 @@ const Table: FC <TableProps> = ({ headers, children, classNames}) => {
   return (
     <table className={classNames?.root?? ""}>
       {
-        schema.headers &&  
+        schema.headers && headers &&
         <thead className={classNames?.head?? ""}>
           {headers}
         </thead>

@@ -13,6 +13,7 @@ interface CSVFieldBase {
   required?: boolean;
   validator?: (value: string) => string | null;
   errorMsg?: string;
+  allowWhiteSpaces?: boolean;
 }
 
 // export interface CSVFieldBasicSchema extends CSVFieldBase {
