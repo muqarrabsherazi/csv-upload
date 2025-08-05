@@ -1,5 +1,5 @@
-import { createContext, useState, useContext, ReactNode, type FC, useEffect, useMemo } from "react";
-import { CSVCellType, type CSVCellCoords } from "types";
+import { createContext, ReactNode, type FC, useMemo } from "react";
+import { CSVCellType, CSVCellCoords } from "types";
 import  useErrors  from "@hooks/useErrors";
 import coordsAreEqual from "@utils/coordsAreEqual";
 import useTable from "@hooks/useTable";
@@ -8,7 +8,7 @@ export interface CellContextInterface {
   value: string, 
   type: CSVCellType, 
   errorMsg: string | null
-  shouldDisplayError: boolean
+  shouldDisplayErrorBox: boolean
   coords: CSVCellCoords
 }
 
@@ -26,7 +26,7 @@ export const CellProvider: FC<CellProviderProps> = ({coords, children}) => {
   const value = useMemo(() => getCellValue(coords), [coords]); 
   const errorMsg = useMemo(() => getError(coords)?.msg ?? null, [coords]); 
   const type = coordsAreEqual(inputCellCoords, coords) ? "input" : "display"  
-  const shouldDisplayError =  errorMsg != null && 
+  const shouldDisplayErrorBox =  errorMsg != null && 
         (coordsAreEqual(hoverCellCoords, coords) || coordsAreEqual(inputCellCoords, coords))
   
 
@@ -36,7 +36,7 @@ export const CellProvider: FC<CellProviderProps> = ({coords, children}) => {
       errorMsg, 
       type,
       coords, 
-      shouldDisplayError
+      shouldDisplayErrorBox
     }}>
       {children}
     </CellContext.Provider>

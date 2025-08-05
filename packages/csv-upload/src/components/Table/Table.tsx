@@ -15,19 +15,18 @@ export interface TableProps {
 }
 
 const Table: FC <TableProps> = ({ headers, children, classNames}) => {
-  const { rows,  resetInputCellCoords} = useTable(); 
+  const { schema, rows,  resetInputCellCoords} = useTable(); 
 
   useKeyPressOutside({onMouseDown: resetInputCellCoords})
 
   return (
-    <table style={{
-      width:"100%"
-    }}
-      className={classNames?.root?? ""}
-    >
-      <thead className={classNames?.head?? ""}>
-        {headers}
-      </thead>
+    <table className={classNames?.root?? ""}>
+      {
+        schema.headers &&  
+        <thead className={classNames?.head?? ""}>
+          {headers}
+        </thead>
+      }
       <tbody className={classNames?.body?? ""}>
         {rows.map((row, rowIndex) => (
           <RowProvider key={rowIndex} rowIndex={rowIndex} row={row}>

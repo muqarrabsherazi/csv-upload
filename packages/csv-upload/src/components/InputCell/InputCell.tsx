@@ -30,24 +30,17 @@ const InputCell: FC<InputCellProps> = ({ children, classNames }) => {
   const { debounced: debouncedSetCell } = useDebounced(() => {
     setCell(coords, cellValue);
     checkFrontendError(coords, cellValue)
-    if (backendError.current == null) return;
-    if (cellValue == initialValue.current) addError(coords, backendError.current.msg, "backend");
-    else removeError(coords, "backend");
-  });
-
-  useEffect(() => {
+    
     const error = getError(coords);
     if (error == null || error.type != "backend") return; 
-    backendError.current = error; 
-  })
+    if (cellValue == initialValue.current) addError(coords, error.msg, "backend");
+    else removeError(coords, "backend");
+  });
 
   useEffect(() => {
     debouncedSetCell()
   }, [cellValue])
 
-
-
-  const errorStyle = errorMsg == null ? {} : { border: "1px solid red" }
   const errorClassName = (errorMsg ? classNames?.rootError ?? "" : "")
   const errorInputClassName = (errorMsg ? classNames?.inputError?? "" : "")
 
@@ -61,25 +54,22 @@ const InputCell: FC<InputCellProps> = ({ children, classNames }) => {
     <td
       className={(classNames?.root ?? "") + " " + errorClassName}
       onClick={(e) => e.stopPropagation()}
-
     >
+      <input
+        ref={inputCellRef as RefObject<HTMLInputElement>}    
+        className={classNames?.input ?? "" + " " + errorInputClassName}
+        value={cellValue} onChange={(e) => setCellValue(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key != "Enter") return;
+          setCell(coords, cellValue);
+          checkFrontendError(coords, cellValue);
+          resetInputCellCoords();
+        }}
+        onBlur={resetInputCellCoords}
+      
 
-        <input
-          ref={inputCellRef as RefObject<HTMLInputElement>}    
-          className={classNames?.input ?? "" + " " + errorInputClassName}
-          value={cellValue} onChange={(e) => setCellValue(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key != "Enter") return;
-            setCell(coords, cellValue);
-            checkFrontendError(coords, cellValue);
-            resetInputCellCoords();
-          }}
-          onBlur={resetInputCellCoords}
-        
-
-        />
-        {children}
-
+      />
+      {children}
     </td>
   )
 }

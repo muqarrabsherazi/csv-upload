@@ -13,9 +13,10 @@ const useParser = () => {
     if (data.length === 0) return;
 
     clearRows();
-    setHeaders(data[0]);
+    if (schema.headers)
+      setHeaders(data[0]);
 
-    data.slice(1).forEach((row, rowIndex) => {
+    data.slice(schema.headers ? 1 : 0).forEach((row, rowIndex) => {
       row
         .slice(0, schema.fields.length)
         .forEach((cell, colIndex) => checkValidationError({row:rowIndex, col:colIndex}, cell)) 

@@ -9,23 +9,12 @@ export interface ErrorMessageProps {
 }
 
 const ErrorMessage: React.FC<ErrorMessageProps> = ({ classNames }) => {
-  const { errorMsg, shouldDisplayError } = useCell();
+  const { errorMsg, shouldDisplayErrorBox } = useCell();
 
-  if (!shouldDisplayError) return (<></>)
+  if (!shouldDisplayErrorBox) return (<></>)
 
   return (
-    <div
-      style={{
-        position: "absolute",
-        background: "#f44336",
-        color: "#fff",
-        fontSize: "12px",
-        padding: "4px 8px",
-        borderRadius: "4px",
-        zIndex: "10"
-      }}
-      className={classNames?.root ?? ""}
-    >
+    <div className={classNames?.root ?? ""}>
       {errorMsg}
     </div>
   );

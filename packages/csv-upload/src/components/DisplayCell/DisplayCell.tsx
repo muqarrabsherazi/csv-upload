@@ -4,7 +4,12 @@ import { CellProps } from "@components/Cell";
 import useCell from "@hooks/useCell";
 
 
-export interface DisplayCellProps extends CellProps{}
+export interface DisplayCellProps extends CellProps{
+  classNames: {
+    root?: string, 
+    rootError?: string
+  }
+}
 
 
 const DisplayCell: FC<DisplayCellProps> = ({children, classNames}) => {

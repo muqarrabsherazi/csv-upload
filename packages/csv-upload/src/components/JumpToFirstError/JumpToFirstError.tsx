@@ -32,7 +32,7 @@ const JumpToFirstError: React.FC<JumpToFirstErrorProps> = ({classNames, children
     setScoll(false);
   }, [inputCellCoords, scroll])
   
-  if (errorCells.length === 0) return null;
+  if (errorCells.length === 0) return (<></>);
 
   return (
     <button className={classNames?.button?? "" } onClick={onClick} disabled={errorCells.length == 0}>

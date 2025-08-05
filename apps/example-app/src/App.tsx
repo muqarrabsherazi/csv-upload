@@ -3,7 +3,7 @@ import { CSVSchema, CSVFieldSchema } from "dsl-validator";
 import useUploadData from "./onUploadClick";
 import { io } from "socket.io-client";
 import { CSVError } from "types"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 const socket = io("http://localhost:4000");
 import "./App.css"
 
@@ -12,16 +12,12 @@ function App() {
     fields: [
       { name: "Countries", type: "string" },
       { name: "Currency", type: "string" },
-      { name: "Price", type: "number", min: 30, max: 40 },
+      { name: "Price", type: "number"},
       { name: "Adjust", type: "string", options: ["Y", "N"] }
-    ]
-    // fields: [
-    //   {name: "Date of Birth", type: "date", dateFormats: ["MM-dd-yyyy"]},
-    //   {name: "Date of Birth", type: "number"}
-    // ]
-
-
+    ],
+    headers: true
   };
+
   const [errors, setErrors] = useState<CSVError[]>([])
 
 
@@ -68,6 +64,7 @@ function App() {
         {/* Table */}
         <div className="overflow-auto rounded-lg border border-gray-300 shadow">
           <CsvUpload.Table
+            classNames={{root: "w-full"}}
             headers={
               <CsvUpload.Header
                 className={{
@@ -83,11 +80,11 @@ function App() {
                 classNames={{
                   root: "px-4 py-2 border-b border-gray-200 text-sm max-w-1",
                   rootError: "bg-red-200", 
-                  input: "max-w-32",
+                  input: "w-full",
                 }}
               >
                 <CsvUpload.ErrorMessage
-                  classNames={{ root: "text-red-500 text-xs mt-1" }}
+                  classNames={{ root: "absolute bg-red-600 text-white text-xs px-2 py-1 rounded z-10" }}
                 />
               </CsvUpload.Cell>
             </CsvUpload.Row>

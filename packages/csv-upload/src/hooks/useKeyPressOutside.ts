@@ -11,9 +11,7 @@ const useKeyPressOutside = ({onMouseDown}:{onMouseDown: () => void}) => {
 
     document.addEventListener("click", handleClick);
 
-    return () => {
-      document.removeEventListener("click", handleClick);
-    };
+    return () => document.removeEventListener("click", handleClick);
   }, []);
 }
 

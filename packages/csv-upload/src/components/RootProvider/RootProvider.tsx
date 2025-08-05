@@ -9,15 +9,13 @@ export interface RootProviderProps {
   data?: string[][];
   errors?: CSVError[];
   onUploadClick: (rows: string[][], lastChangedRow: number) => void;
-  onErrorResolve? : () => void
   children: React.ReactNode;
 }
 
-const RootProvider: FC<RootProviderProps> = ({ children, schema, onUploadClick, onErrorResolve, errors = [], data = []}) => {
-
+const RootProvider: FC<RootProviderProps> = ({ children, schema, onUploadClick, errors = [], data = []}) => {
   return (
     <TableProvider schema={schema} data={data} onUploadClick={onUploadClick} >
-      <ErrorProvider externalErrors={errors} onErrorResolve={onErrorResolve}>
+      <ErrorProvider externalErrors={errors}>
         {children}
       </ErrorProvider>
     </TableProvider>

@@ -4,9 +4,7 @@ import { FC, ReactNode, ChangeEvent, useRef, CSSProperties } from "react";
 export interface AddCSVButtonProps {
   children: ReactNode; 
   classNames?: {
-    root?: string
     button?: string;
-    input?: string;
   };
 }
 
@@ -25,7 +23,7 @@ const AddCSVButton: FC<AddCSVButtonProps> = ({ children, classNames}) => {
   };
 
   return (
-    <div className={classNames?.root ?? ""}>
+    <div>
       <button
         className={classNames?.button?? ""}
         type="button"

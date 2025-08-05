@@ -36,8 +36,8 @@ io.on("connection", (socket) => {
     socket.emit("error",
       {
         startIndex: data.startIndex,
-        // errors: backendErrors[0].coords.row < data.startIndex + data.batchSize ? backendErrors: []
-        errors: []
+        errors: backendErrors[0].coords.row < data.startIndex + data.batchSize ? backendErrors: []
+        // errors: []
       })
   })
 

@@ -49,4 +49,5 @@ export type CSVFieldSchema =
 
 export interface CSVSchema {
   fields: CSVFieldSchema[];
+  headers?: boolean
 }
