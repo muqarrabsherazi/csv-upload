@@ -5,6 +5,8 @@ export interface RowContextInterface {
   cellCoords: CSVCellCoords[]
   row: string[]
   rowIndex: number
+  cellTemplate: ReactNode 
+  errorBoxTemplate: ReactNode
 };
 
 export const RowContext = createContext<RowContextInterface | undefined>(undefined);
@@ -12,14 +14,16 @@ export const RowContext = createContext<RowContextInterface | undefined>(undefin
 interface RowProviderProps {
   rowIndex: number
   row: string[]
+  cellTemplate: ReactNode
+  errorBoxTemplate: ReactNode
   children: ReactNode
 }
 
-export const RowProvider: FC<RowProviderProps> = ({rowIndex, row, children}) => {
+export const RowProvider: FC<RowProviderProps> = ({rowIndex, row, children, cellTemplate, errorBoxTemplate}) => {
   const cellCoords = row.map((_, colIndex) => ({row: rowIndex, col: colIndex}));
   
   return(
-    <RowContext.Provider value={{cellCoords, row, rowIndex}}>
+    <RowContext.Provider value={{cellCoords, row, rowIndex, cellTemplate, errorBoxTemplate}}>
       {children}
     </RowContext.Provider>
   )

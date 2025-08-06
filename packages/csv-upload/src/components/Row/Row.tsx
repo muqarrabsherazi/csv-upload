@@ -4,12 +4,11 @@ import { CellProvider } from "@contexts/CellProvider";
 import serializeCoords from "@utils/serializeCoords";
 
 export interface RowProps{
-  children: ReactNode
   className?: string
 }
 
-const Row: FC<RowProps> = ({children, className}) => {
-  const { cellCoords } = useRow();
+const Row: FC<RowProps> = ({className}) => {
+  const { cellCoords, cellTemplate } = useRow();
 
   return (
     <tr className={className ?? ""}>
@@ -17,7 +16,7 @@ const Row: FC<RowProps> = ({children, className}) => {
         const key = serializeCoords(coords);
         return (
           <CellProvider key={key} coords={coords}>
-            {children}
+            {cellTemplate}
           </CellProvider>
         );
       })}

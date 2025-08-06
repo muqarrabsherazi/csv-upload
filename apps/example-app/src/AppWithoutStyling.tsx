@@ -12,8 +12,8 @@ function App() {
     fields: [
       { name: "Countries", type: "string" },
       { name: "Currency", type: "string" },
-      { name: "Price", type: "number" },
-      { name: "Adjust", type: "string", options: ["Y", "N"] }
+      { name: "Price", type: "number", allowWhiteSpaces: true, min: 10 },
+      { name: "Adjust", type: "string", options: ["Y", "N"], required: true }
     ],
     headers: true
   };
@@ -30,6 +30,7 @@ function App() {
     Table,
     Row,
     Cell,
+    ErrorMessage
   } = CsvUpload;
 
   return (
@@ -39,11 +40,16 @@ function App() {
       <ErrorCount />
       <JumpToFirstError> Jump to error </JumpToFirstError>
 
+
+      {/* <Table></Table> */}
       <Table>
-        <Row>
-          <Cell/>
-        </Row>
-      </Table>  
+        {
+          (rows) => {
+            <Row data={row}></Row>
+          }
+
+        }
+      </Table>
     </Provider>
 
 
