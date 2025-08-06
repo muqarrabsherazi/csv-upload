@@ -2,11 +2,14 @@ import { FC } from "react";
 import { ReactNode } from "react";
 import { RowProvider } from "@contexts/RowProvider";
 import useTable from "@hooks/useTable";
-import useKeyPressOutside from "@hooks/useKeyPressOutside";
 
 export interface TableProps {
   headers?: ReactNode
-  children: ReactNode;
+  template: {
+    row: ReactNode
+    cell: ReactNode
+    errorBox: ReactNode
+  }
   classNames?: {
     table?: string 
     head?: string
@@ -14,10 +17,11 @@ export interface TableProps {
   }
 }
 
-const Table: FC <TableProps> = ({ headers, children, classNames}) => {
+const Table: FC <TableProps> = ({ headers, template, classNames}) => {
   const { schema, rows,  resetInputCellCoords} = useTable(); 
 
   // useKeyPressOutside({onMouseDown: resetInputCellCoords})
+
 
   return (
     <table className={classNames?.table?? ""}>
@@ -29,8 +33,8 @@ const Table: FC <TableProps> = ({ headers, children, classNames}) => {
       }
       <tbody className={classNames?.body?? ""}>
         {rows.map((row, rowIndex) => (
-          <RowProvider key={rowIndex} rowIndex={rowIndex} row={row}>
-            {children}
+          <RowProvider key={rowIndex} rowIndex={rowIndex} row={row} cellTemplate={template.cell} errorBoxTemplate={template.errorBox}>
+            {template.row}
           </RowProvider>
         ))}
       </tbody>

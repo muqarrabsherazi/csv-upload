@@ -43,7 +43,7 @@ function updateCSVFile(startIndex: number, incomingRows: string[][]) {
 const backendErrors: CSVError[] = [
   {
     coords: { row: 40, col: 2 },
-    msg: "hi from backend",
+    msg: "Example domain related error from backend",
     type: "backend"
   }
 ]

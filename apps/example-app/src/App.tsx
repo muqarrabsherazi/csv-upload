@@ -11,8 +11,8 @@ function App() {
   const schema: CSVSchema = {
     fields: [
       { name: "Countries", type: "string" },
-      { name: "Currency", type: "string"},
-      { name: "Price", type: "number", allowWhiteSpaces: true },
+      { name: "Currency", type: "string" },
+      { name: "Price", type: "number", allowWhiteSpaces: true, min: 10 },
       { name: "Adjust", type: "string", options: ["Y", "N"], required: true }
     ],
     headers: true
@@ -37,6 +37,20 @@ function App() {
     Cell,
     ErrorMessage
   } = CsvUpload;
+
+
+  const tableTemplate = {
+    row: <Row className="hover:bg-gray-50" />,
+    cell: <Cell
+      classNames={{
+        cell: "border-b border-gray-200 text-sm max-w-1",
+        errorCell: "bg-red-200",
+        text: "mx-4 my-2",
+        input: "w-full h-full px-4 py-2",
+      }}
+    />,
+    errorBox: <ErrorMessage className="absolute bg-red-600 text-white text-xs px-2 py-1 rounded z-10" />
+  }
 
   return (
     <Provider schema={schema} errors={errors} onUploadClick={onUploadClick}>
@@ -70,33 +84,31 @@ function App() {
 
         {/* Table */}
         <div className="overflow-auto rounded-lg border border-gray-300 shadow">
+
           <Table
             classNames={{ table: "w-full" }}
-            headers={
-
-              <Header
+            headers={ <Header
                 classNames={{
                   row: "bg-gray-100",
                   cell: "px-4 py-2 font-semibold text-left border-b border-gray-300 text-sm"
                 }}
               />
             }
-          >
-            <Row className="hover:bg-gray-50">
-              <Cell
+            
+            template={{
+              row: <Row className="hover:bg-gray-50" />,
+              cell: <Cell
                 classNames={{
                   cell: "border-b border-gray-200 text-sm max-w-1",
                   errorCell: "bg-red-200",
                   text: "mx-4 my-2",
                   input: "w-full h-full px-4 py-2",
                 }}
-              >
-                <ErrorMessage
-                  className="absolute bg-red-600 text-white text-xs px-2 py-1 rounded z-10"
-                />
-              </Cell>
-            </Row>
-          </Table>
+              />,
+              errorBox: <ErrorMessage className="absolute bg-red-600 text-white text-xs px-2 py-1 rounded z-10" />
+            }}
+          />
+
         </div>
       </div>
     </Provider>
