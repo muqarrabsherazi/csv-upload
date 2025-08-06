@@ -6,19 +6,19 @@ import useTable from "@hooks/useTable";
 
 
 export interface HeaderProps {
-  className?: {
-    root?: string
+  classNames?: {
+    row?: string
     cell?: string
   }
 }
 
-const Header: FC<HeaderProps> = ({className}) => {
+const Header: FC<HeaderProps> = ({classNames}) => {
   const {headers} = useTable(); 
   return (
-    <tr className={className?.root?? ""}>
+    <tr className={classNames?.row?? ""}>
       {
         headers.map((header, headerIndex) => (
-          <th className={className?.cell?? ""} key={makeHeaderKey(headerIndex)}>
+          <th className={classNames?.cell?? ""} key={makeHeaderKey(headerIndex)}>
             {header}
           </th>
         ))

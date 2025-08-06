@@ -3,13 +3,11 @@ import { FC, ReactNode, ChangeEvent, useRef, CSSProperties } from "react";
 
 export interface AddCSVButtonProps {
   children: ReactNode; 
-  classNames?: {
-    button?: string;
-  };
+  className?: string;
 }
 
 
-const AddCSVButton: FC<AddCSVButtonProps> = ({ children, classNames}) => {
+const AddCSVButton: FC<AddCSVButtonProps> = ({ children, className}) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const upload = useParser(); 
 
@@ -23,9 +21,9 @@ const AddCSVButton: FC<AddCSVButtonProps> = ({ children, classNames}) => {
   };
 
   return (
-    <div>
+    <>
       <button
-        className={classNames?.button?? ""}
+        className={className ?? ""}
         type="button"
         onClick={() => fileInputRef.current?.click()}
       >
@@ -40,7 +38,7 @@ const AddCSVButton: FC<AddCSVButtonProps> = ({ children, classNames}) => {
         hidden={true}
       />
       
-    </div>
+    </>
 
   );
 };

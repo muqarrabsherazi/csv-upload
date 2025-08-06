@@ -31,7 +31,7 @@ const useUploadData = (
       else
       {
         setUploading(false);
-        setUploadSuccess(true);
+        setUploadSuccess(nextStartIndex >= rowsLengthRef.current);
       }
       setErrors(data.errors);
     })

@@ -8,7 +8,7 @@ export interface TableProps {
   headers?: ReactNode
   children: ReactNode;
   classNames?: {
-    root?: string 
+    table?: string 
     head?: string
     body?: string
   }
@@ -20,7 +20,7 @@ const Table: FC <TableProps> = ({ headers, children, classNames}) => {
   // useKeyPressOutside({onMouseDown: resetInputCellCoords})
 
   return (
-    <table className={classNames?.root?? ""}>
+    <table className={classNames?.table?? ""}>
       {
         schema.headers && headers &&
         <thead className={classNames?.head?? ""}>

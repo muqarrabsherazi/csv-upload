@@ -3,18 +3,16 @@ import useCell from "@hooks/useCell";
 
 
 export interface ErrorMessageProps {
-  classNames?: {
-    root?: string
-  }
+  className?: string
 }
 
-const ErrorMessage: React.FC<ErrorMessageProps> = ({ classNames }) => {
+const ErrorMessage: React.FC<ErrorMessageProps> = ({ className }) => {
   const { errorMsg, shouldDisplayErrorBox } = useCell();
 
   if (!shouldDisplayErrorBox) return (<></>)
 
   return (
-    <div className={classNames?.root ?? ""}>
+    <div className={className ?? ""}>
       {errorMsg}
     </div>
   );

@@ -5,13 +5,11 @@ import useTable from "@hooks/useTable";
 
 
 export interface JumpToFirstErrorProps {
-  classNames? : {
-    button?: string
-  }
+  className?: string
   children: ReactNode
 }
 
-const JumpToFirstError: React.FC<JumpToFirstErrorProps> = ({classNames, children}) => {
+const JumpToFirstError: React.FC<JumpToFirstErrorProps> = ({className, children}) => {
   const { errors } = useErrors();
   const {inputCellCoords, inputCellRef, setInputCellCoords} = useTable();
   const [scroll, setScoll] = useState<boolean>(false)
@@ -35,7 +33,7 @@ const JumpToFirstError: React.FC<JumpToFirstErrorProps> = ({classNames, children
   if (errorCells.length === 0) return (<></>);
 
   return (
-    <button className={classNames?.button?? "" } onClick={onClick} disabled={errorCells.length == 0}>
+    <button className={className ?? "" } onClick={onClick} disabled={errorCells.length == 0}>
       {children} 
     </button>
   );

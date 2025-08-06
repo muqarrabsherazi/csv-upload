@@ -10,11 +10,12 @@ import { ErrorValue } from "@contexts/ErrorProvider";
 
 export interface InputCellProps extends CellProps {
   classNames?: {
-    root?: string;
-    rootError?: string;
-    input?: string;
-    inputError?: string;
+    cell?: string
+    errorCell?: string
+    input?: string
+    errorInput?: string
   }
+  
 }
 
 const InputCell: FC<InputCellProps> = ({ children, classNames }) => {
@@ -40,8 +41,8 @@ const InputCell: FC<InputCellProps> = ({ children, classNames }) => {
     debouncedSetCell()
   }, [cellValue])
 
-  const errorClassName = (errorMsg ? classNames?.rootError ?? "" : "")
-  const errorInputClassName = (errorMsg ? classNames?.inputError?? "" : "")
+  const errorClassName = (errorMsg ? classNames?.errorCell ?? "" : "")
+  const errorInputClassName = (errorMsg ? classNames?.errorInput?? "" : "")
 
   useEffect(() => {
     if (inputCellRef.current)
@@ -50,7 +51,7 @@ const InputCell: FC<InputCellProps> = ({ children, classNames }) => {
 
   return (
     <td
-      className={(classNames?.root ?? "") + " " + errorClassName}
+      className={(classNames?.cell ?? "") + " " + errorClassName}
       onClick={(e) => e.stopPropagation()}
     >
       <input

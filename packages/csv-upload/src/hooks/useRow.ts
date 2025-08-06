@@ -5,7 +5,7 @@ import { RowContext } from "@contexts/RowProvider";
 const useRow = () => {
   const context = useContext(RowContext);
   if (!context) {
-    throw new Error("useTable must be used within a RowsProvider");
+    throw new Error("useRow must be used within a Row");
   }
   return context;
 };

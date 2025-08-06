@@ -5,16 +5,14 @@ import serializeCoords from "@utils/serializeCoords";
 
 export interface RowProps{
   children: ReactNode
-  classNames?: {
-    root?: string
-  }
+  className?: string
 }
 
-const Row: FC<RowProps> = ({children, classNames}) => {
+const Row: FC<RowProps> = ({children, className}) => {
   const { cellCoords } = useRow();
 
   return (
-    <tr className={classNames?.root?? ""}>
+    <tr className={className ?? ""}>
       {cellCoords.map((coords) => {
         const key = serializeCoords(coords);
         return (

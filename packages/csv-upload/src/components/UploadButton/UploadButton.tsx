@@ -4,12 +4,10 @@ import useErrors from "@hooks/useErrors";
 
 export interface UploadButtonProps {
   children: ReactNode
-  classNames?: {
-    root?: string
-  }
+  className?: string
 }
 
-const UploadButton: FC<UploadButtonProps> = ({ children, classNames }) => {
+const UploadButton: FC<UploadButtonProps> = ({ children, className }) => {
   const { rows, lastChangedRow, onUploadClick } = useTable();
   const { errors } = useErrors();
 
@@ -27,7 +25,7 @@ const UploadButton: FC<UploadButtonProps> = ({ children, classNames }) => {
     <button
       onClick={handleClick}
       disabled={isDisabled}
-      className={classNames?.root ?? ""}
+      className={className ?? ""}
     >
       {children}
     </button>

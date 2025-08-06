@@ -65,11 +65,11 @@ io.on('connection', (socket) => {
   socket.on('csv', (data) => {
     const { startIndex, batchSize, rows } = data;
 
-    // const relevantErrors = backendErrors.filter(e =>
-    //   e.coords.row >= startIndex &&
-    //   e.coords.row < startIndex + batchSize
-    // );
-    const relevantErrors: CSVError[] = []; 
+    const relevantErrors = backendErrors.filter(e =>
+      e.coords.row >= startIndex &&
+      e.coords.row < startIndex + batchSize
+    );
+    // const relevantErrors: CSVError[] = []; 
     if (relevantErrors.length == 0)
       updateCSVFile(startIndex, rows);
 

@@ -43,7 +43,7 @@ function App() {
         <Row>
           <Cell/>
         </Row>
-      </Table>
+      </Table>  
     </Provider>
 
 

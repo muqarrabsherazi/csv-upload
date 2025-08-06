@@ -6,12 +6,12 @@ import useCell from "@hooks/useCell";
 export interface CellProps{
   children?: ReactNode
   classNames?: {
-    root?: string
-    rootError?:string
+    cell?: string
+    errorCell?:string
     text?: string
-    textError?:string
+    errorText?:string
     input?: string
-    inputError?: string
+    errorInput?: string
   }
 }
 

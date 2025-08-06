@@ -3,9 +3,7 @@ import useErrors from "@hooks/useErrors";
 
 
 export interface ErrorCountProps {
-  className? : {
-    root?: string
-  }
+  className?: string
 }
 
 const ErrorCount: FC<ErrorCountProps> = ({className}) => {
@@ -13,7 +11,7 @@ const ErrorCount: FC<ErrorCountProps> = ({className}) => {
   const errorCount = Object.keys(errors).length;
 
   return (
-    <div className={className?.root?? ""}>
+    <div className={className ?? ""}>
       {errorCount > 0 && `${errorCount} error${errorCount > 1 ? "s" : ""} found`}
     </div>
   );
