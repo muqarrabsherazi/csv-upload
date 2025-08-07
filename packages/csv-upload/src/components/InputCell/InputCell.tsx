@@ -18,8 +18,8 @@ export interface InputCellProps extends CellProps {
   
 }
 
-const InputCell: FC<InputCellProps> = ({ children, classNames }) => {
-  const { value, coords, errorMsg } = useCell();
+const InputCell: FC<InputCellProps> = ({ classNames }) => {
+  const { value, coords, errorMsg, renderErrorBox } = useCell();
   const { inputCellRef, setCell, resetInputCellCoords } = useTable();
   const { checkFrontendError } = useValidate();
   const {addError, removeError, getError} = useErrors()
@@ -66,7 +66,7 @@ const InputCell: FC<InputCellProps> = ({ children, classNames }) => {
         }}
         onBlur={resetInputCellCoords}
       />
-      {children}
+      {renderErrorBox}
     </td>
   )
 }

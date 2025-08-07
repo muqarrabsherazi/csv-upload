@@ -6,17 +6,19 @@ import { CSVError } from "types"
 import { useEffect, useState } from "react";
 const socket = io("http://localhost:4000");
 import "./App.css"
+import { Column } from "csv-upload/src/components/Table";
 
 function App() {
   const schema: CSVSchema = {
     fields: [
       { name: "Countries", type: "string" },
-      { name: "Currency", type: "string"},
+      { name: "Currency", type: "string" },
       { name: "Price", type: "number", allowWhiteSpaces: true },
       { name: "Adjust", type: "string", options: ["Y", "N"], required: true }
     ],
     headers: true
   };
+
 
   const [errors, setErrors] = useState<CSVError[]>([])
 
@@ -37,6 +39,19 @@ function App() {
     Cell,
     ErrorMessage
   } = CsvUpload;
+
+  const columns: Column[] = schema.fields.map((field) => ({
+    name: field.name,
+    renderCell: <Cell
+      classNames={{
+        cell: "border-b border-gray-200 text-sm max-w-1",
+        errorCell: "bg-red-200",
+        text: "mx-4 my-2",
+        input: "w-full h-full px-4 py-2",
+      }}
+    ></Cell>,
+    renderErrorBox: <ErrorMessage className="absolute bg-red-600 text-white text-xs px-2 py-1 rounded z-10"/>
+  }))
 
   return (
     <Provider schema={schema} errors={errors} onUploadClick={onUploadClick}>
@@ -73,7 +88,6 @@ function App() {
           <Table
             classNames={{ table: "w-full" }}
             headers={
-
               <Header
                 classNames={{
                   row: "bg-gray-100",
@@ -81,22 +95,8 @@ function App() {
                 }}
               />
             }
-          >
-            <Row className="hover:bg-gray-50">
-              <Cell
-                classNames={{
-                  cell: "border-b border-gray-200 text-sm max-w-1",
-                  errorCell: "bg-red-200",
-                  text: "mx-4 my-2",
-                  input: "w-full h-full px-4 py-2",
-                }}
-              >
-                <ErrorMessage
-                  className="absolute bg-red-600 text-white text-xs px-2 py-1 rounded z-10"
-                />
-              </Cell>
-            </Row>
-          </Table>
+            columns={columns}
+          />
         </div>
       </div>
     </Provider>

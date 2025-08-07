@@ -1,12 +1,12 @@
-import { FC } from "react"
+import { FC, useEffect } from "react"
 import useTable from "@hooks/useTable";
 import { CellProps } from "@components/Cell";
 import useCell from "@hooks/useCell";
 
 
-export interface DisplayCellProps extends CellProps{
+export interface DisplayCellProps extends CellProps {
   classNames: {
-    cell?: string, 
+    cell?: string,
     errorCell?: string
     text?: string
     errorText?: string
@@ -14,10 +14,10 @@ export interface DisplayCellProps extends CellProps{
 }
 
 
-const DisplayCell: FC<DisplayCellProps> = ({children, classNames}) => {
-  const {value, coords, errorMsg} = useCell(); 
+const DisplayCell: FC<DisplayCellProps> = ({ classNames }) => {
+  const { value, coords, errorMsg, renderErrorBox } = useCell();
   const { setInputCellCoords, setHoverCellCoords, resetHoverCellCoords } = useTable();
-  
+
   const onClick = (e: React.MouseEvent<HTMLTableCellElement>) => {
     e.stopPropagation();
     setInputCellCoords(coords);
@@ -30,23 +30,22 @@ const DisplayCell: FC<DisplayCellProps> = ({children, classNames}) => {
 
   const onMouseLeave = (e: React.MouseEvent<HTMLTableCellElement>) => {
     e.stopPropagation();
-    resetHoverCellCoords(); 
+    resetHoverCellCoords();
   };
 
-  const errorRootClassName = (errorMsg ? classNames?.errorCell ?? "" : "")
-  const errorTextClassName = (errorMsg ? classNames?.errorText ?? "" : "")
-  
- return (
+  const errorRootClassName = (errorMsg ? classNames?.errorCell ?? "" : "");
+  const errorTextClassName = (errorMsg ? classNames?.errorText ?? "" : "");
+
+  return (
     <td
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className={(classNames?.cell??"") + " " + errorRootClassName}
+      className={(classNames?.cell ?? "") + " " + errorRootClassName}
 
     >
-      <p className={(classNames?.text??"") + " " + errorTextClassName}>{value}</p>
-      {children}
-
+      <p className={(classNames?.text ?? "") + " " + errorTextClassName}>{value}</p>
+      {renderErrorBox}
     </td>
   );
 };

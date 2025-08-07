@@ -7,9 +7,7 @@ export interface ErrorMessageProps {
 }
 
 const ErrorMessage: React.FC<ErrorMessageProps> = ({ className }) => {
-  const { errorMsg, shouldDisplayErrorBox } = useCell();
-
-  if (!shouldDisplayErrorBox) return (<></>)
+  const { errorMsg } = useCell();
 
   return (
     <div className={className ?? ""}>
