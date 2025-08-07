@@ -1,7 +1,7 @@
 import React, { FC, ComponentType } from "react";
 
 // Components
-import Table, { type TableProps } from "@components/Table";
+import Table, { ColumnInterface, type TableProps } from "@components/Table";
 import AddCSVButton, { type AddCSVButtonProps } from "@components/AddCSVButton";
 import ErrorCount, { type ErrorCountProps } from "@components/ErrorCount";
 import Row, { type RowProps } from "@components/__internal__/Row";
@@ -19,6 +19,7 @@ import useRow from "@hooks/useRow";
 import UploadButton, { type UploadButtonProps } from "@components/UploadButton";
 import { TableContextInterface } from "@contexts/TableProvider";
 import useTable from "@hooks/useTable";
+import Column from "@components/Column/Column";
 
 
 export interface CsvUploadComponent {
@@ -29,11 +30,13 @@ export interface CsvUploadComponent {
   ErrorMessage: FC<ErrorMessageProps>
   JumpToFirstError: FC<JumpToFirstErrorProps>
   Row: FC<RowProps>
+  Column: FC<ColumnInterface>;
   Cell: FC<CellProps>
   Header: FC<HeaderProps>
   DisplayCell: FC<DisplayCellProps>
   InputCell: FC<InputCellProps>
   UploadButton: FC<UploadButtonProps>
+
   useCell: () => CellContextInterface
   useRow: () => RowContextInterface
   useTable: () => TableContextInterface
@@ -49,6 +52,7 @@ const CsvUpload: CsvUploadComponent = {
   JumpToFirstError: JumpToFirstError, 
   Row: Row,
   Cell: Cell,
+  Column: Column,
   DisplayCell: DisplayCell,
   InputCell: InputCell,
   UploadButton: UploadButton, 

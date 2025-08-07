@@ -6,7 +6,8 @@ import { CSVError } from "types"
 import { useEffect, useState } from "react";
 const socket = io("http://localhost:4000");
 import "./App.css"
-import { Column } from "csv-upload/src/components/Table";
+import { ColumnInterface } from "csv-upload/src/components/Table";
+import makeHeaderKey from "csv-upload/src/utils/makeHeaderKey";
 
 function App() {
   const schema: CSVSchema = {
@@ -18,7 +19,6 @@ function App() {
     ],
     headers: true
   };
-
 
   const [errors, setErrors] = useState<CSVError[]>([])
 
@@ -35,24 +35,11 @@ function App() {
     JumpToFirstError,
     Table,
     Header,
-    Row,
     Cell,
-    ErrorMessage
+    ErrorMessage,
+    Column
   } = CsvUpload;
 
-  const columns: Column[] = schema.fields.map((field) => ({
-    name: field.name,
-    renderHeader: <Header className="bg-gray-100 px-4 py-2 font-semibold text-left border-b border-gray-300 text-sm"/>,
-    renderCell: <Cell
-      classNames={{
-        cell: "border-b border-gray-200 text-sm max-w-1",
-        errorCell: "bg-red-200",
-        text: "mx-4 my-2",
-        input: "w-full h-full px-4 py-2",
-      }}
-    ></Cell>,
-    renderErrorBox: <ErrorMessage className="absolute bg-red-600 text-white text-xs px-2 py-1 rounded z-10"/>
-  }))
 
   return (
     <Provider schema={schema} errors={errors} onUploadClick={onUploadClick}>
@@ -88,8 +75,35 @@ function App() {
         <div className="overflow-auto rounded-lg border border-gray-300 shadow">
           <Table
             classNames={{ table: "w-full" }}
-            columns={columns}
-          />
+          >
+            {/* <Column
+              name="Countries"
+              renderHeader={<Header className="bg-gray-100 px-4 py-2 font-semibold text-left border-b border-gray-300 text-sm" />}
+              renderCell={<Cell
+                classNames={{
+                  cell: "border-b border-gray-200 text-sm max-w-1",
+                  errorCell: "bg-red-200",
+                  text: "mx-4 my-2",
+                  input: "w-full h-full px-4 py-2",
+                }} />}
+              renderErrorBox={<ErrorMessage className="absolute bg-red-600 text-white text-xs px-2 py-1 rounded z-10" />}
+            /> */}
+            {schema.fields.map((field, colIndex) => (
+              <Column
+                key={colIndex}
+                name={field.name}
+                renderHeader={<Header className="bg-gray-100 px-4 py-2 font-semibold text-left border-b border-gray-300 text-sm" />}
+                renderCell={<Cell
+                  classNames={{
+                    cell: "border-b border-gray-200 text-sm max-w-1",
+                    errorCell: "bg-red-200",
+                    text: "mx-4 my-2",
+                    input: "w-full h-full px-4 py-2",
+                  }} />}
+                renderErrorBox={<ErrorMessage className="absolute bg-red-600 text-white text-xs px-2 py-1 rounded z-10" />}
+              />
+            ))}
+          </Table>
         </div>
       </div>
     </Provider>

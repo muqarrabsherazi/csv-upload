@@ -6,7 +6,7 @@ import { CSVError } from "types"
 import { useState } from "react";
 const socket = io("http://localhost:4000");
 import "./App.css"
-import { Column } from "csv-upload/src/components/Table";
+import { ColumnInterface } from "csv-upload/src/components/Table";
 
 function App() {
   const schema: CSVSchema = {
@@ -35,7 +35,7 @@ function App() {
     ErrorMessage
   } = CsvUpload;
 
-  const columns: Column[] = schema.fields.map((field) => ({
+  const columns: ColumnInterface[] = schema.fields.map((field) => ({
     name: field.name,
     renderHeader: <Header />,
     renderCell: <Cell/>,
