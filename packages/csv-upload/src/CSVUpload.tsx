@@ -4,7 +4,7 @@ import React, { FC, ComponentType } from "react";
 import Table, { type TableProps } from "@components/Table";
 import AddCSVButton, { type AddCSVButtonProps } from "@components/AddCSVButton";
 import ErrorCount, { type ErrorCountProps } from "@components/ErrorCount";
-import Row, { type RowProps } from "@components/Row";
+import Row, { type RowProps } from "@components/__internal__/Row";
 import Cell, {type CellProps} from "@components/Cell";
 import DisplayCell, { type DisplayCellProps } from "@components/DisplayCell";
 import InputCell, { type InputCellProps } from "@components/InputCell";

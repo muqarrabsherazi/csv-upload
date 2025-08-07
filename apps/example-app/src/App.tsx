@@ -42,6 +42,7 @@ function App() {
 
   const columns: Column[] = schema.fields.map((field) => ({
     name: field.name,
+    renderHeader: <Header className="bg-gray-100 px-4 py-2 font-semibold text-left border-b border-gray-300 text-sm"/>,
     renderCell: <Cell
       classNames={{
         cell: "border-b border-gray-200 text-sm max-w-1",
@@ -87,14 +88,6 @@ function App() {
         <div className="overflow-auto rounded-lg border border-gray-300 shadow">
           <Table
             classNames={{ table: "w-full" }}
-            headers={
-              <Header
-                classNames={{
-                  row: "bg-gray-100",
-                  cell: "px-4 py-2 font-semibold text-left border-b border-gray-300 text-sm"
-                }}
-              />
-            }
             columns={columns}
           />
         </div>

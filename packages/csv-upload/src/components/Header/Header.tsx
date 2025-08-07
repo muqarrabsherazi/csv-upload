@@ -1,29 +1,17 @@
-  
 import { FC } from "react"
 import makeHeaderKey from "@utils/makeHeaderKey";
-import useTable from "@hooks/useTable";
-
-
+import useHeader from "@hooks/useHeader";
 
 export interface HeaderProps {
-  classNames?: {
-    row?: string
-    cell?: string
-  }
+  className?: string
 }
 
-const Header: FC<HeaderProps> = ({classNames}) => {
-  const {headers} = useTable(); 
+const Header: FC<HeaderProps> = ({ className }) => {
+  const { header, headerIndex } = useHeader();
   return (
-    <tr className={classNames?.row?? ""}>
-      {
-        headers.map((header, headerIndex) => (
-          <th className={classNames?.cell?? ""} key={makeHeaderKey(headerIndex)}>
-            {header}
-          </th>
-        ))
-      }
-    </tr>
+    <th className={className ?? ""} key={makeHeaderKey(headerIndex)}>
+      {header}
+    </th>
   )
 }
 
