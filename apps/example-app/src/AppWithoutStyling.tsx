@@ -32,13 +32,14 @@ function App() {
     Row,
     Cell,
     Header,
-    ErrorMessage
+    ErrorMessage, 
+    Column
   } = CsvUpload;
 
   const columns: ColumnInterface[] = schema.fields.map((field) => ({
     name: field.name,
     renderHeader: <Header />,
-    renderCell: <Cell/>,
+    renderCell: <Cell />,
     renderErrorBox: <ErrorMessage />
   }))
 
@@ -49,7 +50,17 @@ function App() {
       <ErrorCount />
       <JumpToFirstError> Jump to error </JumpToFirstError>
 
-      <Table columns={columns}/>
+      <Table>
+        {schema.fields.map((field, colIndex) => (
+          <Column
+            key={colIndex}
+            name={field.name}
+            renderHeader={<Header />}
+            renderCell={<Cell/>}
+            renderErrorBox={<ErrorMessage />}
+          />
+        ))}
+      </Table>
     </Provider>
 
 
