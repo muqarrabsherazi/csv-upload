@@ -10,11 +10,10 @@ export interface Override {
 export interface OverrideParams {
   coords: CSVCellCoords;
   baseNode: ReactNode;
-  condition: (coords: CSVCellCoords) => boolean;
   overrides: Override[];
 }
 
-const override = ({ coords, baseNode, overrides, condition }: OverrideParams) => {
+const override = ({ coords, baseNode, overrides}: OverrideParams) => {
   const node: ReactNode | null = overrides.reduce<ReactNode | null>(
     (acc, ov) => ov.condition(coords) ? ov.node : acc,
     null
