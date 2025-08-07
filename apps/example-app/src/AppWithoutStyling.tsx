@@ -6,6 +6,9 @@ import { CSVError } from "types"
 import { useState } from "react";
 const socket = io("http://localhost:4000");
 import "./App.css"
+import { Components } from "csv-upload/src/components/Table";
+import Header from "csv-upload/src/components/Header";
+import ErrorMessage from "csv-upload/src/components/ErrorMessage";
 
 function App() {
   const schema: CSVSchema = {
@@ -32,6 +35,12 @@ function App() {
     Cell,
   } = CsvUpload;
 
+  const components: Components = {
+    cell: <Cell/>,
+    header: <Header/>,
+    errorBox: <ErrorMessage/>
+  }
+
   return (
     <Provider schema={schema} errors={errors} onUploadClick={onUploadClick}>
       <AddCSVButton> Add CSV </AddCSVButton>
@@ -39,11 +48,7 @@ function App() {
       <ErrorCount />
       <JumpToFirstError> Jump to error </JumpToFirstError>
 
-      <Table>
-        <Row>
-          <Cell/>
-        </Row>
-      </Table>  
+      <Table components={components}/>
     </Provider>
 
 

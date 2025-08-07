@@ -22,7 +22,6 @@ function App() {
 
   const [errors, setErrors] = useState<CSVError[]>([])
 
-
   const { uploadSuccess, onUploadClick } = useUploadData(socket, 10, setErrors)
 
   useEffect(() => { if (uploadSuccess) alert("csv uploaded successfully") }, [uploadSuccess])

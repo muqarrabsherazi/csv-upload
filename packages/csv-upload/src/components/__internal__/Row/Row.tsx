@@ -8,15 +8,16 @@ export interface RowProps {
   renderCell: ReactNode;
   renderErrorBox: ReactNode;
   rowIndex: number;
+  className?: string;
 }
 
-const Row: FC<RowProps> = ({renderCell, renderErrorBox: renderErrorBoxTemplate, rowIndex}) => {
+const Row: FC<RowProps> = ({renderCell, renderErrorBox: renderErrorBoxTemplate, rowIndex, className}) => {
   const {getRow} = useTable()
   const row = getRow(rowIndex);
 
   const {shouldDisplayErrorBox} = useDisplayErrorBox();
   return (
-    <tr>
+    <tr className={className ?? ""}>
       {row.map((value, colIndex) => {
         const coords = { row: rowIndex, col: colIndex };
         const renderErrorBox = shouldDisplayErrorBox(coords) ? renderErrorBoxTemplate : null;

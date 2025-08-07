@@ -28,6 +28,7 @@ export interface TableProps {
     table?: string
     head?: string
     body?: string
+    row?: string
   }
 }
 
@@ -46,6 +47,7 @@ const Table: FC<TableProps> = ({ components, classNames }) => {
           rowIndex={rowIndex} 
           renderCell={components.cell} 
           renderErrorBox={components.errorBox} 
+          className={classNames?.row ?? ""}
         />)}
       </tbody>
     </table>
