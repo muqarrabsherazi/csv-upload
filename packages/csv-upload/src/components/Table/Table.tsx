@@ -4,6 +4,7 @@ import useTable from "@hooks/useTable";
 import useKeyPressOutside from "@hooks/useKeyPressOutside";
 import Row from "@components/internal/Row";
 import Headers from "@components/internal/Headers";
+import { CSVCellCoords } from "types";
 
 export interface Column {
   name: string;
@@ -12,8 +13,17 @@ export interface Column {
   renderErrorBox: ReactNode
 }
 
+export interface Components {
+  cell: ReactNode; 
+  errorBox: ReactNode;
+  header: ReactNode;
+}
+
+type ComponentsOverride = ((coords: CSVCellCoords) => Partial<Components>)[]
+
 export interface TableProps {
-  columns: Column[]
+  components: Components; 
+  componentsOverride?: ComponentsOverride;
   classNames?: {
     table?: string
     head?: string
@@ -21,17 +31,22 @@ export interface TableProps {
   }
 }
 
-const Table: FC<TableProps> = ({ columns, classNames }) => {
+const Table: FC<TableProps> = ({ components, classNames }) => {
   const { schema, rows, resetInputCellCoords } = useTable();
   useKeyPressOutside({ onMouseDown: resetInputCellCoords })
 
   return (
     <table className={classNames?.table ?? ""}>
       <thead className={classNames?.head ?? ""}>
-        <Headers columns={columns} shouldRender={schema.headers != undefined} />
+        <Headers renderHeader={components.header}  />
       </thead>
       <tbody className={classNames?.body ?? ""}>
-        {rows.map((_, rowIndex) => <Row key={rowIndex} rowIndex={rowIndex} columns={columns} />)}
+        {rows.map((_, rowIndex) => <Row 
+          key={rowIndex} 
+          rowIndex={rowIndex} 
+          renderCell={components.cell} 
+          renderErrorBox={components.errorBox} 
+        />)}
       </tbody>
     </table>
   );

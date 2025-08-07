@@ -1,26 +1,28 @@
-import { FC } from "react";
+import { FC, ReactNode} from "react";
 import { CellProvider } from "@contexts/CellProvider";
 import serializeCoords from "@utils/serializeCoords";
-import { Column } from "@components/Table";
 import useDisplayErrorBox from "@hooks/useDisplayErrorBox";
+import useTable from "@hooks/useTable";
 
 export interface RowProps {
-  columns: Column[]; 
+  renderCell: ReactNode;
+  renderErrorBox: ReactNode;
   rowIndex: number;
 }
 
-const Row: FC<RowProps> = ({columns, rowIndex}) => {
+const Row: FC<RowProps> = ({renderCell, renderErrorBox: renderErrorBoxTemplate, rowIndex}) => {
+  const {getRow} = useTable()
+  const row = getRow(rowIndex);
 
   const {shouldDisplayErrorBox} = useDisplayErrorBox();
   return (
     <tr>
-      {columns.map((column, colIndex) => {
+      {row.map((value, colIndex) => {
         const coords = { row: rowIndex, col: colIndex };
-        const renderErrorBox = shouldDisplayErrorBox(coords) ? column.renderErrorBox : null;
-
+        const renderErrorBox = shouldDisplayErrorBox(coords) ? renderErrorBoxTemplate : null;
         return (
           <CellProvider key={serializeCoords(coords)} coords={coords} renderErrorBox={renderErrorBox}>
-            {column.renderCell}
+            {renderCell}
           </CellProvider>
         )
       })}

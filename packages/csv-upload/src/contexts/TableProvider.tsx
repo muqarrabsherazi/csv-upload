@@ -12,6 +12,7 @@ export interface TableContextInterface {
   lastChangedRow: number | null; 
   addRow: (row: string[]) => void,
   getCellValue: (coords: CSVCellCoords) => string, 
+  getRow: (rowIndex: number) => string[];
   setCell: (coords: CSVCellCoords, value:string) => void, 
   clearRows: () => void, 
   setHeaders: (header: string[]) => void;
@@ -42,6 +43,7 @@ export const TableProvider: FC<TableProviderProps> = ({ children, schema, onUplo
 
   const addRow = (row: string[]) => setRows(prev => [...prev, row]);
   const clearRows = () => setRows([]);
+  const getRow = (rowIndex: number) => rows[rowIndex]; 
   const getCellValue = (coords: CSVCellCoords) => rows[coords.row][coords.col];
   const resetInputCellCoords = () => setInputCellCoords(null);
   const resetHoverCellCoords = () => setHoverCellCoords(null);
@@ -80,6 +82,7 @@ export const TableProvider: FC<TableProviderProps> = ({ children, schema, onUplo
         lastChangedRow,
         addRow, 
         clearRows, 
+        getRow,
         setInputCellCoords,
         resetInputCellCoords,
         setHeaders,

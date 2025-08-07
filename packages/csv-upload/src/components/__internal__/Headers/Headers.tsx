@@ -8,21 +8,22 @@ import useDisplayErrorBox from "@hooks/useDisplayErrorBox";
 import { HeaderProvider } from "@contexts/HeaderProvider";
 import { ReadableByteStreamController } from "node:stream/web";
 import makeHeaderKey from "@utils/makeHeaderKey";
+import useTable from "@hooks/useTable";
 
 export interface RowProps {
-  columns: Column[];
-  shouldRender: boolean
+  renderHeader: ReactNode 
 }
 
-const Headers: FC<RowProps> = ({ columns, shouldRender }) => {
+const Headers: FC<RowProps> = ({ renderHeader}) => {
+  const {schema, headers} = useTable(); 
 
-  if (!shouldRender) return null;
+  if (!schema.headers) return null
 
   return (
     <tr>
-      {columns.map((column, colIndex) => (
-        <HeaderProvider key={makeHeaderKey(colIndex)} headerIndex={colIndex} >
-          {column.renderHeader}
+      {headers.map((_, headerIndex) => (
+        <HeaderProvider key={makeHeaderKey(headerIndex)} headerIndex={headerIndex} >
+          {renderHeader}
         </HeaderProvider>
       ))}
     </tr >
