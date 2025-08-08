@@ -268,9 +268,9 @@ Defines rendering logic and metadata for each column.
   );
 ```
 
-# Types
+## Types
 
-### `CSVCellCoords`
+#### CSVCellCoords
 
 ```ts
 { row: number, col: number }
@@ -278,7 +278,7 @@ Defines rendering logic and metadata for each column.
 
 Represents the coordinates of a cell in the CSV matrix.
 
-### `CSVCellType`
+#### CSVCellType
 
 ```ts
 "display" | "input"
@@ -286,7 +286,7 @@ Represents the coordinates of a cell in the CSV matrix.
 
 Defines whether the cell is for display only or editable.
 
-### `CSVErrorType`
+#### CSVErrorType
 
 ```ts
 "frontend" | "backend"
@@ -294,7 +294,7 @@ Defines whether the cell is for display only or editable.
 
 Classifies whether an error originates from frontend or backend validation.
 
-### `CSVError`
+#### CSVError
 
 ```ts
 interface CSVError {
@@ -310,7 +310,7 @@ Represents a validation error tied to a specific cell.
 * `msg`: Description of the error.
 * `type`: Source of the error.
 
-### `ErrorMsg`
+#### ErrorMsg
 
 ```ts
 string | null
@@ -318,7 +318,7 @@ string | null
 
 Nullable error message type used to represent optional validation output.
 
-### `CSVSocketData`
+#### CSVSocketData
 
 ```ts
 interface CSVSocketData {
@@ -334,7 +334,7 @@ Used to send a batch of CSV data to the backend over a socket.
 * `startIndex`: Index in the full CSV where the batch begins.
 * `rows`: 2D array of raw cell values.
 
-### `CSVSocketError`
+#### CSVSocketError
 
 ```ts
 interface CSVSocketError {
@@ -350,7 +350,7 @@ Used to return validation errors from the backend for a specific batch.
 
 ---
 
-## Usage
+### Usage
 
 This package is primarily intended for internal consumption within the project's ecosystem. However, it can also be useful for:
 
