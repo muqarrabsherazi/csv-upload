@@ -46,7 +46,7 @@ Defines a string field and optionally restricts values to a given set.
 | Field     | Type       | Description                            |
 | --------- | ---------- | -------------------------------------- |
 | `type`    | `'string'` | Declares the type as string            |
-| `options` | `string[]` | Optional. Allowed set of string values |
+| `options` | `string[]` (optional) | Allowed set of string values |
 
 #### CSVFieldNumberSchema
 Defines a numeric field with optional min and max constraints.
