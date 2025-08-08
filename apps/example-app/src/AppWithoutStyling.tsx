@@ -52,7 +52,6 @@ function App() {
       <Table columns={columns}/>
     </Provider>
 
-
   );
 }
 

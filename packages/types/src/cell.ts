@@ -1,6 +1,6 @@
 
-import { CSVCellCoords } from "./coordsType"
 
+export type CSVCellCoords = {row: number, col: number}
 
 export type CSVCellType = "display" | "input"
 
