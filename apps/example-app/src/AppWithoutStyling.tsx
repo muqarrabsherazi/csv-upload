@@ -29,7 +29,6 @@ function App() {
     ErrorCount,
     JumpToFirstError,
     Table,
-    Row,
     Cell,
     Header,
     ErrorMessage
@@ -51,7 +50,6 @@ function App() {
 
       <Table columns={columns}/>
     </Provider>
-
 
   );
 }

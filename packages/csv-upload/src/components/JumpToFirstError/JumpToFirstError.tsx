@@ -14,7 +14,7 @@ const JumpToFirstError: React.FC<JumpToFirstErrorProps> = ({className, children}
   const {inputCellCoords, inputCellRef, setInputCellCoords} = useTable();
   const [scroll, setScoll] = useState<boolean>(false)
 
-  const errorCells = useMemo(() => Object.keys(errors).map(deserializeCoords), [errors]); 
+  const errorCells = useMemo(() => Object.keys(errors).map(deserializeCoords).sort((a,b) => a.row - b.row), [errors]); 
 
 
   const onClick = (e:React.MouseEvent) => {

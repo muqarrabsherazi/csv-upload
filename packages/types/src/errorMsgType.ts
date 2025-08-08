@@ -1,1 +1,0 @@
-export type ErrorMsg = string | null

@@ -23,6 +23,8 @@ export interface TableProps {
 
 const Table: FC<TableProps> = ({ columns, classNames }) => {
   const { schema, rows, resetInputCellCoords } = useTable();
+  if (rows.length == 0) return null
+
   useKeyPressOutside({ onMouseDown: resetInputCellCoords })
 
   return (

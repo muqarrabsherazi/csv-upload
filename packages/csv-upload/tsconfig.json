@@ -19,7 +19,7 @@
       "@components/internal/*": ["./src/components/__internal__/*"]
     }
   },
-  "include": ["src", "../types/src/types/*", "../types/src/coordsType.ts", "../types/src/cellDataType.ts", "../dsl-validator/src"],
+  "include": ["src", "../types/src/types/*", "../dsl-validator/src"],
   "references": [
     {"path": "../types"},
     {"path": "../dsl-validator"}

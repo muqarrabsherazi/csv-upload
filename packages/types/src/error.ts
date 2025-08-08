@@ -1,4 +1,4 @@
-import { CSVCellCoords } from "./coordsType"
+import { CSVCellCoords } from "./cell"
 
 export type CSVErrorType = "frontend" | "backend"
 export interface CSVError { 
@@ -6,3 +6,4 @@ export interface CSVError {
   msg: string
   type: CSVErrorType
 }
+export type ErrorMsg = string | null
