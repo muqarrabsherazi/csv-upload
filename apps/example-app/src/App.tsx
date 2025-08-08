@@ -1,4 +1,15 @@
-import CsvUpload from "csv-upload";
+import {
+  Provider,
+  AddCSVButton,
+  UploadButton,
+  ErrorCount,
+  JumpToFirstError,
+  Table,
+  Header,
+  Cell,
+  ErrorMessage
+} from "csv-upload"
+
 import { CSVSchema } from "dsl-validator";
 import useUploadData from "./onUploadClick";
 import { io } from "socket.io-client";
@@ -27,22 +38,9 @@ function App() {
 
   useEffect(() => { if (uploadSuccess) alert("csv uploaded successfully") }, [uploadSuccess])
 
-  const {
-    Provider,
-    AddCSVButton,
-    UploadButton,
-    ErrorCount,
-    JumpToFirstError,
-    Table,
-    Header,
-    Row,
-    Cell,
-    ErrorMessage
-  } = CsvUpload;
-
   const columns: Column[] = schema.fields.map((field) => ({
     name: field.name,
-    renderHeader: <Header className="bg-gray-100 px-4 py-2 font-semibold text-left border-b border-gray-300 text-sm"/>,
+    renderHeader: <Header className="bg-gray-100 px-4 py-2 font-semibold text-left border-b border-gray-300 text-sm" />,
     renderCell: <Cell
       classNames={{
         cell: "border-b border-gray-200 text-sm max-w-1",
@@ -51,7 +49,7 @@ function App() {
         input: "w-full h-full px-4 py-2",
       }}
     ></Cell>,
-    renderErrorBox: <ErrorMessage className="absolute bg-red-600 text-white text-xs px-2 py-1 rounded z-10"/>
+    renderErrorBox: <ErrorMessage className="absolute bg-red-600 text-white text-xs px-2 py-1 rounded z-10" />
   }))
 
   return (

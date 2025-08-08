@@ -29,7 +29,6 @@ function App() {
     ErrorCount,
     JumpToFirstError,
     Table,
-    Row,
     Cell,
     Header,
     ErrorMessage
