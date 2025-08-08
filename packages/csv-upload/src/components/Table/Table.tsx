@@ -1,38 +1,37 @@
 import { FC } from "react";
 import { ReactNode } from "react";
-import { RowProvider } from "@contexts/RowProvider";
 import useTable from "@hooks/useTable";
 import useKeyPressOutside from "@hooks/useKeyPressOutside";
+import Row from "@components/internal/Row";
+import Headers from "@components/internal/Headers";
+
+export interface Column {
+  name: string;
+  renderHeader?: ReactNode
+  renderCell: ReactNode
+  renderErrorBox: ReactNode
+}
 
 export interface TableProps {
-  headers?: ReactNode
-  children: ReactNode;
+  columns: Column[]
   classNames?: {
-    table?: string 
+    table?: string
     head?: string
     body?: string
   }
 }
 
-const Table: FC <TableProps> = ({ headers, children, classNames}) => {
-  const { schema, rows,  resetInputCellCoords} = useTable(); 
-
-  // useKeyPressOutside({onMouseDown: resetInputCellCoords})
+const Table: FC<TableProps> = ({ columns, classNames }) => {
+  const { schema, rows, resetInputCellCoords } = useTable();
+  useKeyPressOutside({ onMouseDown: resetInputCellCoords })
 
   return (
-    <table className={classNames?.table?? ""}>
-      {
-        schema.headers && headers &&
-        <thead className={classNames?.head?? ""}>
-          {headers}
-        </thead>
-      }
-      <tbody className={classNames?.body?? ""}>
-        {rows.map((row, rowIndex) => (
-          <RowProvider key={rowIndex} rowIndex={rowIndex} row={row}>
-            {children}
-          </RowProvider>
-        ))}
+    <table className={classNames?.table ?? ""}>
+      <thead className={classNames?.head ?? ""}>
+        <Headers columns={columns} shouldRender={schema.headers != undefined} />
+      </thead>
+      <tbody className={classNames?.body ?? ""}>
+        {rows.map((_, rowIndex) => <Row key={rowIndex} rowIndex={rowIndex} columns={columns} />)}
       </tbody>
     </table>
   );
