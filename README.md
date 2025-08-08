@@ -1,3 +1,5 @@
+The Data Validation package suite provides a modular and extensible toolkit for importing, validating, and interacting with CSV data in web applications. It consists of three independently published npm packages — csv-upload, dsl-validator, and types — designed to work together seamlessly for defining schema constraints, building CSV upload UIs, and enforcing type-safe validation logic. Whether you're handling frontend error messaging or backend validation pipelines, this suite offers a complete system for CSV-based data workflows
+
 ## Package Structure
 
 This repository contains three separate npm packages:
