@@ -12,67 +12,10 @@ A utility module that allows users to define field-level validation rules and ty
 
 ### 3. `types`
 This package provides shared TypeScript types and interfaces used internally across the `csv-upload` and `dsl-validator` packages. These definitions ensure consistent typing for cell data, validation errors, and socket communication.
----
 
 ## DSL Validator: Schema Definition
 
-### CSVFieldBase
-
-Common properties shared across all field types:
-
-| Field              | Type                                | Description                                                            |
-| ------------------ | ----------------------------------- | ---------------------------------------------------------------------- |
-| `name`             | `string`                            | Name of the field (matches column header)                              |
-| `required`         | `boolean` (optional)                | Whether this field is required                                         |
-| `validator`        | `(value: string) => string \| null` | Custom validator function. Return `null` if valid, or an error message |
-| `errorMsg`         | `string` (optional)                 | Custom error message (used if validator fails)                         |
-| `allowWhiteSpaces` | `boolean` (optional)                | Allow whitespaces in field value                                       |
-
-### CSVFieldStringSchema
-
-| Field     | Type       | Description                            |
-| --------- | ---------- | -------------------------------------- |
-| `type`    | `'string'` | Declares the type as string            |
-| `options` | `string[]` | Optional. Allowed set of string values |
-
-### CSVFieldNumberSchema
-
-| Field  | Type       | Description                     |
-| ------ | ---------- | ------------------------------- |
-| `type` | `'number'` | Declares the type as number     |
-| `min`  | `number` (optional)   | Minimum allowed value |
-| `max`  | `number` (optional)  | Maximum allowed value |
-
-### CSVFieldBooleanSchema
-
-| Field  | Type        | Description                  |
-| ------ | ----------- | ---------------------------- |
-| `type` | `'boolean'` | Declares the type as boolean |
-
-### CSVFieldDateSchema
-
-| Field         | Type              | Description                   |
-| ------------- | ----------------- | ----------------------------- |
-| `type`        | `'date'`          | Declares the type as date     |
-| `dateFormats` | `CSVDateFormat[]` | List of accepted date formats |
-
-### `CSVDateFormat` type:
-```ts
-  "yyyy-MM-dd" | "dd-MM-yyyy" | "MM-dd-yyyy" |
-  "yyyy/MM/dd" | "dd/MM/yyyy" | "MM/dd/yyyy" |
-  "yyyy.MM.dd" | "dd MMMM yyyy" | "MMMM dd, yyyy" |
-  "MMMM dd,yyyy" | "MMM dd, yyyy" | "MMM dd,yyyy" |
-  "dd.MM.yyyy" | "dd MMM yyyy";
-```
-### CSVSchema
-
-| Field     | Type               | Description                                |
-| --------- | ------------------ | ------------------------------------------ |
-| `fields`  | `CSVFieldSchema[]` | Array of field definitions (see above)     |
-| `headers` | `boolean`          | Whether the CSV file includes a header row |
-
 ### Example Usage
-
 ```ts
 const schema: CSVSchema = {
   fields: [
@@ -84,12 +27,97 @@ const schema: CSVSchema = {
   headers: true
 };
 ```
+### Fields
+#### CSVFieldBase
+
+Common properties shared across all field types:
+
+| Field              | Type                                | Description                                                            |
+| ------------------ | ----------------------------------- | ---------------------------------------------------------------------- |
+| `name`             | `string`                            | Name of the field (matches column header)                              |
+| `required`         | `boolean` (optional)                | Whether this field is required                                         |
+| `validator`        | `(value: string) => string \| null` | Custom validator function. Return `null` if valid, or an error message |
+| `errorMsg`         | `string` (optional)                 | Custom error message (used if validator fails)                         |
+| `allowWhiteSpaces` | `boolean` (optional)                | Allow whitespaces in field value                                       |
+
+#### CSVFieldStringSchema
+Defines a string field and optionally restricts values to a given set.
+
+| Field     | Type       | Description                            |
+| --------- | ---------- | -------------------------------------- |
+| `type`    | `'string'` | Declares the type as string            |
+| `options` | `string[]` | Optional. Allowed set of string values |
+
+#### CSVFieldNumberSchema
+Defines a numeric field with optional min and max constraints.
+
+| Field  | Type                | Description                 |
+| ------ | ------------------- | --------------------------- |
+| `type` | `'number'`          | Declares the type as number |
+| `min`  | `number` (optional) | Minimum allowed value       |
+| `max`  | `number` (optional) | Maximum allowed value       |
+
+#### CSVFieldBooleanSchema
+Defines a boolean field (typically `true` or `false`).
+
+| Field  | Type        | Description                  |
+| ------ | ----------- | ---------------------------- |
+| `type` | `'boolean'` | Declares the type as boolean |
+
+#### CSVFieldDateSchema
+Defines a date field with a set of allowed string date formats.
+
+| Field         | Type              | Description                   |
+| ------------- | ----------------- | ----------------------------- |
+| `type`        | `'date'`          | Declares the type as date     |
+| `dateFormats` | `CSVDateFormat[]` | List of accepted date formats |
+
+##### `CSVDateFormat` type:
+```ts
+  "yyyy-MM-dd" | "dd-MM-yyyy" | "MM-dd-yyyy" |
+  "yyyy/MM/dd" | "dd/MM/yyyy" | "MM/dd/yyyy" |
+  "yyyy.MM.dd" | "dd MMMM yyyy" | "MMMM dd, yyyy" |
+  "MMMM dd,yyyy" | "MMM dd, yyyy" | "MMM dd,yyyy" |
+  "dd.MM.yyyy" | "dd MMM yyyy";
+```
+
+#### CSVSchema
+Top-level schema definition combining multiple field types and indicating whether the CSV includes headers.
+
+| Field     | Type               | Description                                |
+| --------- | ------------------ | ------------------------------------------ |
+| `fields`  | `CSVFieldSchema[]` | Array of field definitions (see above)     |
+| `headers` | `boolean`          | Whether the CSV file includes a header row |
 
 ---
 
-## Components (from `csv-upload`)
+## CSV Upload
+### Example Usage
 
-### Provider
+```ts
+  const columns: Column[] = schema.fields.map((field) => ({
+    name: field.name,
+    renderHeader: <Header />,
+    renderCell: <Cell/>,
+    renderErrorBox: <ErrorMessage />
+  }))
+
+  return (
+    <Provider schema={schema} errors={errors} onUploadClick={onUploadClick}>
+      <AddCSVButton> Add CSV </AddCSVButton>
+      <UploadButton> Upload </UploadButton>
+      <ErrorCount />
+      <JumpToFirstError> Jump to error </JumpToFirstError>
+
+      <Table columns={columns}/>
+    </Provider>
+
+  );
+```
+
+### Components
+#### Provider
+Provides context for CSV data, schema, and error management.
 
 | Prop            | Type                      | Description                              |
 | --------------- | ------------------------- | ---------------------------------------- |
@@ -99,86 +127,102 @@ const schema: CSVSchema = {
 | `onUploadClick` | `(rows, lastRow) => void` | Callback for upload button               |
 | `children`      | `ReactNode`               | Child components inside provider context |
 
-### AddCSVButton
+#### AddCSVButton
+Renders a button to upload CSV files into the app.
 
-| Prop        | Type        | Description        |
-| ----------- | ----------- | ------------------ |
-| `children`  | `ReactNode` | Button content     |
-| `className` | `string`    | Optional CSS class |
+| Prop        | Type                | Description    |
+| ----------- | ------------------- | -------------- |
+| `children`  | `ReactNode`         | Button content |
+| `className` | `string` (optional) | CSS class      |
 
-### UploadButton
+#### UploadButton
 
-| Prop        | Type        | Description        |
-| ----------- | ----------- | ------------------ |
-| `children`  | `ReactNode` | Button content     |
-| `className` | `string`    | Optional CSS class |
+A generic upload button that triggers an upload action.
 
-### ErrorCount
+| Prop        | Type                | Description    |
+| ----------- | ------------------- | -------------- |
+| `children`  | `ReactNode`         | Button content |
+| `className` | `string` (optional) | CSS class      |
 
-| Prop        | Type     | Description        |
-| ----------- | -------- | ------------------ |
-| `className` | `string` | Optional CSS class |
+#### ErrorCount
 
-### JumpToFirstError
+Displays the number of errors in the current CSV data.
 
-| Prop        | Type        | Description        |
-| ----------- | ----------- | ------------------ |
-| `children`  | `ReactNode` | Button content     |
-| `className` | `string`    | Optional CSS class |
+| Prop        | Type                | Description |
+| ----------- | ------------------- | ----------- |
+| `className` | `string` (optional) | CSS class   |
 
-### ErrorMessage
+#### JumpToFirstError
 
-| Prop        | Type     | Description        |
-| ----------- | -------- | ------------------ |
-| `className` | `string` | Optional CSS class |
+A control to automatically scroll to the first error cell.
 
-### Header
+| Prop        | Type                | Description    |
+| ----------- | ------------------- | -------------- |
+| `children`  | `ReactNode`         | Button content |
+| `className` | `string` (optional) | CSS class      |
 
-| Prop        | Type     | Description                    |
-| ----------- | -------- | ------------------------------ |
-| `className` | `string` | Optional CSS class for headers |
+#### ErrorMessage
 
-### Cell
+Displays an error message related to a cell.
 
-| Prop         | Type        | Description                 |
-| ------------ | ----------- | --------------------------- |
-| `children`   | `ReactNode` | Content of the cell         |
-| `classNames` | `object`    | Custom styles per cell type |
+| Prop        | Type                | Description |
+| ----------- | ------------------- | ----------- |
+| `className` | `string` (optional) | CSS class   |
 
-#### `classNames` object:
+#### Header
+Renders the table header row.
 
-* `cell`: Styles for normal cell
-* `errorCell`: Styles when cell has error
-* `text`: Inner content text styles
-* `errorText`: Text styles when error is present
+| Prop        | Type                | Description           |
+| ----------- | ------------------- | --------------------- |
+| `className` | `string` (optional) | CSS class for headers |
+
+#### Cell
+Generic table cell renderer with styling for both input and display types.
+
+| Prop         | Type                | Description                 |
+| ------------ | ------------------- | --------------------------- |
+| `classNames` | `object` (optional) | Custom styles per cell type |
+
+##### `classNames` object:
+
+* `cell`: Optional styles for normal cell
+* `errorCell`: Optional styles when cell has error
+* `text`: Optional inner content text styles
+* `errorText`: Optional styles when error is present
 
 ### DisplayCell
 
-| Prop         | Type     | Description                     |
-| ------------ | -------- | ------------------------------- |
-| `classNames` | `object` | Styling hooks for display cells |
+Renders read-only cell values.
+
+| Prop         | Type                | Description                     |
+| ------------ | ------------------- | ------------------------------- |
+| `classNames` | `object` (optional) | Styling hooks for display cells |
 
 #### `classNames` object:
 
-* `cell`: Cell container style
-* `errorCell`: Style when error exists
-* `text`: Normal text style
-* `errorText`: Text style on error
+* `cell`: Optional styles for display cell
+* `errorCell`: Optional styles when cell has error
+* `text`: Optional inner content text styles
+* `errorText`: Optional styles when error is present
 
 ### InputCell
 
-| Prop         | Type     | Description                   |
-| ------------ | -------- | ----------------------------- |
-| `classNames` | `object` | Styling hooks for input cells |
+Editable cell component for accepting user input.
+
+| Prop         | Type                | Description                   |
+| ------------ | ------------------- | ----------------------------- |
+| `classNames` | `object` (optional) | Styling hooks for input cells |
 
 #### `classNames` object:
 
-* `cell`: Cell wrapper
-* `errorCell`: Cell when error
-* `input`: Input field styles
-* `errorInput`: Style for error input
+* `cell`: Optional styles for display cell
+* `errorCell`: Optional styles when cell has error
+* `text`: Optional Input styles
+* `errorText`: Optional styles when error is present
 
 ### Table
+
+Main table renderer that accepts custom column configuration.
 
 | Prop         | Type                | Description                              |
 | ------------ | ------------------- | ---------------------------------------- |
@@ -187,11 +231,12 @@ const schema: CSVSchema = {
 
 #### `classNames` object:
 
-* `table`: Main table
-* `head`: Header row
-* `body`: Body rows
+* `table`: Optional main table style
+* `head`: Optional header row style
+* `body`: Optional body style
 
-### Column Object (for `<Table />`)
+#### Column Object (for `<Table />`)
+Defines rendering logic and metadata for each column.
 
 | Prop             | Type        | Description                            |
 | ---------------- | ----------- | -------------------------------------- |
