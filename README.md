@@ -1,6 +1,6 @@
 ## Package Structure
 
-This repository contains two separate npm packages:
+This repository contains three separate npm packages:
 
 ### 1. `csv-upload`
 
