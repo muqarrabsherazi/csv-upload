@@ -361,3 +361,6 @@ This package is primarily intended for internal consumption within the project's
 * Debugging and test utilities
 
 If you're contributing to or extending `csv-upload` or `dsl-validator`, this package ensures consistent typing across shared modules.
+
+# Architecture
+![link](doc/Architecture.png)
